@@ -15,6 +15,7 @@
 library;
 
 export 'colors.dart';
+export 'icons.dart';
 export 'spacing.dart';
 export 'tokens.dart';
 export 'typography.dart';

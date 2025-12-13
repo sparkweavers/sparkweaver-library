@@ -20,10 +20,29 @@ library;
 // Atoms - Single-purpose UI elements
 export 'atoms/fc_avatar.dart';
 export 'atoms/fc_badge.dart';
+export 'atoms/fc_button.dart';
+export 'atoms/fc_icon.dart';
+export 'atoms/fc_input_field.dart';
+export 'atoms/fc_loading_indicator.dart';
+export 'atoms/fc_text.dart';
 
 // Molecules - Simple combinations of atoms
 export 'molecules/fc_chat_bubble.dart';
+export 'molecules/fc_file_list_item.dart';
+export 'molecules/fc_input_field_with_label.dart';
+export 'molecules/fc_status_message.dart';
 
-// Organisms - Complex UI sections (future components)
+// Organisms - Complex UI sections
+export 'organisms/fc_audio_player.dart';
+export 'organisms/fc_conversation_list.dart';
+export 'organisms/fc_dialog.dart';
+export 'organisms/fc_empty_state.dart';
+export 'organisms/fc_error_state.dart';
+export 'organisms/fc_file_upload_panel.dart';
+export 'organisms/fc_header.dart';
+export 'organisms/fc_input_area.dart';
 
-// Templates - Page layouts (future components)
+// Templates - Page layouts
+export 'templates/fc_auth_form_template.dart';
+export 'templates/fc_list_detail_template.dart';
+export 'templates/fc_main_content_template.dart';

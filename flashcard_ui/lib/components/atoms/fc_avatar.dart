@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/colors.dart';
 import '../../design_system/tokens.dart';
+import 'fc_icon.dart';
 
 /// A reusable avatar component for user and AI representations
 ///
@@ -79,14 +80,23 @@ class FcAvatar extends StatelessWidget {
     );
   }
 
+  /// Map avatar size to FcIconSize
+  FcIconSize _getIconSize() {
+    final iconSize = size / 2;
+    if (iconSize <= 14) return FcIconSize.small;
+    if (iconSize <= 20) return FcIconSize.medium;
+    if (iconSize <= 24) return FcIconSize.large;
+    return FcIconSize.xLarge;
+  }
+
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: size / 2,
       backgroundColor: backgroundColor,
-      child: Icon(
+      child: FcIcon(
         icon,
-        size: size / 2,
+        size: _getIconSize(),
         color: iconColor,
       ),
     );

@@ -3,6 +3,7 @@ import '../../design_system/colors.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
+import 'fc_icon.dart';
 
 /// A reusable badge component for displaying labeled content
 ///
@@ -40,6 +41,12 @@ class FcBadge extends StatelessWidget {
   /// Custom padding (defaults to design system badge padding)
   final EdgeInsetsGeometry? padding;
 
+  /// Whether the badge is closeable (shows close icon)
+  final bool closeable;
+
+  /// Callback when close icon is pressed
+  final VoidCallback? onClose;
+
   const FcBadge({
     super.key,
     required this.text,
@@ -49,6 +56,8 @@ class FcBadge extends StatelessWidget {
     this.foregroundColor,
     this.iconSize,
     this.padding,
+    this.closeable = false,
+    this.onClose,
   });
 
   @override
@@ -68,9 +77,9 @@ class FcBadge extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(
-              icon,
-              size: iconSize ?? FlashcardTokens.iconXs,
+            FcIcon(
+              icon!,
+              size: FcIconSize.small,
               color: fgColor,
             ),
             FlashcardSpacing.horizontalSpaceXs,
@@ -81,6 +90,17 @@ class FcBadge extends StatelessWidget {
               color: fgColor,
             ),
           ),
+          if (closeable && onClose != null) ...[
+            FlashcardSpacing.horizontalSpaceXs,
+            GestureDetector(
+              onTap: onClose,
+              child: FcIcon(
+                Icons.close,
+                size: FcIconSize.small,
+                color: fgColor,
+              ),
+            ),
+          ],
         ],
       ),
     );
