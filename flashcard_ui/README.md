@@ -1,0 +1,115 @@
+# Flashcard UI
+
+A comprehensive Flutter UI component library with a complete design system for building Flashcard applications.
+
+## Features
+
+- **Complete Design System**: Colors, Typography, Spacing, and Design Tokens
+- **Reusable Components**: Pre-built UI components
+- **SOLID Principles**: Clean architecture and best practices
+- **Fully Typed**: Type-safe with comprehensive documentation
+
+## Installation
+
+Add this to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flashcard_ui:
+    path: ../flashcard-component-library/flashcard_ui
+```
+
+## Usage
+
+```dart
+import 'package:flashcard_ui/flashcard_ui.dart';
+
+// Use design system
+Container(
+  color: FlashcardColors.primary,
+  padding: FlashcardSpacing.edgeInsetsLg,
+  child: Text(
+    'Hello',
+    style: FlashcardTypography.heading1,
+  ),
+)
+
+// Use components
+FcChatBubble(
+  message: 'Hello!',
+  isUser: true,
+)
+```
+
+## Design System
+
+### Colors
+
+```dart
+FlashcardColors.primary
+FlashcardColors.secondary
+FlashcardColors.success
+FlashcardColors.error
+FlashcardColors.textPrimary
+// ... and many more
+```
+
+### Typography
+
+```dart
+FlashcardTypography.heading1
+FlashcardTypography.bodyMedium
+FlashcardTypography.button
+// ... and many more
+```
+
+### Spacing
+
+```dart
+FlashcardSpacing.edgeInsetsLg
+FlashcardSpacing.verticalSpaceMd
+FlashcardSpacing.horizontalSpaceSm
+// ... and many more
+```
+
+### Design Tokens
+
+```dart
+FlashcardTokens.cardRadius
+FlashcardTokens.shadowMd
+FlashcardTokens.iconLg
+FlashcardTokens.durationNormal
+// ... and many more
+```
+
+## Components
+
+### FcBadge
+
+```dart
+FcBadge(text: 'label', icon: Icons.star)
+FcBadgeVariants.primary(text: 'Primary')
+FcBadgeVariants.file(filename: 'document.pdf')
+```
+
+### FcChatBubble
+
+```dart
+FcChatBubble(
+  message: 'Hello',
+  isUser: true,
+)
+
+FcChatBubbleVariants.ai(
+  message: 'Response',
+  referencedFiles: ['file.pdf'],
+)
+```
+
+## Documentation
+
+See the main [README](../README.md) for complete documentation.
+
+## License
+
+Part of the Flashcard application suite.
