@@ -77,16 +77,17 @@ class FcHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return AppBar(
       leading: leading,
       title: titleWidget ??
           FcText(
             title,
             style: FcTextStyle.heading3,
-            color: FlashcardColors.textPrimary,
+            color: colors.textPrimary,
           ),
       actions: actions,
-      backgroundColor: backgroundColor ?? FlashcardColors.surface,
+      backgroundColor: backgroundColor ?? colors.surface,
       elevation: elevation,
       centerTitle: centerTitle,
     );

@@ -77,6 +77,7 @@ class FcFileUploadPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -93,7 +94,7 @@ class FcFileUploadPanel extends StatelessWidget {
               children: [
                 FcIcon(
                   Icons.upload_file,
-                  color: FlashcardColors.primary,
+                  color: colors.primary,
                 ),
                 const SizedBox(width: 8),
                 FcText(
@@ -109,7 +110,7 @@ class FcFileUploadPanel extends StatelessWidget {
               FcText(
                 description!,
                 style: FcTextStyle.bodySmall,
-                color: FlashcardColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ],
 
@@ -155,7 +156,7 @@ class FcFileUploadPanel extends StatelessWidget {
                     onActionPressed: onFileRemove != null
                         ? () => onFileRemove!(index)
                         : null,
-                    actionIconColor: FlashcardColors.error,
+                    actionIconColor: colors.error,
                     dense: true,
                   ),
                 );
@@ -168,7 +169,7 @@ class FcFileUploadPanel extends StatelessWidget {
               FcText(
                 'Supported: ${supportedFormats!.join(', ')}',
                 style: FcTextStyle.captionSmall,
-                color: FlashcardColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ],
           ],

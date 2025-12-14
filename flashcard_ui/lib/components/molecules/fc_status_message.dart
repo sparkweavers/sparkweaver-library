@@ -120,29 +120,31 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
     }
   }
 
-  Color _getBackgroundColor() {
+  Color _getBackgroundColor(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     switch (widget.variant) {
       case FcStatusVariant.success:
-        return FlashcardColors.successLight.withValues(alpha: 0.1);
+        return colors.successLight.withValues(alpha: 0.1);
       case FcStatusVariant.error:
-        return FlashcardColors.errorLight.withValues(alpha: 0.1);
+        return colors.errorLight.withValues(alpha: 0.1);
       case FcStatusVariant.warning:
-        return FlashcardColors.warningLight.withValues(alpha: 0.1);
+        return colors.warningLight.withValues(alpha: 0.1);
       case FcStatusVariant.info:
-        return FlashcardColors.infoLight.withValues(alpha: 0.1);
+        return colors.infoLight.withValues(alpha: 0.1);
     }
   }
 
-  Color _getForegroundColor() {
+  Color _getForegroundColor(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     switch (widget.variant) {
       case FcStatusVariant.success:
-        return FlashcardColors.success;
+        return colors.success;
       case FcStatusVariant.error:
-        return FlashcardColors.error;
+        return colors.error;
       case FcStatusVariant.warning:
-        return FlashcardColors.warningDark;
+        return colors.warningDark;
       case FcStatusVariant.info:
-        return FlashcardColors.info;
+        return colors.info;
     }
   }
 
@@ -157,12 +159,12 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
       return const SizedBox.shrink();
     }
 
-    final foregroundColor = _getForegroundColor();
+    final foregroundColor = _getForegroundColor(context);
 
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: _getBackgroundColor(),
+        color: _getBackgroundColor(context),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(

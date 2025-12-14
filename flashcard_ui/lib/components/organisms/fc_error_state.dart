@@ -66,6 +66,7 @@ class FcErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Center(
       child: Padding(
         padding: padding ?? const EdgeInsets.all(32),
@@ -77,7 +78,7 @@ class FcErrorState extends StatelessWidget {
             FcIcon(
               icon ?? Icons.error_outline,
               size: iconSize,
-              color: FlashcardColors.error,
+              color: colors.error,
             ),
             const SizedBox(height: 24),
 
@@ -86,7 +87,7 @@ class FcErrorState extends StatelessWidget {
               message,
               style: FcTextStyle.heading4,
               textAlign: TextAlign.center,
-              color: FlashcardColors.textPrimary,
+              color: colors.textPrimary,
             ),
 
             // Subtitle
@@ -96,7 +97,7 @@ class FcErrorState extends StatelessWidget {
                 subtitle!,
                 style: FcTextStyle.bodyMedium,
                 textAlign: TextAlign.center,
-                color: FlashcardColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ],
 

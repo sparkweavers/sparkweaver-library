@@ -91,20 +91,21 @@ class FcIcon extends StatelessWidget {
     }
   }
 
-  Color _getColor() {
+  Color _getColor(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     // If variant is specified, use semantic colors
     switch (variant) {
       case FcIconVariant.success:
-        return FlashcardColors.success;
+        return colors.success;
       case FcIconVariant.error:
-        return FlashcardColors.error;
+        return colors.error;
       case FcIconVariant.warning:
-        return FlashcardColors.warning;
+        return colors.warning;
       case FcIconVariant.info:
-        return FlashcardColors.info;
+        return colors.info;
       case FcIconVariant.defaultIcon:
         // Use custom color or default to text primary
-        return color ?? FlashcardColors.textPrimary;
+        return color ?? colors.textPrimary;
     }
   }
 
@@ -113,7 +114,7 @@ class FcIcon extends StatelessWidget {
     return Icon(
       icon,
       size: _getSizeValue(),
-      color: _getColor(),
+      color: _getColor(context),
       semanticLabel: semanticLabel,
     );
   }

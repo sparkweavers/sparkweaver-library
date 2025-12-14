@@ -79,13 +79,14 @@ class FcLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return SizedBox(
       width: _getSizeValue(),
       height: _getSizeValue(),
       child: CircularProgressIndicator(
         strokeWidth: _getStrokeWidth(),
         valueColor: AlwaysStoppedAnimation<Color>(
-          color ?? FlashcardColors.primary,
+          color ?? colors.primary,
         ),
         semanticsLabel: semanticLabel,
       ),

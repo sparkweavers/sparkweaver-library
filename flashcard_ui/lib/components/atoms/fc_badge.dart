@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../design_system/colors.dart';
+import '../../design_system/color_scheme.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
@@ -62,9 +62,10 @@ class FcBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = backgroundColor ?? FlashcardColors.primary10;
-    final fgColor = foregroundColor ?? FlashcardColors.primary;
-    final bdColor = borderColor ?? FlashcardColors.primary20;
+    final colors = FlashcardColorScheme.of(context);
+    final bgColor = backgroundColor ?? colors.primary10;
+    final fgColor = foregroundColor ?? colors.primary;
+    final bdColor = borderColor ?? colors.primary20;
 
     return Container(
       padding: padding ?? FlashcardSpacing.badgePadding,
@@ -112,79 +113,86 @@ class FcBadgeVariants {
   FcBadgeVariants._();
 
   /// Primary badge (blue theme)
-  static FcBadge primary({required String text, IconData? icon}) {
+  static Widget primary({required String text, IconData? icon, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
-      backgroundColor: FlashcardColors.primary10,
-      borderColor: FlashcardColors.primary20,
-      foregroundColor: FlashcardColors.primary,
+      backgroundColor: colors.primary10,
+      borderColor: colors.primary20,
+      foregroundColor: colors.primary,
     );
   }
 
   /// Success badge (green theme)
-  static FcBadge success({required String text, IconData? icon}) {
+  static Widget success({required String text, IconData? icon, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
-      backgroundColor: FlashcardColors.successLight.withValues(alpha: 0.1),
-      borderColor: FlashcardColors.successLight.withValues(alpha: 0.2),
-      foregroundColor: FlashcardColors.success,
+      backgroundColor: colors.successLight.withValues(alpha: 0.1),
+      borderColor: colors.successLight.withValues(alpha: 0.2),
+      foregroundColor: colors.success,
     );
   }
 
   /// Warning badge (orange theme)
-  static FcBadge warning({required String text, IconData? icon}) {
+  static Widget warning({required String text, IconData? icon, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
-      backgroundColor: FlashcardColors.warningLight.withValues(alpha: 0.1),
-      borderColor: FlashcardColors.warningLight.withValues(alpha: 0.2),
-      foregroundColor: FlashcardColors.warning,
+      backgroundColor: colors.warningLight.withValues(alpha: 0.1),
+      borderColor: colors.warningLight.withValues(alpha: 0.2),
+      foregroundColor: colors.warning,
     );
   }
 
   /// Error badge (red theme)
-  static FcBadge error({required String text, IconData? icon}) {
+  static Widget error({required String text, IconData? icon, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
-      backgroundColor: FlashcardColors.errorLight.withValues(alpha: 0.1),
-      borderColor: FlashcardColors.errorLight.withValues(alpha: 0.2),
-      foregroundColor: FlashcardColors.error,
+      backgroundColor: colors.errorLight.withValues(alpha: 0.1),
+      borderColor: colors.errorLight.withValues(alpha: 0.2),
+      foregroundColor: colors.error,
     );
   }
 
   /// Info badge (blue theme)
-  static FcBadge info({required String text, IconData? icon}) {
+  static Widget info({required String text, IconData? icon, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
-      backgroundColor: FlashcardColors.infoLight.withValues(alpha: 0.1),
-      borderColor: FlashcardColors.infoLight.withValues(alpha: 0.2),
-      foregroundColor: FlashcardColors.info,
+      backgroundColor: colors.infoLight.withValues(alpha: 0.1),
+      borderColor: colors.infoLight.withValues(alpha: 0.2),
+      foregroundColor: colors.info,
     );
   }
 
   /// Neutral badge (gray theme)
-  static FcBadge neutral({required String text, IconData? icon}) {
+  static Widget neutral({required String text, IconData? icon, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
-      backgroundColor: FlashcardColors.gray100,
-      borderColor: FlashcardColors.gray200,
-      foregroundColor: FlashcardColors.gray700,
+      backgroundColor: colors.gray100,
+      borderColor: colors.gray200,
+      foregroundColor: colors.gray700,
     );
   }
 
   /// File badge (document icon with primary theme)
-  static FcBadge file({required String filename}) {
+  static Widget file({required String filename, required BuildContext context}) {
+    final colors = FlashcardColorScheme.of(context);
     return FcBadge(
       text: filename,
       icon: Icons.description,
-      backgroundColor: FlashcardColors.primary10,
-      borderColor: FlashcardColors.primary20,
-      foregroundColor: FlashcardColors.primary,
+      backgroundColor: colors.primary10,
+      borderColor: colors.primary20,
+      foregroundColor: colors.primary,
     );
   }
 }

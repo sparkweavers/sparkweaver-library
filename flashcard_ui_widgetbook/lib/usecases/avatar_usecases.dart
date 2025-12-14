@@ -5,14 +5,14 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 @widgetbook.UseCase(name: 'User Avatar', type: FcAvatar)
 Widget userAvatar(BuildContext context) {
   return Center(
-    child: FcAvatar.user(),
+    child: FcAvatar.user(context: context),
   );
 }
 
 @widgetbook.UseCase(name: 'AI Avatar', type: FcAvatar)
 Widget aiAvatar(BuildContext context) {
   return Center(
-    child: FcAvatar.ai(),
+    child: FcAvatar.ai(context: context),
   );
 }
 
@@ -28,7 +28,7 @@ Widget avatarSizes(BuildContext context) {
           children: [
             Column(
               children: [
-                FcAvatar.user(size: FcAvatarSizes.xs),
+                FcAvatar.user(size: FcAvatarSizes.xs, context: context),
                 const SizedBox(height: 4),
                 const Text('XS (16)', style: TextStyle(fontSize: 10)),
               ],
@@ -36,7 +36,7 @@ Widget avatarSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatar.user(size: FcAvatarSizes.sm),
+                FcAvatar.user(size: FcAvatarSizes.sm, context: context),
                 const SizedBox(height: 4),
                 const Text('SM (24)', style: TextStyle(fontSize: 10)),
               ],
@@ -44,7 +44,7 @@ Widget avatarSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatar.user(size: FcAvatarSizes.md),
+                FcAvatar.user(size: FcAvatarSizes.md, context: context),
                 const SizedBox(height: 4),
                 const Text('MD (32)', style: TextStyle(fontSize: 10)),
               ],
@@ -52,7 +52,7 @@ Widget avatarSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatar.user(size: FcAvatarSizes.lg),
+                FcAvatar.user(size: FcAvatarSizes.lg, context: context),
                 const SizedBox(height: 4),
                 const Text('LG (40)', style: TextStyle(fontSize: 10)),
               ],
@@ -60,7 +60,7 @@ Widget avatarSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatar.user(size: FcAvatarSizes.xl),
+                FcAvatar.user(size: FcAvatarSizes.xl, context: context),
                 const SizedBox(height: 4),
                 const Text('XL (48)', style: TextStyle(fontSize: 10)),
               ],
@@ -80,7 +80,7 @@ Widget userAiComparison(BuildContext context) {
       children: [
         Column(
           children: [
-            FcAvatar.user(),
+            FcAvatar.user(context: context),
             const SizedBox(height: 8),
             const Text('User'),
           ],
@@ -88,7 +88,7 @@ Widget userAiComparison(BuildContext context) {
         const SizedBox(width: 32),
         Column(
           children: [
-            FcAvatar.ai(),
+            FcAvatar.ai(context: context),
             const SizedBox(height: 8),
             const Text('AI'),
           ],
@@ -168,7 +168,7 @@ Widget variantSizes(BuildContext context) {
           children: [
             Column(
               children: [
-                FcAvatarVariants.userSmall(),
+                FcAvatarVariants.userSmall(context: context),
                 const SizedBox(height: 4),
                 const Text('Small', style: TextStyle(fontSize: 10)),
               ],
@@ -176,7 +176,7 @@ Widget variantSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatarVariants.user(),
+                FcAvatarVariants.user(context: context),
                 const SizedBox(height: 4),
                 const Text('Default', style: TextStyle(fontSize: 10)),
               ],
@@ -184,7 +184,7 @@ Widget variantSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatarVariants.userLarge(),
+                FcAvatarVariants.userLarge(context: context),
                 const SizedBox(height: 4),
                 const Text('Large', style: TextStyle(fontSize: 10)),
               ],
@@ -199,7 +199,7 @@ Widget variantSizes(BuildContext context) {
           children: [
             Column(
               children: [
-                FcAvatarVariants.aiSmall(),
+                FcAvatarVariants.aiSmall(context: context),
                 const SizedBox(height: 4),
                 const Text('Small', style: TextStyle(fontSize: 10)),
               ],
@@ -207,7 +207,7 @@ Widget variantSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatarVariants.ai(),
+                FcAvatarVariants.ai(context: context),
                 const SizedBox(height: 4),
                 const Text('Default', style: TextStyle(fontSize: 10)),
               ],
@@ -215,7 +215,7 @@ Widget variantSizes(BuildContext context) {
             const SizedBox(width: 16),
             Column(
               children: [
-                FcAvatarVariants.aiLarge(),
+                FcAvatarVariants.aiLarge(context: context),
                 const SizedBox(height: 4),
                 const Text('Large', style: TextStyle(fontSize: 10)),
               ],

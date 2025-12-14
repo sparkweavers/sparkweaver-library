@@ -119,6 +119,7 @@ class FcInputFieldWithLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -129,14 +130,14 @@ class FcInputFieldWithLabel extends StatelessWidget {
             FcText(
               label,
               style: FcTextStyle.labelMedium,
-              color: enabled ? FlashcardColors.textPrimary : FlashcardColors.textDisabled,
+              color: enabled ? colors.textPrimary : colors.textDisabled,
             ),
             if (required) ...[
               const SizedBox(width: 4),
               FcText(
                 '*',
                 style: FcTextStyle.labelMedium,
-                color: FlashcardColors.error,
+                color: colors.error,
               ),
             ],
           ],

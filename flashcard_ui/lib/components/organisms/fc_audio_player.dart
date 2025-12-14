@@ -64,6 +64,7 @@ class FcAudioPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -81,14 +82,14 @@ class FcAudioPlayer extends StatelessWidget {
               FcIcon(
                 Icons.error_outline,
                 size: FcIconSize.medium,
-                color: FlashcardColors.error,
+                color: colors.error,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: FcText(
                   errorMessage ?? 'Audio failed to load',
                   style: FcTextStyle.bodySmall,
-                  color: FlashcardColors.error,
+                  color: colors.error,
                 ),
               ),
             ],

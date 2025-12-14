@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../design_system/colors.dart';
+import '../../design_system/color_scheme.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
@@ -67,17 +67,18 @@ class FcChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     final bubbleColor = backgroundColor ??
         (isUser
-            ? FlashcardColors.userMessageBg
-            : FlashcardColors.aiMessageBg);
+            ? colors.userMessageBg
+            : colors.aiMessageBg);
 
     final bubbleBorderColor = borderColor ??
         (isUser
-            ? FlashcardColors.primary30
-            : FlashcardColors.gray30);
+            ? colors.primary30
+            : colors.gray30);
 
-    final textColor = isUser ? FlashcardColors.primary : FlashcardColors.textPrimary;
+    final textColor = isUser ? colors.primary : colors.textPrimary;
 
     return Padding(
       padding: FlashcardSpacing.chatBubbleMargin,
@@ -87,7 +88,7 @@ class FcChatBubble extends StatelessWidget {
         children: [
           // AI Avatar (left side)
           if (!isUser) ...[
-            avatar ?? _buildDefaultAvatar(isAi: true),
+            avatar ?? _buildDefaultAvatar(context: context, isAi: true),
             FlashcardSpacing.horizontalSpaceSm,
           ],
 
@@ -119,7 +120,7 @@ class FcChatBubble extends StatelessWidget {
                       spacing: FlashcardSpacing.xs,
                       runSpacing: FlashcardSpacing.xs,
                       children: referencedFiles!
-                          .map((filename) => FcBadgeVariants.file(filename: filename))
+                          .map((filename) => FcBadgeVariants.file(filename: filename, context: context))
                           .toList(),
                     ),
                   ],
@@ -131,7 +132,7 @@ class FcChatBubble extends StatelessWidget {
           // User Avatar (right side)
           if (isUser) ...[
             FlashcardSpacing.horizontalSpaceSm,
-            avatar ?? _buildDefaultAvatar(isAi: false),
+            avatar ?? _buildDefaultAvatar(context: context, isAi: false),
           ],
         ],
       ),
@@ -139,10 +140,10 @@ class FcChatBubble extends StatelessWidget {
   }
 
   /// Builds the default avatar widget
-  Widget _buildDefaultAvatar({required bool isAi}) {
+  Widget _buildDefaultAvatar({required BuildContext context, required bool isAi}) {
     return isAi
-        ? FcAvatar.ai(size: FlashcardTokens.avatarSm)
-        : FcAvatar.user(size: FlashcardTokens.avatarSm);
+        ? FcAvatar.ai(size: FlashcardTokens.avatarSm, context: context)
+        : FcAvatar.user(size: FlashcardTokens.avatarSm, context: context);
   }
 }
 

@@ -156,13 +156,14 @@ class _FcInputAreaState extends State<FcInputArea> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: FlashcardColors.surface,
+        color: colors.surface,
         border: Border(
           top: BorderSide(
-            color: FlashcardColors.borderLight,
+            color: colors.borderLight,
             width: 1,
           ),
         ),
@@ -175,7 +176,7 @@ class _FcInputAreaState extends State<FcInputArea> {
             IconButton(
               icon: FcIcon(
                 widget.attachmentIcon ?? Icons.attach_file,
-                color: FlashcardColors.textSecondary,
+                color: colors.textSecondary,
                 size: FcIconSize.medium,
               ),
               onPressed: widget.disabled ? null : widget.onAttachment,

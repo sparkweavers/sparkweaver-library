@@ -142,10 +142,11 @@ class _FcConversationListState extends State<FcConversationList> {
 
     // Empty state
     if (widget.messages.isEmpty && !widget.showTypingIndicator) {
+      final colors = FlashcardColorScheme.of(context);
       return FcEmptyState(
         icon: Icons.chat_bubble_outline,
         title: widget.emptyStateMessage,
-        iconColor: FlashcardColors.gray400,
+        iconColor: colors.gray400,
       );
     }
 

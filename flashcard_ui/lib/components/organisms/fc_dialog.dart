@@ -60,6 +60,7 @@ class FcConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return AlertDialog(
       title: Row(
         children: [
@@ -67,7 +68,7 @@ class FcConfirmationDialog extends StatelessWidget {
             FcIcon(
               icon!,
               color: iconColor ??
-                  (isDestructive ? FlashcardColors.error : FlashcardColors.primary),
+                  (isDestructive ? colors.error : colors.primary),
             ),
             const SizedBox(width: 12),
           ],
@@ -89,7 +90,7 @@ class FcConfirmationDialog extends StatelessWidget {
           child: FcText(
             cancelLabel,
             style: FcTextStyle.labelMedium,
-            color: FlashcardColors.textSecondary,
+            color: colors.textSecondary,
           ),
         ),
         FcButton(
@@ -216,6 +217,7 @@ class _FcFormDialogState extends State<FcFormDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return AlertDialog(
       title: FcText(
         widget.title,
@@ -245,7 +247,7 @@ class _FcFormDialogState extends State<FcFormDialog> {
           child: FcText(
             widget.cancelLabel,
             style: FcTextStyle.labelMedium,
-            color: FlashcardColors.textSecondary,
+            color: colors.textSecondary,
           ),
         ),
         FcButton(
@@ -302,13 +304,14 @@ class FcAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return AlertDialog(
       title: Row(
         children: [
           if (icon != null) ...[
             FcIcon(
               icon!,
-              color: iconColor ?? FlashcardColors.primary,
+              color: iconColor ?? colors.primary,
             ),
             const SizedBox(width: 12),
           ],

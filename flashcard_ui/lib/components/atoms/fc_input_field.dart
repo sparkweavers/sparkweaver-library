@@ -186,6 +186,7 @@ class FcInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return TextField(
       controller: controller,
       focusNode: focusNode,
@@ -200,33 +201,33 @@ class FcInputField extends StatelessWidget {
       onEditingComplete: onEditingComplete,
       onSubmitted: onSubmitted,
       style: FlashcardTypography.bodyMedium.copyWith(
-        color: enabled ? FlashcardColors.textPrimary : FlashcardColors.textDisabled,
+        color: enabled ? colors.textPrimary : colors.textDisabled,
       ),
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: FlashcardTypography.bodyMedium.copyWith(
           color: errorText != null
-              ? FlashcardColors.error
-              : FlashcardColors.textSecondary,
+              ? colors.error
+              : colors.textSecondary,
         ),
         hintText: hintText,
         hintStyle: FlashcardTypography.bodyMedium.copyWith(
-          color: FlashcardColors.textHint,
+          color: colors.textHint,
         ),
         helperText: errorText == null ? helperText : null,
         helperStyle: FlashcardTypography.caption.copyWith(
-          color: FlashcardColors.textSecondary,
+          color: colors.textSecondary,
         ),
         errorText: errorText,
         errorStyle: FlashcardTypography.caption.copyWith(
-          color: FlashcardColors.error,
+          color: colors.error,
         ),
         prefixIcon: prefixIcon != null
             ? Icon(
                 prefixIcon,
                 color: errorText != null
-                    ? FlashcardColors.error
-                    : FlashcardColors.textSecondary,
+                    ? colors.error
+                    : colors.textSecondary,
               )
             : null,
         suffixIcon: suffixIcon != null
@@ -234,8 +235,8 @@ class FcInputField extends StatelessWidget {
                 icon: Icon(
                   suffixIcon,
                   color: errorText != null
-                      ? FlashcardColors.error
-                      : FlashcardColors.textSecondary,
+                      ? colors.error
+                      : colors.textSecondary,
                 ),
                 onPressed: onSuffixIconPressed,
               )
@@ -243,14 +244,14 @@ class FcInputField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: FlashcardColors.borderLight,
+            color: colors.borderLight,
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: FlashcardColors.borderLight,
+            color: colors.borderLight,
             width: 1,
           ),
         ),
@@ -258,34 +259,34 @@ class FcInputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
             color: errorText != null
-                ? FlashcardColors.error
-                : FlashcardColors.primary,
+                ? colors.error
+                : colors.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: FlashcardColors.error,
+            color: colors.error,
             width: 1,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: FlashcardColors.error,
+            color: colors.error,
             width: 2,
           ),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: FlashcardColors.borderLight,
+            color: colors.borderLight,
             width: 1,
           ),
         ),
         filled: true,
-        fillColor: enabled ? FlashcardColors.white : FlashcardColors.gray100,
+        fillColor: enabled ? colors.white : colors.gray100,
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
     );

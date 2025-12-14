@@ -172,37 +172,40 @@ class FcButton extends StatelessWidget {
     }
   }
 
-  Color _getBackgroundColor() {
+  Color _getBackgroundColor(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     switch (variant) {
       case FcButtonVariant.primary:
-        return FlashcardColors.primary;
+        return colors.primary;
       case FcButtonVariant.secondary:
-        return FlashcardColors.secondary;
+        return colors.secondary;
       case FcButtonVariant.destructive:
-        return FlashcardColors.error;
+        return colors.error;
       case FcButtonVariant.outlined:
       case FcButtonVariant.text:
         return Colors.transparent;
     }
   }
 
-  Color _getForegroundColor() {
+  Color _getForegroundColor(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     switch (variant) {
       case FcButtonVariant.primary:
       case FcButtonVariant.secondary:
       case FcButtonVariant.destructive:
-        return FlashcardColors.white;
+        return colors.white;
       case FcButtonVariant.outlined:
-        return FlashcardColors.primary;
+        return colors.primary;
       case FcButtonVariant.text:
-        return FlashcardColors.primary;
+        return colors.primary;
     }
   }
 
-  BorderSide? _getBorderSide() {
+  BorderSide? _getBorderSide(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     switch (variant) {
       case FcButtonVariant.outlined:
-        return BorderSide(color: FlashcardColors.primary, width: 1);
+        return BorderSide(color: colors.primary, width: 1);
       case FcButtonVariant.primary:
       case FcButtonVariant.secondary:
       case FcButtonVariant.destructive:
@@ -213,6 +216,7 @@ class FcButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     Widget buttonChild;
 
     if (isLoading) {
@@ -220,13 +224,13 @@ class FcButton extends StatelessWidget {
         size: size == FcButtonSize.small
             ? FcLoadingSize.small
             : FcLoadingSize.medium,
-        color: _getForegroundColor(),
+        color: _getForegroundColor(context),
       );
     } else if (iconOnly && icon != null) {
       buttonChild = FcIcon(
         icon!,
         size: _getIconSize(),
-        color: _getForegroundColor(),
+        color: _getForegroundColor(context),
       );
     } else if (icon != null && label != null) {
       buttonChild = Row(
@@ -235,19 +239,19 @@ class FcButton extends StatelessWidget {
           FcIcon(
             icon!,
             size: _getIconSize(),
-            color: _getForegroundColor(),
+            color: _getForegroundColor(context),
           ),
           const SizedBox(width: 8),
           Text(
             label!,
-            style: _getTextStyle().copyWith(color: _getForegroundColor()),
+            style: _getTextStyle().copyWith(color: _getForegroundColor(context)),
           ),
         ],
       );
     } else if (label != null) {
       buttonChild = Text(
         label!,
-        style: _getTextStyle().copyWith(color: _getForegroundColor()),
+        style: _getTextStyle().copyWith(color: _getForegroundColor(context)),
       );
     } else {
       buttonChild = const SizedBox.shrink();
@@ -256,15 +260,15 @@ class FcButton extends StatelessWidget {
     final button = ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: _getBackgroundColor(),
-        foregroundColor: _getForegroundColor(),
-        disabledBackgroundColor: FlashcardColors.gray300,
-        disabledForegroundColor: FlashcardColors.textDisabled,
+        backgroundColor: _getBackgroundColor(context),
+        foregroundColor: _getForegroundColor(context),
+        disabledBackgroundColor: colors.gray300,
+        disabledForegroundColor: colors.textDisabled,
         padding: _getPadding(),
         elevation: variant == FcButtonVariant.text ? 0 : 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: _getBorderSide() ?? BorderSide.none,
+          side: _getBorderSide(context) ?? BorderSide.none,
         ),
       ),
       child: buttonChild,

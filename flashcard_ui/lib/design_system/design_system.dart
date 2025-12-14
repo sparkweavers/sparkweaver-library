@@ -14,6 +14,7 @@
 /// ```
 library;
 
+export 'color_scheme.dart';
 export 'colors.dart';
 export 'icons.dart';
 export 'spacing.dart';

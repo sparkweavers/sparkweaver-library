@@ -75,6 +75,7 @@ class FcFileListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     final item = Container(
       padding: dense
           ? const EdgeInsets.symmetric(vertical: 6, horizontal: 8)
@@ -85,7 +86,7 @@ class FcFileListItem extends StatelessWidget {
           FcIcon(
             fileIcon ?? Icons.description,
             size: FcIconSize.medium,
-            color: FlashcardColors.primary,
+            color: colors.primary,
           ),
           const SizedBox(width: 12),
 
@@ -105,7 +106,7 @@ class FcFileListItem extends StatelessWidget {
                   FcText(
                     metadata!,
                     style: FcTextStyle.captionSmall,
-                    color: FlashcardColors.textSecondary,
+                    color: colors.textSecondary,
                   ),
                 ],
               ],
@@ -119,7 +120,7 @@ class FcFileListItem extends StatelessWidget {
               icon: FcIcon(
                 actionIcon!,
                 size: FcIconSize.medium,
-                color: actionIconColor ?? FlashcardColors.error,
+                color: actionIconColor ?? colors.error,
               ),
               onPressed: onActionPressed,
               padding: EdgeInsets.zero,

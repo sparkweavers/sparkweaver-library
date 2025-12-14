@@ -75,6 +75,7 @@ class FcEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Center(
       child: Padding(
         padding: padding ?? const EdgeInsets.all(32),
@@ -86,7 +87,7 @@ class FcEmptyState extends StatelessWidget {
             FcIcon(
               icon,
               size: iconSize,
-              color: iconColor ?? FlashcardColors.gray400,
+              color: iconColor ?? colors.gray400,
             ),
             const SizedBox(height: 24),
 
@@ -95,7 +96,7 @@ class FcEmptyState extends StatelessWidget {
               title,
               style: FcTextStyle.heading4,
               textAlign: TextAlign.center,
-              color: FlashcardColors.textPrimary,
+              color: colors.textPrimary,
             ),
 
             // Subtitle
@@ -105,7 +106,7 @@ class FcEmptyState extends StatelessWidget {
                 subtitle!,
                 style: FcTextStyle.bodyMedium,
                 textAlign: TextAlign.center,
-                color: FlashcardColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ],
 
