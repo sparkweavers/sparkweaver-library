@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/color_scheme.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
@@ -53,11 +54,16 @@ class FcChatBubble extends StatelessWidget {
   /// Custom bubble border color
   final Color? borderColor;
 
+  /// When true, message text is rendered as Markdown (headings, **bold**, *italic*, etc.).
+  /// When false (default), message is shown as plain text.
+  final bool interpretMarkdown;
+
   const FcChatBubble({
     super.key,
     required this.message,
     required this.isUser,
     this.isTyping = false,
+    this.interpretMarkdown = false,
     this.referencedFiles,
     this.avatar,
     this.messageStyle,
@@ -104,14 +110,25 @@ class FcChatBubble extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Message Text
-                  Text(
-                    message,
-                    style: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
-                      color: textColor,
-                      fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
-                    ),
-                  ),
+                  // Message Text (plain or markdown)
+                  interpretMarkdown
+                      ? MarkdownBody(
+                          data: message,
+                          styleSheet: _markdownStyleSheet(
+                            baseStyle: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
+                              color: textColor,
+                              fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
+                            ),
+                            textColor: textColor,
+                          ),
+                        )
+                      : Text(
+                          message,
+                          style: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
+                            color: textColor,
+                            fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
+                          ),
+                        ),
 
                   // File References (AI messages only)
                   if (!isUser && referencedFiles != null && referencedFiles!.isNotEmpty) ...[
@@ -145,6 +162,36 @@ class FcChatBubble extends StatelessWidget {
         ? FcAvatar.ai(size: FlashcardTokens.avatarSm, context: context)
         : FcAvatar.user(size: FlashcardTokens.avatarSm, context: context);
   }
+
+  /// Style sheet for markdown so headings, bold, italic, code, rules, lists match the design system.
+  static MarkdownStyleSheet _markdownStyleSheet({
+    required TextStyle baseStyle,
+    required Color textColor,
+  }) {
+    return MarkdownStyleSheet(
+      p: baseStyle,
+      a: baseStyle.copyWith(color: textColor, decoration: TextDecoration.underline),
+      h1: FlashcardTypography.heading1.copyWith(color: textColor),
+      h2: FlashcardTypography.heading2.copyWith(color: textColor),
+      h3: FlashcardTypography.heading3.copyWith(color: textColor),
+      h4: FlashcardTypography.heading4.copyWith(color: textColor),
+      h5: FlashcardTypography.heading5.copyWith(color: textColor),
+      h6: FlashcardTypography.heading6.copyWith(color: textColor),
+      strong: baseStyle.copyWith(fontWeight: FlashcardTypography.bold, color: textColor),
+      em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
+      code: FlashcardTypography.bodyMedium.copyWith(
+        fontFamily: FlashcardTypography.fontFamilyMono,
+        color: textColor,
+      ),
+      blockSpacing: 8,
+      horizontalRuleDecoration: BoxDecoration(
+        border: Border(top: BorderSide(color: textColor, width: 1)),
+      ),
+      listBullet: baseStyle.copyWith(color: textColor),
+      listIndent: 24.0,
+      listBulletPadding: const EdgeInsets.only(right: 4),
+    );
+  }
 }
 
 /// Predefined chat bubble variants
@@ -155,12 +202,14 @@ class FcChatBubbleVariants {
   static FcChatBubble user({
     required String message,
     bool isTyping = false,
+    bool interpretMarkdown = false,
     Widget? avatar,
   }) {
     return FcChatBubble(
       message: message,
       isUser: true,
       isTyping: isTyping,
+      interpretMarkdown: interpretMarkdown,
       avatar: avatar,
     );
   }
@@ -170,6 +219,7 @@ class FcChatBubbleVariants {
     required String message,
     List<String>? referencedFiles,
     bool isTyping = false,
+    bool interpretMarkdown = false,
     Widget? avatar,
   }) {
     return FcChatBubble(
@@ -177,6 +227,7 @@ class FcChatBubbleVariants {
       isUser: false,
       referencedFiles: referencedFiles,
       isTyping: isTyping,
+      interpretMarkdown: interpretMarkdown,
       avatar: avatar,
     );
   }

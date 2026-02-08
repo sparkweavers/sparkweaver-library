@@ -1,7 +1,7 @@
 name: flashcard_ui
 description: "Reusable Flutter UI components and design system for Flashcard apps"
 version: 0.0.1
-homepage: https://github.com/yourusername/flashcard-component-library
+homepage: https://github.com/Job-O-Matic/flashcard-component-library
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_markdown_plus: ^1.0.7
 
 dev_dependencies:
   flutter_test:
