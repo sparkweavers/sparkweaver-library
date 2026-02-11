@@ -14,6 +14,9 @@ enum FcInputAreaType {
 
   /// Text with file attachment
   textWithAttachment,
+
+  /// Text input with push-to-talk microphone
+  textWithVoice,
 }
 
 /// Flashcard Input Area Component (Organism)
@@ -75,6 +78,12 @@ class FcInputArea extends StatefulWidget {
   /// Callback when record button is pressed (voice type)
   final VoidCallback? onRecord;
 
+  /// Callback when mic press starts (push-to-talk)
+  final VoidCallback? onMicPressStart;
+
+  /// Callback when mic press ends/cancels (push-to-talk)
+  final VoidCallback? onMicPressEnd;
+
   /// Callback when attachment button is pressed (textWithAttachment type)
   final VoidCallback? onAttachment;
 
@@ -99,6 +108,9 @@ class FcInputArea extends StatefulWidget {
   /// Record button label
   final String recordLabel;
 
+  /// Outer container padding
+  final EdgeInsetsGeometry padding;
+
   const FcInputArea({
     super.key,
     this.type = FcInputAreaType.text,
@@ -109,6 +121,8 @@ class FcInputArea extends StatefulWidget {
     this.disabled = false,
     this.onSend,
     this.onRecord,
+    this.onMicPressStart,
+    this.onMicPressEnd,
     this.onAttachment,
     this.isRecording = false,
     this.isSending = false,
@@ -117,6 +131,7 @@ class FcInputArea extends StatefulWidget {
     this.attachmentIcon,
     this.sendLabel = 'Send',
     this.recordLabel = 'Record',
+    this.padding = const EdgeInsets.all(16),
   });
 
   @override
@@ -154,11 +169,29 @@ class _FcInputAreaState extends State<FcInputArea> {
     }
   }
 
+  void _handleMicPressStart() {
+    if (widget.disabled) return;
+    if (widget.onMicPressStart != null) {
+      widget.onMicPressStart!();
+      return;
+    }
+    if (widget.onRecord != null) {
+      widget.onRecord!();
+    }
+  }
+
+  void _handleMicPressEnd() {
+    if (widget.disabled) return;
+    if (widget.onMicPressEnd != null) {
+      widget.onMicPressEnd!();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = FlashcardColorScheme.of(context);
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: widget.padding,
       decoration: BoxDecoration(
         color: colors.surface,
         border: Border(
@@ -186,17 +219,21 @@ class _FcInputAreaState extends State<FcInputArea> {
 
           // Input field (text types)
           if (widget.type == FcInputAreaType.text ||
-              widget.type == FcInputAreaType.textWithAttachment)
+              widget.type == FcInputAreaType.textWithAttachment ||
+              widget.type == FcInputAreaType.textWithVoice)
             Expanded(
               child: FcInputField(
                 controller: _controller,
-                type: FcInputType.multiline,
+                type: widget.type == FcInputAreaType.textWithVoice
+                    ? FcInputType.text
+                    : FcInputType.multiline,
                 hintText: widget.hintText ?? 'Type a message...',
-                maxLines: 4,
+                maxLines: widget.type == FcInputAreaType.textWithVoice ? 1 : 4,
                 minLines: 1,
+                textInputAction: TextInputAction.send,
                 maxLength: widget.maxLength,
                 showCounter: widget.showCounter,
-                enabled: !widget.disabled && !widget.isSending,
+                enabled: !widget.disabled && !widget.isSending && !widget.isRecording,
                 onSubmitted: (_) => _handleSend(),
               ),
             ),
@@ -204,14 +241,20 @@ class _FcInputAreaState extends State<FcInputArea> {
           const SizedBox(width: 12),
 
           // Action button
-          if (widget.type == FcInputAreaType.voice)
-            // Voice recording button
-            FcButton.icon(
-              icon: widget.isRecording
-                  ? (widget.sendIcon ?? Icons.send)
-                  : (widget.recordIcon ?? Icons.mic),
-              onPressed: widget.disabled ? null : widget.onRecord,
-              variant: FcButtonVariant.primary,
+          if (widget.type == FcInputAreaType.voice ||
+              widget.type == FcInputAreaType.textWithVoice)
+            // Voice recording button (push-to-talk when onMicPressStart/onMicPressEnd are provided)
+            GestureDetector(
+              onTapDown: (_) => _handleMicPressStart(),
+              onTapUp: (_) => _handleMicPressEnd(),
+              onTapCancel: _handleMicPressEnd,
+              child: FcButton.icon(
+                icon: widget.isRecording
+                    ? (widget.sendIcon ?? Icons.graphic_eq)
+                    : (widget.recordIcon ?? Icons.mic),
+                onPressed: widget.disabled ? null : () {},
+                variant: FcButtonVariant.primary,
+              ),
             )
           else
             // Send button
