@@ -108,6 +108,9 @@ class FcInputArea extends StatefulWidget {
   /// Record button label
   final String recordLabel;
 
+  /// Outer container padding
+  final EdgeInsetsGeometry padding;
+
   const FcInputArea({
     super.key,
     this.type = FcInputAreaType.text,
@@ -128,6 +131,7 @@ class FcInputArea extends StatefulWidget {
     this.attachmentIcon,
     this.sendLabel = 'Send',
     this.recordLabel = 'Record',
+    this.padding = const EdgeInsets.all(16),
   });
 
   @override
@@ -187,7 +191,7 @@ class _FcInputAreaState extends State<FcInputArea> {
   Widget build(BuildContext context) {
     final colors = FlashcardColorScheme.of(context);
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: widget.padding,
       decoration: BoxDecoration(
         color: colors.surface,
         border: Border(
