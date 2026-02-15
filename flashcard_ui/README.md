@@ -16,7 +16,10 @@ Add this to your `pubspec.yaml`:
 ```yaml
 dependencies:
   flashcard_ui:
-    path: ../flashcard-component-library/flashcard_ui
+    git:
+      url: git@github.com:Job-O-Matic/flashcard-component-library.git
+      ref: v0.1.0
+      path: flashcard_ui
 ```
 
 ## Usage
