@@ -1,5 +1,9 @@
 # Flashcard Component Library
 
+---
+[![Release flashcard_ui](https://github.com/Job-O-Matic/flashcard-component-library/actions/workflows/release-flashcard-ui.yml/badge.svg)](https://github.com/Job-O-Matic/flashcard-component-library/actions/workflows/release-flashcard-ui.yml)
+---
+
 Flutter UI component library with design system and interactive Widgetbook showcase for Flashcard applications.
 
 ## Quick Start
