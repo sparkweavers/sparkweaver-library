@@ -25,7 +25,10 @@ cd flashcard_ui_widgetbook && flutter pub get && flutter run
 # Add to pubspec.yaml
 dependencies:
   flashcard_ui:
-    path: ../flashcard-component-library/flashcard_ui
+    git:
+      url: git@github.com:Job-O-Matic/flashcard-component-library.git
+      ref: v0.1.0
+      path: flashcard_ui
 ```
 
 ```dart
