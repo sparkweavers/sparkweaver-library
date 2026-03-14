@@ -82,7 +82,7 @@ class FcBanner extends MaterialBanner {
                 child: Text(
                   'Dismiss',
                   style: FlashcardTypography.labelMedium.copyWith(
-                    color: FlashcardColors.white,
+                    color: SparkweaverColors.white,
                   ),
                 ),
               ),
@@ -149,13 +149,13 @@ class FcBanner extends MaterialBanner {
   static Color _getBackgroundColor(FcBannerVariant variant) {
     switch (variant) {
       case FcBannerVariant.success:
-        return FlashcardColors.success;
+        return SparkweaverColors.success;
       case FcBannerVariant.error:
-        return FlashcardColors.error;
+        return SparkweaverColors.error;
       case FcBannerVariant.warning:
-        return FlashcardColors.warning;
+        return SparkweaverColors.warning;
       case FcBannerVariant.info:
-        return FlashcardColors.info;
+        return SparkweaverColors.info;
     }
   }
 }
@@ -190,14 +190,14 @@ class _BannerContent extends StatelessWidget {
         FcIcon(
           _getIcon(),
           size: FcIconSize.medium,
-          color: FlashcardColors.white,
+          color: SparkweaverColors.white,
         ),
         const SizedBox(width: 12),
         Expanded(
           child: FcText(
             message,
             style: FcTextStyle.bodyMedium,
-            color: FlashcardColors.white,
+            color: SparkweaverColors.white,
           ),
         ),
       ],

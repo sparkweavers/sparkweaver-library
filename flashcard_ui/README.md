@@ -29,7 +29,7 @@ import 'package:flashcard_ui/flashcard_ui.dart';
 
 // Use design system
 Container(
-  color: FlashcardColors.primary,
+  color: SparkweaverColors.primary,
   padding: FlashcardSpacing.edgeInsetsLg,
   child: Text(
     'Hello',
@@ -49,11 +49,11 @@ FcChatBubble(
 ### Colors
 
 ```dart
-FlashcardColors.primary
-FlashcardColors.secondary
-FlashcardColors.success
-FlashcardColors.error
-FlashcardColors.textPrimary
+SparkweaverColors.primary
+SparkweaverColors.secondary
+SparkweaverColors.success
+SparkweaverColors.error
+SparkweaverColors.textPrimary
 // ... and many more
 ```
 

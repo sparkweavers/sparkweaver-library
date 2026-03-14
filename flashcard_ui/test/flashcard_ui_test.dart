@@ -4,15 +4,15 @@ import 'package:flashcard_ui/flashcard_ui.dart';
 void main() {
   group('FlashcardColors', () {
     test('should have primary colors defined', () {
-      expect(FlashcardColors.primary, isNotNull);
-      expect(FlashcardColors.secondary, isNotNull);
+      expect(SparkweaverColors.primary, isNotNull);
+      expect(SparkweaverColors.secondary, isNotNull);
     });
 
     test('should have semantic colors defined', () {
-      expect(FlashcardColors.success, isNotNull);
-      expect(FlashcardColors.error, isNotNull);
-      expect(FlashcardColors.warning, isNotNull);
-      expect(FlashcardColors.info, isNotNull);
+      expect(SparkweaverColors.success, isNotNull);
+      expect(SparkweaverColors.error, isNotNull);
+      expect(SparkweaverColors.warning, isNotNull);
+      expect(SparkweaverColors.info, isNotNull);
     });
   });
 

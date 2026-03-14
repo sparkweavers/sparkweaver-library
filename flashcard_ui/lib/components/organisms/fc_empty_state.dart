@@ -31,7 +31,7 @@ import '../atoms/fc_text.dart';
 /// // Custom icon color
 /// FcEmptyState(
 ///   icon: Icons.search_off,
-///   iconColor: FlashcardColors.warning,
+///   iconColor: SparkweaverColors.warning,
 ///   title: 'No results found',
 ///   subtitle: 'Try adjusting your search',
 /// )

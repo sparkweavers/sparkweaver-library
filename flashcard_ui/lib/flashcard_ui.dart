@@ -17,7 +17,7 @@
 ///
 /// // Use design system
 /// Container(
-///   color: FlashcardColors.primary,
+///   color: SparkweaverColors.primary,
 ///   padding: FlashcardSpacing.edgeInsetsLg,
 ///   child: Text('Hello', style: FlashcardTypography.heading1),
 /// )

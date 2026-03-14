@@ -24,11 +24,11 @@ Widget customColorLoading(BuildContext context) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
-        FcLoadingIndicator(color: FlashcardColors.primary),
+        FcLoadingIndicator(color: SparkweaverColors.primary),
         SizedBox(width: 32),
-        FcLoadingIndicator(color: FlashcardColors.secondary),
+        FcLoadingIndicator(color: SparkweaverColors.secondary),
         SizedBox(width: 32),
-        FcLoadingIndicator(color: FlashcardColors.error),
+        FcLoadingIndicator(color: SparkweaverColors.error),
       ],
     ),
   );

@@ -47,7 +47,7 @@ Widget listLoaded(BuildContext context) {
     itemBuilder: (context, index) => Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
-        leading: const Icon(Icons.topic, color: FlashcardColors.primary),
+        leading: const Icon(Icons.topic, color: SparkweaverColors.primary),
         title: Text('Topic ${index + 1}'),
         subtitle: const Text('Description of this topic'),
         trailing: const Icon(Icons.chevron_right),

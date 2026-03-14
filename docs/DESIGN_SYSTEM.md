@@ -4,32 +4,39 @@ Complete reference for the Flashcard UI design system and component library.
 
 ## Design System
 
-### Colors (`FlashcardColors`)
+### Colors (`SparkweaverColors`)
 
-**Primary Colors**
-- `primary`, `primaryLight`, `primaryDark`, `primaryVariant`
-- `secondary`, `secondaryLight`, `secondaryDark`, `secondaryVariant`
+**Brand Colors**
+- `primary` (#7F28A8 Purple) - Main brand color
+- `secondary` (#0B96F8 Blue) - Accent color
+- `tertiary` (#FFB681 Peach/Orange) - Tertiary accent
+- `alternate` (#FF259B Pink) - Alternative accent
+
+**Variants**
+- Each brand color has `Light`, `Dark` variants
+- Supports light and dark mode (via `FlashcardColorScheme`)
 
 **Semantic Colors**
-- `success`, `successLight`, `successDark`
-- `error`, `errorLight`, `errorDark`
-- `warning`, `warningLight`, `warningDark`
-- `info`, `infoLight`, `infoDark`
+- `success` (#05764D Green), `error` (#E21C3D Red)
+- `warning` (#FCDC0C Yellow), `info` (#1C4494 Blue)
+- Each with `Light` and `Dark` variants
 
 **Neutral Grays**
 - `gray50` to `gray900`
 
 **Text Colors**
-- `textPrimary`, `textSecondary`, `textDisabled`, `textHint`
+- `textPrimary` (#232429), `textSecondary` (#75767B)
+- `textDisabled`, `textHint`, `textOnDarkBackground`
 
 **Backgrounds**
-- `backgroundLight`, `backgroundDark`, `surface`, `surfaceVariant`
+- `backgroundPrimary` (#FDFAFF Very light purple)
+- `backgroundSecondary` (#CCA9DC Light purple)
 
-**Chat-Specific**
-- `userMessageBg`, `aiMessageBg`, `userAvatarBg`, `aiAvatarBg`
+**Accent Colors**
+- `accent1` to `accent4` for special UI elements
 
-**Opacity Helpers**
-- `primary10`, `primary20`, `primary30`, `gray10`, `gray20`, `gray30`
+**Gradient**
+- `shinyGradient` - Blue to Pink gradient
 
 ### Typography (`FlashcardTypography`)
 
@@ -241,7 +248,7 @@ Wrap(
 Container(
   padding: FlashcardSpacing.edgeInsetsLg,
   decoration: BoxDecoration(
-    color: FlashcardColors.surface,
+    color: SparkweaverColors.surface,
     borderRadius: FlashcardTokens.cardRadius,
     boxShadow: FlashcardTokens.shadowMd,
   ),

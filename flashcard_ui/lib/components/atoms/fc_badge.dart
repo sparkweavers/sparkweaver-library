@@ -16,7 +16,7 @@ import 'fc_icon.dart';
 /// FcBadge(
 ///   text: 'Premium',
 ///   icon: Icons.star,
-///   color: FlashcardColors.warning,
+///   color: SparkweaverColors.warning,
 /// )
 /// ```
 class FcBadge extends StatelessWidget {

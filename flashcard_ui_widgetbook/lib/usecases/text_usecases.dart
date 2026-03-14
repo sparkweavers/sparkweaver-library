@@ -74,10 +74,10 @@ Widget colorVariants(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FcText('Primary Text', color: FlashcardColors.primary),
-        FcText('Success Text', color: FlashcardColors.success),
-        FcText('Error Text', color: FlashcardColors.error),
-        FcText('Warning Text', color: FlashcardColors.warning),
+        FcText('Primary Text', color: SparkweaverColors.primary),
+        FcText('Success Text', color: SparkweaverColors.success),
+        FcText('Error Text', color: SparkweaverColors.error),
+        FcText('Warning Text', color: SparkweaverColors.warning),
       ],
     ),
   );

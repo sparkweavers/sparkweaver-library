@@ -36,7 +36,7 @@ A reusable Flutter UI component library with a complete design system for Flashc
 ### DRY Principle (Don't Repeat Yourself)
 
 **Design System Prevents Duplication:**
-- Colors: Use `FlashcardColors.primary` not `Color(0xFF2196F3)`
+- Colors: Use `SparkweaverColors.primary` not `Color(0xFF7F28A8)`
 - Spacing: Use `FlashcardSpacing.edgeInsetsLg` not `EdgeInsets.all(16)`
 - Typography: Use `FlashcardTypography.heading1` not custom TextStyle
 - Tokens: Use `FlashcardTokens.cardRadius` not `BorderRadius.circular(12)`
@@ -178,7 +178,7 @@ When creating a new component:
 
 ❌ **DON'T:**
 - Use magic numbers: `Container(padding: EdgeInsets.all(16))`
-- Hardcode colors: `color: Color(0xFF2196F3)`
+- Hardcode colors: `color: Color(0xFF7F28A8)`
 - Create god components (>200 lines, multiple responsibilities)
 - Put business logic in components
 - Mix atomic levels in same file
@@ -187,7 +187,7 @@ When creating a new component:
 
 ✅ **DO:**
 - Use tokens: `Container(padding: FlashcardSpacing.edgeInsetsLg)`
-- Use design system: `color: FlashcardColors.primary`
+- Use design system: `color: SparkweaverColors.primary`
 - Keep components focused and small
 - Separate UI from logic
 - Organize by atomic design

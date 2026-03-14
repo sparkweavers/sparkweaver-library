@@ -7,7 +7,8 @@
 /// import 'package:flashcard_ui/design_system/design_system.dart';
 ///
 /// // Now you can use:
-/// // - FlashcardColors
+/// // - SparkweaverColors
+/// // - FlashcardColorScheme
 /// // - FlashcardTypography
 /// // - FlashcardSpacing
 /// // - FlashcardTokens

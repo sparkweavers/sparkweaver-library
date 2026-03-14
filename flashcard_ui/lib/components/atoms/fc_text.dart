@@ -54,7 +54,7 @@ enum FcTextStyle {
 /// FcText(
 ///   'This is body text',
 ///   style: FcTextStyle.bodyMedium,
-///   color: FlashcardColors.textSecondary,
+///   color: SparkweaverColors.textSecondary,
 /// )
 ///
 /// // Centered text

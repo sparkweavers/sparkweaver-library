@@ -85,7 +85,7 @@ Widget alertDialog(BuildContext context) {
               title: 'Success',
               message: 'Your changes have been saved successfully.',
               icon: Icons.check_circle,
-              iconColor: FlashcardColors.success,
+              iconColor: SparkweaverColors.success,
             ),
           );
         },

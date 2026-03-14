@@ -40,7 +40,7 @@ import 'package:flashcard_ui/flashcard_ui.dart';
 
 // Use design system
 Container(
-  color: FlashcardColors.primary,
+  color: SparkweaverColors.primary,
   padding: FlashcardSpacing.edgeInsetsLg,
   child: Text('Hello', style: FlashcardTypography.heading1),
 )

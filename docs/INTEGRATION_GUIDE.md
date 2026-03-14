@@ -96,10 +96,10 @@ Container(
 **After**:
 ```dart
 Container(
-  color: FlashcardColors.primary10,
+  color: SparkweaverColors.primary10,
   decoration: BoxDecoration(
     border: Border.all(
-      color: FlashcardColors.primary30,
+      color: SparkweaverColors.primary30,
     ),
   ),
 )

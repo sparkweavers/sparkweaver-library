@@ -273,7 +273,7 @@ class _FcFormDialogState extends State<FcFormDialog> {
 ///     title: 'Success',
 ///     message: 'Your changes have been saved.',
 ///     icon: Icons.check_circle,
-///     iconColor: FlashcardColors.success,
+///     iconColor: SparkweaverColors.success,
 ///   ),
 /// );
 /// ```
