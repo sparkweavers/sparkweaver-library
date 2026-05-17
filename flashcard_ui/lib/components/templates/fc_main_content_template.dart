@@ -41,6 +41,12 @@ class FcMainContentTemplate extends StatelessWidget {
   /// Bottom navigation bar
   final Widget? bottomNavigationBar;
 
+  /// Left-side navigation drawer
+  final Widget? drawer;
+
+  /// Whether left drawer opens with edge swipe gesture
+  final bool drawerEnableOpenDragGesture;
+
   /// Background color
   final Color? backgroundColor;
 
@@ -58,6 +64,8 @@ class FcMainContentTemplate extends StatelessWidget {
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.bottomNavigationBar,
+    this.drawer,
+    this.drawerEnableOpenDragGesture = true,
     this.backgroundColor,
     this.padding,
     this.scrollable = false,
@@ -88,6 +96,8 @@ class FcMainContentTemplate extends StatelessWidget {
       floatingActionButton: floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
       bottomNavigationBar: bottomNavigationBar,
+      drawer: drawer,
+      drawerEnableOpenDragGesture: drawerEnableOpenDragGesture,
       backgroundColor: backgroundColor,
     );
   }
