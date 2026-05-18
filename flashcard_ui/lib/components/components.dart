@@ -43,6 +43,7 @@ export 'organisms/fc_error_state.dart';
 export 'organisms/fc_file_upload_panel.dart';
 export 'organisms/fc_header.dart';
 export 'organisms/fc_input_area.dart';
+export 'organisms/fc_reconnect_prompt.dart';
 
 // Templates - Page layouts
 export 'templates/fc_auth_form_template.dart';
