@@ -1,6 +1,6 @@
 name: flashcard_ui
 description: "Reusable Flutter UI components and design system for Flashcard apps"
-version: 0.2.1
+version: 0.3.0
 homepage: https://github.com/Job-O-Matic/flashcard-component-library
 
 environment:
