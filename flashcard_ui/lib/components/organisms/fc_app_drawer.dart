@@ -39,6 +39,8 @@ class FcDrawerItem {
 /// ```dart
 /// FcAppDrawer(
 ///   userName: 'Anonymous',
+///   onUserNameTap: () => showEditNameDialog(context),
+///   userNameTrailing: const Icon(Icons.edit_outlined, size: 18),
 ///   items: [
 ///     FcDrawerItem(
 ///       icon: Icons.settings,
@@ -65,6 +67,18 @@ class FcAppDrawer extends StatelessWidget {
   /// Optional avatar override. Defaults to [FcAvatar.user] at xxl size.
   final Widget? userAvatar;
 
+  /// Optional tap handler for the user-name region. When non-null, the
+  /// name (and [userNameTrailing], if provided) becomes tappable with an
+  /// ink ripple, suitable for opening an edit-name dialog or profile
+  /// page. When null, the name renders as plain text exactly as before.
+  final VoidCallback? onUserNameTap;
+
+  /// Optional widget rendered to the right of [userName] with a small
+  /// horizontal gap. Typical use is a subtle edit-pencil icon to hint
+  /// that the name is editable. Independent of [onUserNameTap], so it
+  /// can also serve as a non-tappable status badge.
+  final Widget? userNameTrailing;
+
   /// Navigation items rendered below the header.
   final List<FcDrawerItem> items;
 
@@ -79,6 +93,8 @@ class FcAppDrawer extends StatelessWidget {
     required this.userName,
     this.userSubtitle,
     this.userAvatar,
+    this.onUserNameTap,
+    this.userNameTrailing,
     this.items = const [],
     this.footer,
     this.padding = FlashcardSpacing.edgeInsetsLg,
@@ -95,6 +111,41 @@ class FcAppDrawer extends StatelessWidget {
       ),
       trailing: item.trailing,
       onTap: item.onTap,
+    );
+  }
+
+  /// Build the user-name area, optionally wrapping it in an [InkWell]
+  /// and laying out a trailing widget to the right of the text.
+  Widget _buildUserName(BuildContext context) {
+    final Widget nameText = FcText(
+      userName,
+      style: FcTextStyle.heading5,
+      textAlign: TextAlign.center,
+    );
+
+    final Widget nameRow = userNameTrailing == null
+        ? nameText
+        : Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Flexible(child: nameText),
+              FlashcardSpacing.horizontalSpaceSm,
+              userNameTrailing!,
+            ],
+          );
+
+    if (onUserNameTap == null) {
+      return nameRow;
+    }
+
+    return InkWell(
+      borderRadius: FlashcardTokens.borderRadiusMd,
+      onTap: onUserNameTap,
+      child: Padding(
+        padding: FlashcardSpacing.inputPaddingInsets,
+        child: nameRow,
+      ),
     );
   }
 
@@ -115,11 +166,7 @@ class FcAppDrawer extends StatelessWidget {
                   children: [
                     avatar,
                     FlashcardSpacing.verticalSpaceMd,
-                    FcText(
-                      userName,
-                      style: FcTextStyle.heading5,
-                      textAlign: TextAlign.center,
-                    ),
+                    _buildUserName(context),
                     if (userSubtitle != null) ...[
                       FlashcardSpacing.verticalSpaceXs,
                       FcText(
