@@ -31,6 +31,7 @@ export 'molecules/fc_banner.dart';
 export 'molecules/fc_chat_bubble.dart';
 export 'molecules/fc_file_list_item.dart';
 export 'molecules/fc_input_field_with_label.dart';
+export 'molecules/fc_password_input_field.dart';
 export 'molecules/fc_status_message.dart';
 
 // Organisms - Complex UI sections

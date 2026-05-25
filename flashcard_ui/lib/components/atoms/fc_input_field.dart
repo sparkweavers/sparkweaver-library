@@ -132,6 +132,11 @@ class FcInputField extends StatelessWidget {
   /// Suffix icon button callback
   final VoidCallback? onSuffixIconPressed;
 
+  /// When non-null, overrides the type-derived obscure-text default.
+  /// Used by wrappers (e.g. `FcPasswordInputField`) that own the password
+  /// visibility state and need to flip obscuring independently of `type`.
+  final bool? obscureText;
+
   const FcInputField({
     super.key,
     this.controller,
@@ -154,6 +159,7 @@ class FcInputField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onSuffixIconPressed,
+    this.obscureText,
   });
 
   TextInputType _getKeyboardType() {
@@ -191,7 +197,7 @@ class FcInputField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       enabled: enabled,
-      obscureText: _isPassword,
+      obscureText: obscureText ?? _isPassword,
       keyboardType: _getKeyboardType(),
       textInputAction: textInputAction,
       maxLines: _getMaxLines(),
