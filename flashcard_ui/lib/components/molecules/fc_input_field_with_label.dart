@@ -93,6 +93,10 @@ class FcInputFieldWithLabel extends StatelessWidget {
   /// Suffix icon button callback
   final VoidCallback? onSuffixIconPressed;
 
+  /// When non-null, overrides the type-derived obscure-text default.
+  /// Forwarded to [FcInputField.obscureText].
+  final bool? obscureText;
+
   const FcInputFieldWithLabel({
     super.key,
     required this.label,
@@ -115,6 +119,7 @@ class FcInputFieldWithLabel extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onSuffixIconPressed,
+    this.obscureText,
   });
 
   @override
@@ -164,6 +169,7 @@ class FcInputFieldWithLabel extends StatelessWidget {
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           onSuffixIconPressed: onSuffixIconPressed,
+          obscureText: obscureText,
         ),
       ],
     );

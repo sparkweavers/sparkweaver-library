@@ -117,4 +117,12 @@ class FlashcardIcons {
 
   /// Home
   static const IconData home = Icons.home;
+
+  // ==================== Security & Input ====================
+
+  /// Reveal password / show obscured text
+  static const IconData actionVisibility = Icons.visibility;
+
+  /// Hide password / obscure text
+  static const IconData actionVisibilityOff = Icons.visibility_off;
 }
