@@ -70,6 +70,41 @@ Widget conversationFlow(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(
+  name: 'AI Message with Multiple-Choice Options',
+  type: FcChatBubble,
+)
+Widget aiMessageWithOptions(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16.0),
+    child: FcChatBubble(
+      message: 'Wer ist der bekannteste Vertreter des klassischen '
+          'Konditionierens?',
+      isUser: false,
+      options: const ['Pawlow', 'Skinner', 'Freud', 'Watson'],
+      onOptionSelected: (i) => debugPrint('User picked option $i'),
+    ),
+  );
+}
+
+@widgetbook.UseCase(
+  name: 'AI Message with Multiple-Choice Options (already answered)',
+  type: FcChatBubble,
+)
+Widget aiMessageWithOptionsAnswered(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: FcChatBubble(
+      message: 'Wer ist der bekannteste Vertreter des klassischen '
+          'Konditionierens?',
+      isUser: false,
+      options: ['Pawlow', 'Skinner', 'Freud', 'Watson'],
+      selectedOptionIndex: 0,
+      // No onOptionSelected → chips are read-only (scrollback view).
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Long Message', type: FcChatBubble)
 Widget longMessage(BuildContext context) {
   return const Padding(
