@@ -42,6 +42,26 @@ class FcChatBubble extends StatelessWidget {
   /// List of referenced file names to display as badges (AI messages only)
   final List<String>? referencedFiles;
 
+  /// Optional multiple-choice options rendered as tappable chips beneath
+  /// the message text (AI messages only). When both [options] and
+  /// [onOptionSelected] are provided the chips are enabled and invoke
+  /// the callback with the chosen index. When [onOptionSelected] is
+  /// omitted the chips are read-only — useful for replaying a past
+  /// question in a scrollback where the user already answered.
+  ///
+  /// Passing an empty list has the same effect as `null` (nothing is
+  /// rendered), so upstream callers don't need to guard against it.
+  final List<String>? options;
+
+  /// Callback fired when the user taps an option chip. Receives the
+  /// 0-based index into [options]. Ignored when [options] is null/empty.
+  final void Function(int index)? onOptionSelected;
+
+  /// When non-null and matches an index in [options], that chip is
+  /// rendered as "selected" (filled color) — used to show which answer
+  /// the user has already submitted in a completed / scrollback view.
+  final int? selectedOptionIndex;
+
   /// Custom avatar widget (overrides default avatar)
   final Widget? avatar;
 
@@ -65,6 +85,9 @@ class FcChatBubble extends StatelessWidget {
     this.isTyping = false,
     this.interpretMarkdown = false,
     this.referencedFiles,
+    this.options,
+    this.onOptionSelected,
+    this.selectedOptionIndex,
     this.avatar,
     this.messageStyle,
     this.backgroundColor,
@@ -129,6 +152,33 @@ class FcChatBubble extends StatelessWidget {
                             fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
                           ),
                         ),
+
+                  // Multiple-choice options (AI messages only). Rendered as
+                  // ChoiceChips; disabled when [onOptionSelected] is null
+                  // (scrollback view of an already-answered question).
+                  if (!isUser && options != null && options!.isNotEmpty) ...[
+                    FlashcardSpacing.verticalSpaceSm,
+                    Wrap(
+                      spacing: FlashcardSpacing.xs,
+                      runSpacing: FlashcardSpacing.xs,
+                      children: List<Widget>.generate(options!.length, (i) {
+                        final isSelected = selectedOptionIndex == i;
+                        return ChoiceChip(
+                          label: Text(options![i]),
+                          selected: isSelected,
+                          onSelected: onOptionSelected == null
+                              ? null
+                              : (_) => onOptionSelected!(i),
+                          selectedColor: colors.primary30,
+                          backgroundColor: colors.aiMessageBg,
+                          labelStyle: FlashcardTypography.bodyMedium.copyWith(
+                            color: isSelected ? colors.primary : textColor,
+                          ),
+                          side: BorderSide(color: colors.primary30),
+                        );
+                      }),
+                    ),
+                  ],
 
                   // File References (AI messages only)
                   if (!isUser && referencedFiles != null && referencedFiles!.isNotEmpty) ...[
