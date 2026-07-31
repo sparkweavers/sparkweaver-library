@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/color_scheme.dart';
+import '../../design_system/markdown_style.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
@@ -42,6 +43,26 @@ class FcChatBubble extends StatelessWidget {
   /// List of referenced file names to display as badges (AI messages only)
   final List<String>? referencedFiles;
 
+  /// Optional multiple-choice options rendered as tappable chips beneath
+  /// the message text (AI messages only). When both [options] and
+  /// [onOptionSelected] are provided the chips are enabled and invoke
+  /// the callback with the chosen index. When [onOptionSelected] is
+  /// omitted the chips are read-only — useful for replaying a past
+  /// question in a scrollback where the user already answered.
+  ///
+  /// Passing an empty list has the same effect as `null` (nothing is
+  /// rendered), so upstream callers don't need to guard against it.
+  final List<String>? options;
+
+  /// Callback fired when the user taps an option chip. Receives the
+  /// 0-based index into [options]. Ignored when [options] is null/empty.
+  final void Function(int index)? onOptionSelected;
+
+  /// When non-null and matches an index in [options], that chip is
+  /// rendered as "selected" (filled color) — used to show which answer
+  /// the user has already submitted in a completed / scrollback view.
+  final int? selectedOptionIndex;
+
   /// Custom avatar widget (overrides default avatar)
   final Widget? avatar;
 
@@ -65,6 +86,9 @@ class FcChatBubble extends StatelessWidget {
     this.isTyping = false,
     this.interpretMarkdown = false,
     this.referencedFiles,
+    this.options,
+    this.onOptionSelected,
+    this.selectedOptionIndex,
     this.avatar,
     this.messageStyle,
     this.backgroundColor,
@@ -114,7 +138,7 @@ class FcChatBubble extends StatelessWidget {
                   interpretMarkdown
                       ? MarkdownBody(
                           data: message,
-                          styleSheet: _markdownStyleSheet(
+                          styleSheet: FlashcardMarkdownStyle.forBody(
                             baseStyle: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
                               color: textColor,
                               fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
@@ -129,6 +153,33 @@ class FcChatBubble extends StatelessWidget {
                             fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
                           ),
                         ),
+
+                  // Multiple-choice options (AI messages only). Rendered as
+                  // ChoiceChips; disabled when [onOptionSelected] is null
+                  // (scrollback view of an already-answered question).
+                  if (!isUser && options != null && options!.isNotEmpty) ...[
+                    FlashcardSpacing.verticalSpaceSm,
+                    Wrap(
+                      spacing: FlashcardSpacing.xs,
+                      runSpacing: FlashcardSpacing.xs,
+                      children: List<Widget>.generate(options!.length, (i) {
+                        final isSelected = selectedOptionIndex == i;
+                        return ChoiceChip(
+                          label: Text(options![i]),
+                          selected: isSelected,
+                          onSelected: onOptionSelected == null
+                              ? null
+                              : (_) => onOptionSelected!(i),
+                          selectedColor: colors.primary30,
+                          backgroundColor: colors.aiMessageBg,
+                          labelStyle: FlashcardTypography.bodyMedium.copyWith(
+                            color: isSelected ? colors.primary : textColor,
+                          ),
+                          side: BorderSide(color: colors.primary30),
+                        );
+                      }),
+                    ),
+                  ],
 
                   // File References (AI messages only)
                   if (!isUser && referencedFiles != null && referencedFiles!.isNotEmpty) ...[
@@ -163,35 +214,6 @@ class FcChatBubble extends StatelessWidget {
         : FcAvatar.user(size: FlashcardTokens.avatarSm, context: context);
   }
 
-  /// Style sheet for markdown so headings, bold, italic, code, rules, lists match the design system.
-  static MarkdownStyleSheet _markdownStyleSheet({
-    required TextStyle baseStyle,
-    required Color textColor,
-  }) {
-    return MarkdownStyleSheet(
-      p: baseStyle,
-      a: baseStyle.copyWith(color: textColor, decoration: TextDecoration.underline),
-      h1: FlashcardTypography.heading1.copyWith(color: textColor),
-      h2: FlashcardTypography.heading2.copyWith(color: textColor),
-      h3: FlashcardTypography.heading3.copyWith(color: textColor),
-      h4: FlashcardTypography.heading4.copyWith(color: textColor),
-      h5: FlashcardTypography.heading5.copyWith(color: textColor),
-      h6: FlashcardTypography.heading6.copyWith(color: textColor),
-      strong: baseStyle.copyWith(fontWeight: FlashcardTypography.bold, color: textColor),
-      em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
-      code: FlashcardTypography.bodyMedium.copyWith(
-        fontFamily: FlashcardTypography.fontFamilyMono,
-        color: textColor,
-      ),
-      blockSpacing: 8,
-      horizontalRuleDecoration: BoxDecoration(
-        border: Border(top: BorderSide(color: textColor, width: 1)),
-      ),
-      listBullet: baseStyle.copyWith(color: textColor),
-      listIndent: 24.0,
-      listBulletPadding: const EdgeInsets.only(right: 4),
-    );
-  }
 }
 
 /// Predefined chat bubble variants

@@ -1,4 +1,4 @@
-# Flashcard Component Library - Project Summary
+# Sparkweaver Library - Project Summary
 
 ## ✅ Project Completed Successfully
 
@@ -9,7 +9,7 @@ A comprehensive Flutter component library with Widgetbook integration has been c
 ### Repository Structure
 
 ```
-flashcard-component-library/
+sparkweaver-library/
 ├── flashcard_ui/                      # Core UI Component Package
 │   ├── lib/
 │   │   ├── design_system/             # Complete Design System
@@ -196,7 +196,7 @@ flutter run
    ```yaml
    dependencies:
      flashcard_ui:
-       path: ../flashcard-component-library/flashcard_ui
+       path: ../sparkweaver-library/flashcard_ui
    ```
 
 2. **Import and use:**
@@ -257,4 +257,4 @@ Potential additions:
 
 **Status**: ✅ **COMPLETE AND READY FOR USE**
 
-The flashcard-component-library is fully functional and ready to be integrated into the ai-flash-card project!
+The sparkweaver-library is fully functional and ready to be integrated into the ai-flash-card project!

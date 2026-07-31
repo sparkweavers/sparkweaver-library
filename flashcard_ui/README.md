@@ -17,7 +17,7 @@ Add this to your `pubspec.yaml`:
 dependencies:
   flashcard_ui:
     git:
-      url: git@github.com:Job-O-Matic/flashcard-component-library.git
+      url: git@github.com:Job-O-Matic/sparkweaver-library.git
       ref: v0.1.0
       path: flashcard_ui
 ```
