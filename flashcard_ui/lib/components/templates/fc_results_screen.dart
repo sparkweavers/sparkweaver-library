@@ -289,7 +289,11 @@ class _QuestionRow extends StatelessWidget {
               ),
             ),
           ],
-          if (!row.isCorrect && row.correctAnswer != null) ...[
+          // Always render the reference answer when we have one, on
+          // both correct and incorrect rows. Correct rows benefit for
+          // group study — students revisiting the set together want
+          // to see what "correct" actually was without flipping back.
+          if (row.correctAnswer != null) ...[
             FlashcardSpacing.verticalSpaceXs,
             Text(
               'Correct answer: ${row.correctAnswer}',

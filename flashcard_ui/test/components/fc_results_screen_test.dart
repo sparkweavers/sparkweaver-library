@@ -43,6 +43,26 @@ void main() {
       expect(find.text('Correct answer: expected'), findsOneWidget);
     });
 
+    testWidgets(
+        'shows the reference answer on correct rows too (group-study aid)',
+        (tester) async {
+      await tester.pumpWidget(wrap(FcResultsScreen(
+        correct: 1,
+        total: 1,
+        questions: const [
+          FcResultsQuestion(
+            number: 1,
+            question: 'Who coined self-efficacy?',
+            isCorrect: true,
+            correctAnswer: 'Albert Bandura',
+          ),
+        ],
+        onFinish: () {},
+      )));
+
+      expect(find.text('Correct answer: Albert Bandura'), findsOneWidget);
+    });
+
     testWidgets('shows grade distribution block only when provided',
         (tester) async {
       await tester.pumpWidget(wrap(const FcResultsScreen(
