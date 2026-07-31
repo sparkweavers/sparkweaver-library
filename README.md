@@ -1,7 +1,7 @@
-# Flashcard Component Library
+# Sparkweaver Library
 
 ---
-[![Release flashcard_ui](https://github.com/Job-O-Matic/flashcard-component-library/actions/workflows/release-flashcard-ui.yml/badge.svg)](https://github.com/Job-O-Matic/flashcard-component-library/actions/workflows/release-flashcard-ui.yml)
+[![Release flashcard_ui](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml/badge.svg)](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml)
 ---
 
 Flutter UI component library with design system and interactive Widgetbook showcase for Flashcard applications.
@@ -30,7 +30,7 @@ cd flashcard_ui_widgetbook && flutter pub get && flutter run
 dependencies:
   flashcard_ui:
     git:
-      url: git@github.com:Job-O-Matic/flashcard-component-library.git
+      url: git@github.com:Job-O-Matic/sparkweaver-library.git
       ref: v0.1.0
       path: flashcard_ui
 ```

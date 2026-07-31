@@ -1,4 +1,4 @@
-# Integration Guide: Using flashcard-component-library in ai-flash-card
+# Integration Guide: Using sparkweaver-library in ai-flash-card
 
 This guide shows how to integrate the `flashcard_ui` component library into the `ai-flash-card` Flutter application.
 
@@ -15,7 +15,7 @@ dependencies:
 
   # Add the component library
   flashcard_ui:
-    path: ../flashcard-component-library/flashcard_ui
+    path: ../sparkweaver-library/flashcard_ui
 ```
 
 Then run:
@@ -262,7 +262,7 @@ The new components use the design system colors. If appearance differs:
 If you encounter build errors:
 1. Ensure `flashcard_ui` package builds successfully:
    ```bash
-   cd flashcard-component-library/flashcard_ui
+   cd sparkweaver-library/flashcard_ui
    flutter analyze
    ```
 
@@ -285,7 +285,7 @@ If you need to customize colors or other tokens:
 
 1. **Explore Widgetbook**: Run the Widgetbook app to see all components
    ```bash
-   cd flashcard-component-library/flashcard_ui_widgetbook
+   cd sparkweaver-library/flashcard_ui_widgetbook
    flutter run
    ```
 

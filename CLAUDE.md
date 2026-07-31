@@ -1,4 +1,4 @@
-# Claude Code Instructions for flashcard-component-library
+# Claude Code Instructions for sparkweaver-library
 
 ## Project Purpose
 
