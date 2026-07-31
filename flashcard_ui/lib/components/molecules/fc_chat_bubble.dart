@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/color_scheme.dart';
+import '../../design_system/markdown_style.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
@@ -137,7 +138,7 @@ class FcChatBubble extends StatelessWidget {
                   interpretMarkdown
                       ? MarkdownBody(
                           data: message,
-                          styleSheet: _markdownStyleSheet(
+                          styleSheet: FlashcardMarkdownStyle.forBody(
                             baseStyle: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
                               color: textColor,
                               fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
@@ -213,35 +214,6 @@ class FcChatBubble extends StatelessWidget {
         : FcAvatar.user(size: FlashcardTokens.avatarSm, context: context);
   }
 
-  /// Style sheet for markdown so headings, bold, italic, code, rules, lists match the design system.
-  static MarkdownStyleSheet _markdownStyleSheet({
-    required TextStyle baseStyle,
-    required Color textColor,
-  }) {
-    return MarkdownStyleSheet(
-      p: baseStyle,
-      a: baseStyle.copyWith(color: textColor, decoration: TextDecoration.underline),
-      h1: FlashcardTypography.heading1.copyWith(color: textColor),
-      h2: FlashcardTypography.heading2.copyWith(color: textColor),
-      h3: FlashcardTypography.heading3.copyWith(color: textColor),
-      h4: FlashcardTypography.heading4.copyWith(color: textColor),
-      h5: FlashcardTypography.heading5.copyWith(color: textColor),
-      h6: FlashcardTypography.heading6.copyWith(color: textColor),
-      strong: baseStyle.copyWith(fontWeight: FlashcardTypography.bold, color: textColor),
-      em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
-      code: FlashcardTypography.bodyMedium.copyWith(
-        fontFamily: FlashcardTypography.fontFamilyMono,
-        color: textColor,
-      ),
-      blockSpacing: 8,
-      horizontalRuleDecoration: BoxDecoration(
-        border: Border(top: BorderSide(color: textColor, width: 1)),
-      ),
-      listBullet: baseStyle.copyWith(color: textColor),
-      listIndent: 24.0,
-      listBulletPadding: const EdgeInsets.only(right: 4),
-    );
-  }
 }
 
 /// Predefined chat bubble variants

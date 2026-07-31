@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
 
@@ -142,10 +143,13 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
                 color: SparkweaverColors.accent2,
                 borderRadius: FlashcardTokens.cardRadius,
               ),
-              child: Text(
-                widget.feedback!,
-                style: FlashcardTypography.bodyMedium.copyWith(
-                  color: SparkweaverColors.textPrimary,
+              child: MarkdownBody(
+                data: widget.feedback!,
+                styleSheet: FlashcardMarkdownStyle.forBody(
+                  baseStyle: FlashcardTypography.bodyMedium.copyWith(
+                    color: SparkweaverColors.textPrimary,
+                  ),
+                  textColor: SparkweaverColors.textPrimary,
                 ),
               ),
             ),
