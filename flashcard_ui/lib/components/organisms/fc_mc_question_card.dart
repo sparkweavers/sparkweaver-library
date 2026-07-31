@@ -1,0 +1,150 @@
+import 'package:flutter/material.dart';
+import '../../design_system/design_system.dart';
+import '../atoms/fc_button.dart';
+
+/// Multiple-Choice Question Card (Organism)
+///
+/// Displays a question and four selectable options as a vertical stack of
+/// buttons. Tapping an option calls [onSelected] with the option's index.
+/// Once an option is selected the buttons visually freeze — the option
+/// the user picked is highlighted, and the correct option (if [correctIndex]
+/// is provided) is styled to show whether the pick was right.
+///
+/// The widget does not evaluate correctness itself; the caller passes in
+/// [correctIndex] (typically after the server returns evaluation) and
+/// optionally [feedback] to render below the options.
+///
+/// ## Usage
+///
+/// ```dart
+/// FcMcQuestionCard(
+///   question: 'Wer ist der bekannteste Vertreter?',
+///   options: const ['Pawlow', 'Skinner', 'Freud', 'Watson'],
+///   selectedIndex: null,          // set after user picks
+///   correctIndex: null,           // set after server evaluates
+///   feedback: null,               // set after server evaluates
+///   onSelected: (i) => coordinator.selectOption(i),
+///   progressLabel: '2 / 10',
+/// )
+/// ```
+class FcMcQuestionCard extends StatelessWidget {
+  /// Question text rendered above the option buttons.
+  final String question;
+
+  /// Exactly four options. Enforced at the call site; the widget renders
+  /// however many are passed for graceful degradation.
+  final List<String> options;
+
+  /// Index of the option the user picked, or null if they haven't yet.
+  final int? selectedIndex;
+
+  /// Index of the correct option, or null if the server hasn't evaluated
+  /// yet. When present, the correct option is highlighted primary and the
+  /// selected-but-wrong option is highlighted destructive.
+  final int? correctIndex;
+
+  /// Optional feedback text rendered under the options (typically the
+  /// LLM's short explanation of why an answer is right or wrong).
+  final String? feedback;
+
+  /// Called when the user taps an option. Wired only while [selectedIndex]
+  /// is null — after a pick, taps are ignored.
+  final ValueChanged<int> onSelected;
+
+  /// Optional short label rendered above the question (for example a
+  /// "3 / 10" progress indicator).
+  final String? progressLabel;
+
+  const FcMcQuestionCard({
+    super.key,
+    required this.question,
+    required this.options,
+    required this.onSelected,
+    this.selectedIndex,
+    this.correctIndex,
+    this.feedback,
+    this.progressLabel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final locked = selectedIndex != null;
+    return Padding(
+      padding: FlashcardSpacing.edgeInsetsLg,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (progressLabel != null) ...[
+            Text(
+              progressLabel!,
+              style: FlashcardTypography.labelSmall.copyWith(
+                color: SparkweaverColors.textSecondary,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            FlashcardSpacing.verticalSpaceSm,
+          ],
+          Container(
+            padding: FlashcardSpacing.edgeInsetsLg,
+            decoration: BoxDecoration(
+              color: SparkweaverColors.backgroundPrimary,
+              borderRadius: FlashcardTokens.cardRadius,
+              border: Border.all(color: SparkweaverColors.accent1),
+            ),
+            child: Text(
+              question,
+              style: FlashcardTypography.heading4.copyWith(
+                color: SparkweaverColors.textPrimary,
+              ),
+            ),
+          ),
+          FlashcardSpacing.verticalSpaceLg,
+          for (var i = 0; i < options.length; i++) ...[
+            _optionButton(index: i, locked: locked),
+            if (i < options.length - 1) FlashcardSpacing.verticalSpaceSm,
+          ],
+          if (feedback != null && feedback!.isNotEmpty) ...[
+            FlashcardSpacing.verticalSpaceMd,
+            Container(
+              width: double.infinity,
+              padding: FlashcardSpacing.edgeInsetsMd,
+              decoration: BoxDecoration(
+                color: SparkweaverColors.accent2,
+                borderRadius: FlashcardTokens.cardRadius,
+              ),
+              child: Text(
+                feedback!,
+                style: FlashcardTypography.bodyMedium.copyWith(
+                  color: SparkweaverColors.textPrimary,
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _optionButton({required int index, required bool locked}) {
+    final variant = _variantFor(index);
+    return FcButton(
+      label: options[index],
+      variant: variant,
+      fullWidth: true,
+      onPressed: locked ? null : () => onSelected(index),
+    );
+  }
+
+  FcButtonVariant _variantFor(int index) {
+    if (correctIndex != null && index == correctIndex) {
+      return FcButtonVariant.primary;
+    }
+    if (selectedIndex != null && index == selectedIndex) {
+      return correctIndex == null
+          ? FcButtonVariant.primary
+          : FcButtonVariant.destructive;
+    }
+    return FcButtonVariant.outlined;
+  }
+}
