@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
+import '../atoms/fc_input_field.dart';
 
 /// Open-Answer Question Card (Organism)
 ///
@@ -114,19 +115,13 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
             ),
           ),
           FlashcardSpacing.verticalSpaceMd,
-          TextField(
+          FcInputField(
             controller: _controller,
+            type: FcInputType.multiline,
             enabled: !widget.locked,
             minLines: 3,
             maxLines: 8,
-            decoration: InputDecoration(
-              hintText: 'Type your answer…',
-              filled: true,
-              fillColor: SparkweaverColors.backgroundPrimary,
-              border: OutlineInputBorder(
-                borderRadius: FlashcardTokens.inputRadius,
-              ),
-            ),
+            hintText: 'Type your answer…',
           ),
           FlashcardSpacing.verticalSpaceMd,
           FcButton(
