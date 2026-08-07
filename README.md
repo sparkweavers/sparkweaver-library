@@ -1,7 +1,7 @@
 # Sparkweaver Library
 
 ---
-[![Release flashcard_ui](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml/badge.svg)](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml)
+[![Release sparkweaver_ui](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml/badge.svg)](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml)
 ---
 
 Flutter UI component library with design system and interactive Widgetbook showcase for Flashcard applications.
@@ -10,7 +10,7 @@ Flutter UI component library with design system and interactive Widgetbook showc
 
 ```bash
 # Install dependencies
-cd flashcard_ui && flutter pub get
+cd sparkweaver_ui && flutter pub get
 
 # View components in Widgetbook
 cd flashcard_ui_widgetbook && flutter pub get && flutter run
@@ -28,15 +28,15 @@ cd flashcard_ui_widgetbook && flutter pub get && flutter run
 ```yaml
 # Add to pubspec.yaml
 dependencies:
-  flashcard_ui:
+  sparkweaver_ui:
     git:
       url: git@github.com:Job-O-Matic/sparkweaver-library.git
       ref: v0.1.0
-      path: flashcard_ui
+      path: sparkweaver_ui
 ```
 
 ```dart
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 // Use design system
 Container(

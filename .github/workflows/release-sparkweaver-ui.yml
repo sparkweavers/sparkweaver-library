@@ -1,4 +1,4 @@
-name: Release flashcard_ui
+name: Release sparkweaver_ui
 
 on:
   workflow_dispatch:
@@ -51,14 +51,14 @@ jobs:
 
           bump = os.environ["BUMP_TYPE"]
           output_path = Path(os.environ["GITHUB_OUTPUT"])
-          pubspec_path = Path("flashcard_ui/pubspec.yaml")
+          pubspec_path = Path("sparkweaver_ui/pubspec.yaml")
 
           current_file = pubspec_path.read_text(encoding="utf-8")
 
           latest_tag = ""
           file_version_match = re.search(r"^version:\s*(\d+\.\d+\.\d+)\s*$", current_file, flags=re.MULTILINE)
           if not file_version_match:
-              raise ValueError("Could not find a simple semantic version in flashcard_ui/pubspec.yaml")
+              raise ValueError("Could not find a simple semantic version in sparkweaver_ui/pubspec.yaml")
           file_version = file_version_match.group(1)
 
           def parse_version(version: str):
@@ -115,8 +115,8 @@ jobs:
 
       - name: Commit version bump
         run: |
-          git add flashcard_ui/pubspec.yaml
-          git commit -m "chore(release): bump flashcard_ui to ${{ steps.version.outputs.tag }}"
+          git add sparkweaver_ui/pubspec.yaml
+          git commit -m "chore(release): bump sparkweaver_ui to ${{ steps.version.outputs.tag }}"
 
       - name: Create git tag
         run: git tag ${{ steps.version.outputs.tag }}
@@ -132,4 +132,4 @@ jobs:
         run: |
           gh release create ${{ steps.version.outputs.tag }} \
             --title "${{ steps.version.outputs.tag }}" \
-            --notes "flashcard_ui release ${{ steps.version.outputs.tag }} (bump: ${{ github.event.inputs.bump }})"
+            --notes "sparkweaver_ui release ${{ steps.version.outputs.tag }} (bump: ${{ github.event.inputs.bump }})"

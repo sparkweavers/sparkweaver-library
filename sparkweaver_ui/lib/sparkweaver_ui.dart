@@ -1,7 +1,7 @@
-/// Flashcard UI Component Library
+/// Sparkweaver UI Component Library
 ///
 /// A comprehensive Flutter UI component library with a complete design system
-/// for building Flashcard applications.
+/// for building Sparkweaver applications.
 ///
 /// ## Features
 ///
@@ -13,7 +13,7 @@
 /// ## Usage
 ///
 /// ```dart
-/// import 'package:flashcard_ui/flashcard_ui.dart';
+/// import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 ///
 /// // Use design system
 /// Container(

@@ -15,17 +15,17 @@ Add this to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flashcard_ui:
+  sparkweaver_ui:
     git:
       url: git@github.com:Job-O-Matic/sparkweaver-library.git
       ref: v0.1.0
-      path: flashcard_ui
+      path: sparkweaver_ui
 ```
 
 ## Usage
 
 ```dart
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 // Use design system
 Container(

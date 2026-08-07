@@ -151,7 +151,7 @@ When creating a new component:
 - [ ] Create variants for common use cases (OCP)
 - [ ] Add comprehensive documentation
 - [ ] Create Widgetbook use cases
-- [ ] Export from `flashcard_ui.dart`
+- [ ] Export from `sparkweaver_ui.dart`
 - [ ] Write unit tests
 - [ ] Verify `flutter analyze` passes
 - [ ] Verify no hardcoded values
@@ -274,7 +274,7 @@ If ANY answer is "no", refactor before committing.
 4. **Showcase:** Create Widgetbook use cases
 5. **Test:** Write unit tests
 6. **Verify:** Run analyze and tests
-7. **Export:** Add to `flashcard_ui.dart`
+7. **Export:** Add to `sparkweaver_ui.dart`
 8. **Review:** Check against this file's principles
 
 ## Key Principle
@@ -283,7 +283,7 @@ If ANY answer is "no", refactor before committing.
 
 ## Package Structure Rules
 
-**flashcard_ui (Core Library):**
+**sparkweaver_ui (Core Library):**
 - No dependencies on other packages (except Flutter)
 - Pure UI components only
 - Design system only
@@ -292,7 +292,7 @@ If ANY answer is "no", refactor before committing.
 - No API calls
 
 **flashcard_ui_widgetbook (Showcase):**
-- Depends on flashcard_ui
+- Depends on sparkweaver_ui
 - Only for development and documentation
 - Never imported by consuming apps
 
