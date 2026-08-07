@@ -193,13 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
-  flashcard_ui:
-    dependency: "direct main"
-    description:
-      path: "../flashcard_ui"
-      relative: true
-    source: path
-    version: "0.1.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -468,6 +461,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.1"
+  sparkweaver_ui:
+    dependency: "direct main"
+    description:
+      path: "../sparkweaver_ui"
+      relative: true
+    source: path
+    version: "1.0.0"
   stack_trace:
     dependency: transitive
     description:

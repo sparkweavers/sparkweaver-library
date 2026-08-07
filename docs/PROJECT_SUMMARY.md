@@ -10,7 +10,7 @@ A comprehensive Flutter component library with Widgetbook integration has been c
 
 ```
 sparkweaver-library/
-├── flashcard_ui/                      # Core UI Component Package
+├── sparkweaver_ui/                      # Core UI Component Package
 │   ├── lib/
 │   │   ├── design_system/             # Complete Design System
 │   │   │   ├── colors.dart           # Color palette & semantic colors
@@ -21,9 +21,9 @@ sparkweaver-library/
 │   │   ├── components/               # UI Components
 │   │   │   ├── fc_badge.dart         # Badge component with variants
 │   │   │   └── fc_chat_bubble.dart   # Chat bubble component with variants
-│   │   └── flashcard_ui.dart         # Main package export
+│   │   └── sparkweaver_ui.dart         # Main package export
 │   ├── test/
-│   │   └── flashcard_ui_test.dart    # Unit tests
+│   │   └── sparkweaver_ui_test.dart    # Unit tests
 │   └── pubspec.yaml                   # Package configuration
 │
 ├── flashcard_ui_widgetbook/           # Interactive Component Showcase
@@ -157,7 +157,7 @@ flutter run
 
 ### Documentation
 - ✓ Main README with complete usage guide
-- ✓ Package README for flashcard_ui
+- ✓ Package README for sparkweaver_ui
 - ✓ Widgetbook README
 - ✓ Integration guide for ai-flash-card
 - ✓ Inline code documentation
@@ -195,13 +195,13 @@ flutter run
 1. **Add dependency:**
    ```yaml
    dependencies:
-     flashcard_ui:
-       path: ../sparkweaver-library/flashcard_ui
+     sparkweaver_ui:
+       path: ../sparkweaver-library/sparkweaver_ui
    ```
 
 2. **Import and use:**
    ```dart
-   import 'package:flashcard_ui/flashcard_ui.dart';
+   import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
    // Replace ChatBubble with FcChatBubble
    // Replace Batch with FcBadge
@@ -239,7 +239,7 @@ Potential additions:
 
 - [Main README](README.md) - Complete documentation
 - [Integration Guide](INTEGRATION_GUIDE.md) - How to use in ai-flash-card
-- [flashcard_ui README](flashcard_ui/README.md) - Package documentation
+- [sparkweaver_ui README](sparkweaver_ui/README.md) - Package documentation
 - [Widgetbook README](flashcard_ui_widgetbook/README.md) - Showcase app docs
 
 ## ✨ Success Criteria Met

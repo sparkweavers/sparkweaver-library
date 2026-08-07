@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 void main() {
   Future<void> openOverlay(WidgetTester tester, {

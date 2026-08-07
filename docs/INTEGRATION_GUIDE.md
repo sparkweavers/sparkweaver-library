@@ -1,6 +1,6 @@
 # Integration Guide: Using sparkweaver-library in ai-flash-card
 
-This guide shows how to integrate the `flashcard_ui` component library into the `ai-flash-card` Flutter application.
+This guide shows how to integrate the `sparkweaver_ui` component library into the `ai-flash-card` Flutter application.
 
 ## Step 1: Add Dependency
 
@@ -14,8 +14,8 @@ dependencies:
   # ... other dependencies ...
 
   # Add the component library
-  flashcard_ui:
-    path: ../sparkweaver-library/flashcard_ui
+  sparkweaver_ui:
+    path: ../sparkweaver-library/sparkweaver_ui
 ```
 
 Then run:
@@ -30,7 +30,7 @@ flutter pub get
 In your Dart files, import the component library:
 
 ```dart
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 ```
 
 ## Step 3: Replace Existing Components
@@ -46,7 +46,7 @@ Batch(text: filename)
 
 **After**:
 ```dart
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 FcBadge(text: filename, icon: Icons.description)
 // or
@@ -68,7 +68,7 @@ ChatBubble(
 
 **After**:
 ```dart
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 FcChatBubble(
   message: message,
@@ -173,7 +173,7 @@ Container(
 import 'chat_bubble.dart';
 
 // New import
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 // Update usage
 ChatBubble(
@@ -202,7 +202,7 @@ import 'badge.dart';
 Batch(text: filename)
 
 // New
-import 'package:flashcard_ui/flashcard_ui.dart';
+import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 FcBadgeVariants.file(filename: filename)
 ```
 
@@ -260,9 +260,9 @@ The new components use the design system colors. If appearance differs:
 ### Build Errors
 
 If you encounter build errors:
-1. Ensure `flashcard_ui` package builds successfully:
+1. Ensure `sparkweaver_ui` package builds successfully:
    ```bash
-   cd sparkweaver-library/flashcard_ui
+   cd sparkweaver-library/sparkweaver_ui
    flutter analyze
    ```
 
@@ -277,7 +277,7 @@ If you encounter build errors:
 
 If you need to customize colors or other tokens:
 
-1. Fork or modify `flashcard_ui/lib/design_system/colors.dart`
+1. Fork or modify `sparkweaver_ui/lib/design_system/colors.dart`
 2. Update the values to match your brand
 3. The changes will apply to all components automatically
 

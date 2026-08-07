@@ -1,7 +1,7 @@
-name: flashcard_ui
-description: "Reusable Flutter UI components and design system for Flashcard apps"
-version: 0.4.0
-homepage: https://github.com/Job-O-Matic/sparkweaver-library
+name: sparkweaver_ui
+description: "Reusable Flutter UI components and design system for Sparkweaver apps"
+version: 1.0.0
+homepage: https://github.com/sparkweavers/sparkweaver-library
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
