@@ -23,6 +23,17 @@ class FcResultsQuestion {
   /// null (no free-text answer was recorded).
   final String? userAnswer;
 
+  /// The text of the multiple-choice option the student selected, if
+  /// known. Pre-resolved by the caller (index-to-text lookup happens
+  /// outside this widget, same as every other field here). Rendered
+  /// as a "Your answer: ..." line in the error/destructive color,
+  /// distinct from [userAnswer]'s neutral-color line for free-text
+  /// rows. If a row somehow has both [userAnswer] and this field set,
+  /// [userAnswer] wins and this field is not rendered — kept simple
+  /// because in practice a row is either free-text or multiple-choice,
+  /// never both.
+  final String? selectedAnswerText;
+
   /// LLM-generated feedback, if any.
   final String? feedback;
 
@@ -32,6 +43,7 @@ class FcResultsQuestion {
     required this.isCorrect,
     this.correctAnswer,
     this.userAnswer,
+    this.selectedAnswerText,
     this.feedback,
   });
 }
@@ -203,9 +215,17 @@ class _GradeDistributionCard extends StatelessWidget {
         children: [
           Text('Self-rating distribution', style: FlashcardTypography.heading6),
           FlashcardSpacing.verticalSpaceSm,
-          _distributionRow('Knew it', distribution.easy, SparkweaverColors.success),
+          _distributionRow(
+            'Knew it',
+            distribution.easy,
+            SparkweaverColors.success,
+          ),
           FlashcardSpacing.verticalSpaceXs,
-          _distributionRow('Almost', distribution.medium, SparkweaverColors.warning),
+          _distributionRow(
+            'Almost',
+            distribution.medium,
+            SparkweaverColors.warning,
+          ),
           FlashcardSpacing.verticalSpaceXs,
           _distributionRow('Again', distribution.hard, SparkweaverColors.error),
         ],
@@ -237,8 +257,9 @@ class _QuestionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chipColor =
-        row.isCorrect ? SparkweaverColors.success : SparkweaverColors.error;
+    final chipColor = row.isCorrect
+        ? SparkweaverColors.success
+        : SparkweaverColors.error;
     final chipLabel = row.isCorrect ? 'Correct' : 'Incorrect';
     return Container(
       padding: FlashcardSpacing.edgeInsetsMd,
@@ -252,21 +273,19 @@ class _QuestionRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('${row.number}.',
-                  style: FlashcardTypography.labelMedium.copyWith(
-                    color: SparkweaverColors.textSecondary,
-                  )),
-              FlashcardSpacing.horizontalSpaceSm,
-              Expanded(
-                child: Text(
-                  row.question,
-                  style: FlashcardTypography.bodyLarge,
+              Text(
+                '${row.number}.',
+                style: FlashcardTypography.labelMedium.copyWith(
+                  color: SparkweaverColors.textSecondary,
                 ),
               ),
               FlashcardSpacing.horizontalSpaceSm,
+              Expanded(
+                child: Text(row.question, style: FlashcardTypography.bodyLarge),
+              ),
+              FlashcardSpacing.horizontalSpaceSm,
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: chipColor,
                   borderRadius: FlashcardTokens.badgeRadius,
@@ -288,6 +307,14 @@ class _QuestionRow extends StatelessWidget {
                 color: SparkweaverColors.textSecondary,
               ),
             ),
+          ] else if (row.selectedAnswerText != null) ...[
+            FlashcardSpacing.verticalSpaceXs,
+            Text(
+              'Your answer: ${row.selectedAnswerText}',
+              style: FlashcardTypography.bodySmall.copyWith(
+                color: SparkweaverColors.error,
+              ),
+            ),
           ],
           // Always render the reference answer when we have one, on
           // both correct and incorrect rows. Correct rows benefit for
@@ -304,10 +331,7 @@ class _QuestionRow extends StatelessWidget {
           ],
           if (row.feedback != null && row.feedback!.isNotEmpty) ...[
             FlashcardSpacing.verticalSpaceXs,
-            Text(
-              row.feedback!,
-              style: FlashcardTypography.bodySmall,
-            ),
+            Text(row.feedback!, style: FlashcardTypography.bodySmall),
           ],
         ],
       ),
