@@ -29,6 +29,7 @@ enum FcBannerVariant {
 /// // Show error banner
 /// ScaffoldMessenger.of(context).showMaterialBanner(
 ///   FcBanner.error(
+///     context: context,
 ///     message: 'Failed to connect to server',
 ///     onDismiss: () {
 ///       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
@@ -39,6 +40,7 @@ enum FcBannerVariant {
 /// // Show success banner
 /// ScaffoldMessenger.of(context).showMaterialBanner(
 ///   FcBanner.success(
+///     context: context,
 ///     message: 'Changes saved successfully',
 ///     autoDismiss: true,
 ///     onDismiss: () {
@@ -50,6 +52,7 @@ enum FcBannerVariant {
 /// // Show warning banner
 /// ScaffoldMessenger.of(context).showMaterialBanner(
 ///   FcBanner.warning(
+///     context: context,
 ///     message: 'This action cannot be undone',
 ///   ),
 /// );
@@ -64,33 +67,45 @@ class FcBanner extends MaterialBanner {
   /// Callback when dismiss button is pressed
   final VoidCallback? onDismiss;
 
+  /// [MaterialBanner.backgroundColor] is set once at construction time,
+  /// before the banner is ever laid out — there is no `build(context)`
+  /// to hook into here the way there is for a plain [StatelessWidget].
+  /// So every factory takes the caller's [BuildContext] and resolves the
+  /// themed variant colour up front, via [FlashcardColorScheme.of]. The
+  /// call site already has one on hand: it's the same context used for
+  /// `ScaffoldMessenger.of(context)`.
   FcBanner._({
     required this.message,
     required this.variant,
+    required BuildContext context,
     this.onDismiss,
     super.key,
   }) : super(
-          content: _BannerContent(
-            message: message,
-            variant: variant,
-          ),
-          backgroundColor: _getBackgroundColor(variant),
-          actions: [
-            if (onDismiss != null)
-              TextButton(
-                onPressed: onDismiss,
-                child: Text(
-                  'Dismiss',
-                  style: FlashcardTypography.labelMedium.copyWith(
-                    color: SparkweaverColors.white,
-                  ),
-                ),
-              ),
-          ],
-        );
+         content: _BannerContent(message: message, variant: variant),
+         backgroundColor: _getBackgroundColor(
+           FlashcardColorScheme.of(context),
+           variant,
+         ),
+         actions: [
+           if (onDismiss != null)
+             TextButton(
+               onPressed: onDismiss,
+               child: Text(
+                 'Dismiss',
+                 // White stays literal: it is the foreground for a
+                 // filled, saturated banner background in both themes,
+                 // not a surface colour that should track brightness.
+                 style: FlashcardTypography.labelMedium.copyWith(
+                   color: SparkweaverColors.white,
+                 ),
+               ),
+             ),
+         ],
+       );
 
   /// Create an error banner (red)
   factory FcBanner.error({
+    required BuildContext context,
     required String message,
     VoidCallback? onDismiss,
     Key? key,
@@ -98,6 +113,7 @@ class FcBanner extends MaterialBanner {
     return FcBanner._(
       message: message,
       variant: FcBannerVariant.error,
+      context: context,
       onDismiss: onDismiss,
       key: key,
     );
@@ -105,6 +121,7 @@ class FcBanner extends MaterialBanner {
 
   /// Create a success banner (green)
   factory FcBanner.success({
+    required BuildContext context,
     required String message,
     VoidCallback? onDismiss,
     Key? key,
@@ -112,6 +129,7 @@ class FcBanner extends MaterialBanner {
     return FcBanner._(
       message: message,
       variant: FcBannerVariant.success,
+      context: context,
       onDismiss: onDismiss,
       key: key,
     );
@@ -119,6 +137,7 @@ class FcBanner extends MaterialBanner {
 
   /// Create a warning banner (orange)
   factory FcBanner.warning({
+    required BuildContext context,
     required String message,
     VoidCallback? onDismiss,
     Key? key,
@@ -126,6 +145,7 @@ class FcBanner extends MaterialBanner {
     return FcBanner._(
       message: message,
       variant: FcBannerVariant.warning,
+      context: context,
       onDismiss: onDismiss,
       key: key,
     );
@@ -133,6 +153,7 @@ class FcBanner extends MaterialBanner {
 
   /// Create an info banner (blue)
   factory FcBanner.info({
+    required BuildContext context,
     required String message,
     VoidCallback? onDismiss,
     Key? key,
@@ -140,22 +161,26 @@ class FcBanner extends MaterialBanner {
     return FcBanner._(
       message: message,
       variant: FcBannerVariant.info,
+      context: context,
       onDismiss: onDismiss,
       key: key,
     );
   }
 
   /// Get background color for variant
-  static Color _getBackgroundColor(FcBannerVariant variant) {
+  static Color _getBackgroundColor(
+    FlashcardColorScheme colors,
+    FcBannerVariant variant,
+  ) {
     switch (variant) {
       case FcBannerVariant.success:
-        return SparkweaverColors.success;
+        return colors.success;
       case FcBannerVariant.error:
-        return SparkweaverColors.error;
+        return colors.error;
       case FcBannerVariant.warning:
-        return SparkweaverColors.warning;
+        return colors.warning;
       case FcBannerVariant.info:
-        return SparkweaverColors.info;
+        return colors.info;
     }
   }
 }
@@ -165,10 +190,7 @@ class _BannerContent extends StatelessWidget {
   final String message;
   final FcBannerVariant variant;
 
-  const _BannerContent({
-    required this.message,
-    required this.variant,
-  });
+  const _BannerContent({required this.message, required this.variant});
 
   IconData _getIcon() {
     switch (variant) {

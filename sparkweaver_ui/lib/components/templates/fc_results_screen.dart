@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
+import '../atoms/fc_card.dart';
 
 /// One per-question row inside [FcResultsScreen]. Kept as a plain data
 /// class in the library so the widget doesn't depend on any app-side
@@ -165,30 +166,28 @@ class _ScoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     final percent = total == 0 ? 0 : (correct * 100 / total).round();
-    return Container(
-      padding: FlashcardSpacing.edgeInsetsLg,
-      decoration: BoxDecoration(
-        color: SparkweaverColors.backgroundPrimary,
-        borderRadius: FlashcardTokens.cardRadius,
-        border: Border.all(color: SparkweaverColors.accent1),
-      ),
+    return FcCard(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('Session results', style: FlashcardTypography.heading5),
+          Text(
+            'Session results',
+            style: FlashcardTypography.heading5.copyWith(
+              color: colors.textPrimary,
+            ),
+          ),
           FlashcardSpacing.verticalSpaceSm,
           Text(
             '$correct / $total correct',
-            style: FlashcardTypography.heading2.copyWith(
-              color: SparkweaverColors.primary,
-            ),
+            style: FlashcardTypography.heading2.copyWith(color: colors.primary),
           ),
           FlashcardSpacing.verticalSpaceXs,
           Text(
             '$percent%',
             style: FlashcardTypography.bodyLarge.copyWith(
-              color: SparkweaverColors.textSecondary,
+              color: colors.textSecondary,
             ),
           ),
         ],
@@ -204,47 +203,67 @@ class _GradeDistributionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: FlashcardSpacing.edgeInsetsLg,
-      decoration: BoxDecoration(
-        color: SparkweaverColors.accent2,
-        borderRadius: FlashcardTokens.cardRadius,
-      ),
+    final colors = FlashcardColorScheme.of(context);
+    return FcCard(
+      variant: FcCardVariant.muted,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Self-rating distribution', style: FlashcardTypography.heading6),
+          Text(
+            'Self-rating distribution',
+            style: FlashcardTypography.heading6.copyWith(
+              color: colors.textPrimary,
+            ),
+          ),
           FlashcardSpacing.verticalSpaceSm,
           _distributionRow(
             'Knew it',
             distribution.easy,
-            SparkweaverColors.success,
+            colors.success,
+            colors.textPrimary,
           ),
           FlashcardSpacing.verticalSpaceXs,
           _distributionRow(
             'Almost',
             distribution.medium,
-            SparkweaverColors.warning,
+            colors.warning,
+            colors.textPrimary,
           ),
           FlashcardSpacing.verticalSpaceXs,
-          _distributionRow('Again', distribution.hard, SparkweaverColors.error),
+          _distributionRow(
+            'Again',
+            distribution.hard,
+            colors.error,
+            colors.textPrimary,
+          ),
         ],
       ),
     );
   }
 
-  Widget _distributionRow(String label, int count, Color color) {
+  Widget _distributionRow(
+    String label,
+    int count,
+    Color dotColor,
+    Color textColor,
+  ) {
     return Row(
       children: [
         Container(
           width: 12,
           height: 12,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
         ),
         FlashcardSpacing.horizontalSpaceSm,
-        Text(label, style: FlashcardTypography.bodyMedium),
+        Text(
+          label,
+          style: FlashcardTypography.bodyMedium.copyWith(color: textColor),
+        ),
         const Spacer(),
-        Text('$count', style: FlashcardTypography.bodyMedium),
+        Text(
+          '$count',
+          style: FlashcardTypography.bodyMedium.copyWith(color: textColor),
+        ),
       ],
     );
   }
@@ -257,17 +276,11 @@ class _QuestionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chipColor = row.isCorrect
-        ? SparkweaverColors.success
-        : SparkweaverColors.error;
+    final colors = FlashcardColorScheme.of(context);
+    final chipColor = row.isCorrect ? colors.success : colors.error;
     final chipLabel = row.isCorrect ? 'Correct' : 'Incorrect';
-    return Container(
+    return FcCard(
       padding: FlashcardSpacing.edgeInsetsMd,
-      decoration: BoxDecoration(
-        color: SparkweaverColors.backgroundPrimary,
-        borderRadius: FlashcardTokens.cardRadius,
-        border: Border.all(color: SparkweaverColors.accent1),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -276,12 +289,17 @@ class _QuestionRow extends StatelessWidget {
               Text(
                 '${row.number}.',
                 style: FlashcardTypography.labelMedium.copyWith(
-                  color: SparkweaverColors.textSecondary,
+                  color: colors.textSecondary,
                 ),
               ),
               FlashcardSpacing.horizontalSpaceSm,
               Expanded(
-                child: Text(row.question, style: FlashcardTypography.bodyLarge),
+                child: Text(
+                  row.question,
+                  style: FlashcardTypography.bodyLarge.copyWith(
+                    color: colors.textPrimary,
+                  ),
+                ),
               ),
               FlashcardSpacing.horizontalSpaceSm,
               Container(
@@ -295,6 +313,9 @@ class _QuestionRow extends StatelessWidget {
                 ),
                 child: Text(
                   chipLabel,
+                  // White stays literal here: it is the foreground for a
+                  // filled, saturated chip in both themes, not a surface
+                  // colour that should track brightness.
                   style: FlashcardTypography.labelSmall.copyWith(
                     color: SparkweaverColors.white,
                   ),
@@ -307,7 +328,7 @@ class _QuestionRow extends StatelessWidget {
             Text(
               'Your answer: ${row.userAnswer}',
               style: FlashcardTypography.bodySmall.copyWith(
-                color: SparkweaverColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ),
           ] else if (row.selectedAnswerText != null) ...[
@@ -315,7 +336,7 @@ class _QuestionRow extends StatelessWidget {
             Text(
               'Your answer: ${row.selectedAnswerText}',
               style: FlashcardTypography.bodySmall.copyWith(
-                color: SparkweaverColors.error,
+                color: colors.error,
               ),
             ),
           ],
@@ -328,13 +349,18 @@ class _QuestionRow extends StatelessWidget {
             Text(
               'Correct answer: ${row.correctAnswer}',
               style: FlashcardTypography.bodySmall.copyWith(
-                color: SparkweaverColors.textSecondary,
+                color: colors.textSecondary,
               ),
             ),
           ],
           if (row.feedback != null && row.feedback!.isNotEmpty) ...[
             FlashcardSpacing.verticalSpaceXs,
-            Text(row.feedback!, style: FlashcardTypography.bodySmall),
+            Text(
+              row.feedback!,
+              style: FlashcardTypography.bodySmall.copyWith(
+                color: colors.textPrimary,
+              ),
+            ),
           ],
         ],
       ),

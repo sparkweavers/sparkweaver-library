@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
+import '../atoms/fc_card.dart';
 import '../atoms/fc_input_field.dart';
 
 /// Open-Answer Question Card (Organism)
@@ -84,6 +85,7 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Padding(
       padding: FlashcardSpacing.edgeInsetsLg,
       child: Column(
@@ -94,23 +96,17 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
             Text(
               widget.progressLabel!,
               style: FlashcardTypography.labelSmall.copyWith(
-                color: SparkweaverColors.textSecondary,
+                color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
             FlashcardSpacing.verticalSpaceSm,
           ],
-          Container(
-            padding: FlashcardSpacing.edgeInsetsLg,
-            decoration: BoxDecoration(
-              color: SparkweaverColors.backgroundPrimary,
-              borderRadius: FlashcardTokens.cardRadius,
-              border: Border.all(color: SparkweaverColors.accent1),
-            ),
+          FcCard(
             child: Text(
               widget.question,
               style: FlashcardTypography.heading4.copyWith(
-                color: SparkweaverColors.textPrimary,
+                color: colors.textPrimary,
               ),
             ),
           ),
@@ -131,20 +127,17 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
           ),
           if (widget.feedback != null && widget.feedback!.isNotEmpty) ...[
             FlashcardSpacing.verticalSpaceMd,
-            Container(
+            FcCard(
+              variant: FcCardVariant.muted,
               width: double.infinity,
               padding: FlashcardSpacing.edgeInsetsMd,
-              decoration: BoxDecoration(
-                color: SparkweaverColors.accent2,
-                borderRadius: FlashcardTokens.cardRadius,
-              ),
               child: MarkdownBody(
                 data: widget.feedback!,
                 styleSheet: FlashcardMarkdownStyle.forBody(
                   baseStyle: FlashcardTypography.bodyMedium.copyWith(
-                    color: SparkweaverColors.textPrimary,
+                    color: colors.textPrimary,
                   ),
-                  textColor: SparkweaverColors.textPrimary,
+                  textColor: colors.textPrimary,
                 ),
               ),
             ),

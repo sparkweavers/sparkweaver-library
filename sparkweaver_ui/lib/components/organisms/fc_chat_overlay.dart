@@ -69,6 +69,7 @@ class _FcChatOverlayState extends State<FcChatOverlay> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return DraggableScrollableSheet(
       initialChildSize: 0.75,
       minChildSize: 0.4,
@@ -77,19 +78,19 @@ class _FcChatOverlayState extends State<FcChatOverlay> {
       builder: (context, sheetScrollController) {
         return Container(
           decoration: BoxDecoration(
-            color: SparkweaverColors.backgroundPrimary,
+            color: colors.surface,
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(FlashcardTokens.radiusXl),
             ),
           ),
           child: Column(
             children: [
-              _buildHandle(),
-              _buildTitle(),
+              _buildHandle(colors),
+              _buildTitle(colors),
               const Divider(height: 1),
               Expanded(
                 child: widget.itemCount == 0
-                    ? _buildEmptyState()
+                    ? _buildEmptyState(colors)
                     : ListView.builder(
                         controller: sheetScrollController,
                         padding: FlashcardSpacing.edgeInsetsMd,
@@ -114,40 +115,42 @@ class _FcChatOverlayState extends State<FcChatOverlay> {
     );
   }
 
-  Widget _buildHandle() {
+  Widget _buildHandle(FlashcardColorScheme colors) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 4),
       child: Container(
         width: 40,
         height: 4,
         decoration: BoxDecoration(
-          color: SparkweaverColors.accent4,
+          // accent4 (#EEEEEE) is exactly colors.gray200 in light mode —
+          // the closest themed neutral for this decorative drag handle.
+          color: colors.gray200,
           borderRadius: FlashcardTokens.badgeRadius,
         ),
       ),
     );
   }
 
-  Widget _buildTitle() {
+  Widget _buildTitle(FlashcardColorScheme colors) {
     return Padding(
       padding: FlashcardSpacing.horizontalMd.copyWith(
         bottom: FlashcardSpacing.sm,
       ),
       child: Text(
         widget.title,
-        style: FlashcardTypography.heading6,
+        style: FlashcardTypography.heading6.copyWith(color: colors.textPrimary),
       ),
     );
   }
 
-  Widget _buildEmptyState() {
+  Widget _buildEmptyState(FlashcardColorScheme colors) {
     return Center(
       child: Padding(
         padding: FlashcardSpacing.edgeInsetsLg,
         child: Text(
           'Ask anything about the current question. The tutor answers here without ending your question.',
           style: FlashcardTypography.bodyMedium.copyWith(
-            color: SparkweaverColors.textSecondary,
+            color: colors.textSecondary,
           ),
           textAlign: TextAlign.center,
         ),
