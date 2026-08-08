@@ -132,4 +132,4 @@ jobs:
         run: |
           gh release create ${{ steps.version.outputs.tag }} \
             --title "${{ steps.version.outputs.tag }}" \
-            --notes "sparkweaver_ui release ${{ steps.version.outputs.tag }} (bump: ${{ github.event.inputs.bump }})"
+            --generate-notes
