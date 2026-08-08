@@ -285,7 +285,10 @@ class _QuestionRow extends StatelessWidget {
               ),
               FlashcardSpacing.horizontalSpaceSm,
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: FlashcardSpacing.sm,
+                  vertical: FlashcardSpacing.xs,
+                ),
                 decoration: BoxDecoration(
                   color: chipColor,
                   borderRadius: FlashcardTokens.badgeRadius,
