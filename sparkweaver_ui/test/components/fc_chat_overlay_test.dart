@@ -3,34 +3,41 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 void main() {
-  Future<void> openOverlay(WidgetTester tester, {
+  Future<void> openOverlay(
+    WidgetTester tester, {
     required int itemCount,
     Widget Function(BuildContext, int)? itemBuilder,
     ValueChanged<String>? onSend,
+    ThemeData? theme,
   }) async {
-    await tester.pumpWidget(MaterialApp(
-      home: Builder(builder: (context) {
-        return Scaffold(
-          body: Center(
-            child: ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (_) => FcChatOverlay(
-                    itemCount: itemCount,
-                    itemBuilder: itemBuilder ??
-                        (context, i) => Text('bubble-$i'),
-                    onSend: onSend ?? (_) {},
-                  ),
-                );
-              },
-              child: const Text('open'),
-            ),
-          ),
-        );
-      }),
-    ));
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: theme,
+        home: Builder(
+          builder: (context) {
+            return Scaffold(
+              body: Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (_) => FcChatOverlay(
+                        itemCount: itemCount,
+                        itemBuilder:
+                            itemBuilder ?? (context, i) => Text('bubble-$i'),
+                        onSend: onSend ?? (_) {},
+                      ),
+                    );
+                  },
+                  child: const Text('open'),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
 
     await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
@@ -43,8 +50,9 @@ void main() {
       expect(find.text('Ask a question'), findsOneWidget);
     });
 
-    testWidgets('shows the empty-state text when itemCount is 0',
-        (tester) async {
+    testWidgets('shows the empty-state text when itemCount is 0', (
+      tester,
+    ) async {
       await openOverlay(tester, itemCount: 0);
 
       expect(
@@ -61,8 +69,7 @@ void main() {
       expect(find.text('bubble-2'), findsOneWidget);
     });
 
-    testWidgets('typed text hits onSend when Send is tapped',
-        (tester) async {
+    testWidgets('typed text hits onSend when Send is tapped', (tester) async {
       String? sent;
       await openOverlay(tester, itemCount: 0, onSend: (t) => sent = t);
 
@@ -72,5 +79,40 @@ void main() {
 
       expect(sent, 'why?');
     });
+
+    testWidgets(
+      'resolves dark-theme colours for the sheet surface, handle and title',
+      (tester) async {
+        await openOverlay(tester, itemCount: 0, theme: ThemeData.dark());
+
+        final dark = FlashcardColorScheme.dark();
+
+        final sheet = tester
+            .widgetList<Container>(find.byType(Container))
+            .firstWhere(
+              (c) =>
+                  c.decoration is BoxDecoration &&
+                  (c.decoration as BoxDecoration).color == dark.surface,
+            );
+        expect((sheet.decoration as BoxDecoration).border, isNull);
+
+        final handle = tester
+            .widgetList<Container>(find.byType(Container))
+            .firstWhere(
+              (c) =>
+                  c.decoration is BoxDecoration &&
+                  (c.decoration as BoxDecoration).color == dark.gray200,
+            );
+        expect((handle.decoration as BoxDecoration).border, isNull);
+
+        final title = tester.widget<Text>(find.text('Ask a question'));
+        expect(title.style?.color, dark.textPrimary);
+
+        final emptyState = tester.widget<Text>(
+          find.textContaining('Ask anything about the current question'),
+        );
+        expect(emptyState.style?.color, dark.textSecondary);
+      },
+    );
   });
 }

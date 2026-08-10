@@ -140,7 +140,7 @@ void main() {
         final textFinder = find.text('Your answer: wrong option');
         expect(textFinder, findsOneWidget);
         final textWidget = tester.widget<Text>(textFinder);
-        expect(textWidget.style?.color, SparkweaverColors.error);
+        expect(textWidget.style?.color, FlashcardColorScheme.light().error);
       },
     );
 
@@ -215,6 +215,95 @@ void main() {
         );
         expect(find.text('Correct answer: Mercury'), findsOneWidget);
         expect(find.text('Correct'), findsOneWidget);
+      },
+    );
+
+    testWidgets(
+      'resolves dark-theme colours for the score card and question row',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: ThemeData.dark(),
+            home: Scaffold(
+              body: FcResultsScreen(
+                correct: 1,
+                total: 2,
+                questions: const [
+                  FcResultsQuestion(
+                    number: 1,
+                    question: 'Q1?',
+                    isCorrect: false,
+                    selectedAnswerText: 'wrong',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+
+        final dark = FlashcardColorScheme.dark();
+
+        // The score card is an FcCard(surface): themed surface colour
+        // plus a primaryLight border.
+        final scoreCard = tester
+            .widgetList<Container>(find.byType(Container))
+            .firstWhere(
+              (c) =>
+                  c.decoration is BoxDecoration &&
+                  (c.decoration as BoxDecoration).color == dark.surface,
+            );
+        final scoreCardBorder =
+            (scoreCard.decoration as BoxDecoration).border as Border;
+        expect(scoreCardBorder.top.color, dark.primaryLight);
+
+        final questionText = tester.widget<Text>(find.text('Q1?'));
+        expect(questionText.style?.color, dark.textPrimary);
+
+        final selectedAnswer = tester.widget<Text>(
+          find.text('Your answer: wrong'),
+        );
+        expect(selectedAnswer.style?.color, dark.error);
+      },
+    );
+
+    testWidgets(
+      'grade distribution card resolves the dark-theme muted surface',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: ThemeData.dark(),
+            home: Scaffold(
+              body: FcResultsScreen(
+                correct: 1,
+                total: 1,
+                questions: const [],
+                gradeDistribution: const FcResultsGradeDistribution(
+                  hard: 1,
+                  medium: 1,
+                  easy: 1,
+                ),
+              ),
+            ),
+          ),
+        );
+
+        final dark = FlashcardColorScheme.dark();
+
+        // The distribution card is an FcCard(muted): themed surfaceVariant
+        // colour, no border.
+        final mutedCard = tester
+            .widgetList<Container>(find.byType(Container))
+            .firstWhere(
+              (c) =>
+                  c.decoration is BoxDecoration &&
+                  (c.decoration as BoxDecoration).color == dark.surfaceVariant,
+            );
+        expect((mutedCard.decoration as BoxDecoration).border, isNull);
+
+        final heading = tester.widget<Text>(
+          find.text('Self-rating distribution'),
+        );
+        expect(heading.style?.color, dark.textPrimary);
       },
     );
 

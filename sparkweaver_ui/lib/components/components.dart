@@ -20,6 +20,7 @@ library;
 // Atoms - Single-purpose UI elements
 export 'atoms/fc_avatar.dart';
 export 'atoms/fc_badge.dart';
+export 'atoms/fc_card.dart';
 export 'atoms/fc_button.dart';
 export 'atoms/fc_icon.dart';
 export 'atoms/fc_input_field.dart';

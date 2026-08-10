@@ -77,6 +77,7 @@ class _FcFlipCardState extends State<FcFlipCard>
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -87,7 +88,7 @@ class _FcFlipCardState extends State<FcFlipCard>
             child: Text(
               widget.progressLabel!,
               style: FlashcardTypography.labelSmall.copyWith(
-                color: SparkweaverColors.textSecondary,
+                color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -104,8 +105,8 @@ class _FcFlipCardState extends State<FcFlipCard>
               final isFrontVisible = value < 0.5;
               final displayedText = isFrontVisible ? widget.front : widget.back;
               final backgroundColor = isFrontVisible
-                  ? SparkweaverColors.backgroundPrimary
-                  : SparkweaverColors.accent2;
+                  ? colors.surface
+                  : colors.surfaceVariant;
 
               return Transform(
                 alignment: Alignment.center,
@@ -144,13 +145,19 @@ class _FlipFace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     return Container(
       constraints: const BoxConstraints(minHeight: 240),
       padding: FlashcardSpacing.edgeInsetsXl,
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: FlashcardTokens.cardRadius,
-        border: Border.all(color: SparkweaverColors.accent1),
+        // Not [FcCard]: both faces keep the purple border regardless of
+        // fill colour, so the card reads as one continuous surface while
+        // it flips. That always-bordered back face doesn't match either
+        // FcCardVariant (muted has no border), so the colours are
+        // resolved inline instead.
+        border: Border.all(color: colors.primaryLight),
       ),
       alignment: Alignment.center,
       child: Column(
@@ -160,14 +167,14 @@ class _FlipFace extends StatelessWidget {
           Text(
             isBack ? 'Answer' : 'Question',
             style: FlashcardTypography.labelSmall.copyWith(
-              color: SparkweaverColors.textSecondary,
+              color: colors.textSecondary,
             ),
           ),
           FlashcardSpacing.verticalSpaceSm,
           Text(
             text,
             style: FlashcardTypography.heading4.copyWith(
-              color: SparkweaverColors.textPrimary,
+              color: colors.textPrimary,
             ),
             textAlign: TextAlign.center,
           ),
@@ -175,7 +182,7 @@ class _FlipFace extends StatelessWidget {
           Text(
             isBack ? 'Tap to see the question' : 'Tap to reveal the answer',
             style: FlashcardTypography.bodySmall.copyWith(
-              color: SparkweaverColors.textSecondary,
+              color: colors.textSecondary,
             ),
           ),
         ],

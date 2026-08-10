@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
+import '../atoms/fc_card.dart';
 
 /// Multiple-Choice Question Card (Organism)
 ///
@@ -68,6 +69,7 @@ class FcMcQuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = FlashcardColorScheme.of(context);
     final locked = selectedIndex != null;
     return Padding(
       padding: FlashcardSpacing.edgeInsetsLg,
@@ -79,23 +81,17 @@ class FcMcQuestionCard extends StatelessWidget {
             Text(
               progressLabel!,
               style: FlashcardTypography.labelSmall.copyWith(
-                color: SparkweaverColors.textSecondary,
+                color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
             FlashcardSpacing.verticalSpaceSm,
           ],
-          Container(
-            padding: FlashcardSpacing.edgeInsetsLg,
-            decoration: BoxDecoration(
-              color: SparkweaverColors.backgroundPrimary,
-              borderRadius: FlashcardTokens.cardRadius,
-              border: Border.all(color: SparkweaverColors.accent1),
-            ),
+          FcCard(
             child: Text(
               question,
               style: FlashcardTypography.heading4.copyWith(
-                color: SparkweaverColors.textPrimary,
+                color: colors.textPrimary,
               ),
             ),
           ),
@@ -106,17 +102,14 @@ class FcMcQuestionCard extends StatelessWidget {
           ],
           if (feedback != null && feedback!.isNotEmpty) ...[
             FlashcardSpacing.verticalSpaceMd,
-            Container(
+            FcCard(
+              variant: FcCardVariant.muted,
               width: double.infinity,
               padding: FlashcardSpacing.edgeInsetsMd,
-              decoration: BoxDecoration(
-                color: SparkweaverColors.accent2,
-                borderRadius: FlashcardTokens.cardRadius,
-              ),
               child: Text(
                 feedback!,
                 style: FlashcardTypography.bodyMedium.copyWith(
-                  color: SparkweaverColors.textPrimary,
+                  color: colors.textPrimary,
                 ),
               ),
             ),
