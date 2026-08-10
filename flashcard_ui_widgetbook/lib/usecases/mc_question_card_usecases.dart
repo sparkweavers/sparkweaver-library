@@ -36,7 +36,7 @@ Widget answeredIncorrectly(BuildContext context) {
     options: _options,
     // Selected "Oxygen" (index 1) while the correct option is "Carbon
     // dioxide" (index 0) — the selected option shows the destructive
-    // style and the correct option shows the primary style.
+    // (red) style and the correct option shows the success (green) style.
     selectedIndex: 1,
     correctIndex: 0,
     progressLabel: '3 / 10',

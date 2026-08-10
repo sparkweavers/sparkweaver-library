@@ -467,7 +467,7 @@ packages:
       path: "../sparkweaver_ui"
       relative: true
     source: path
-    version: "2.0.1"
+    version: "2.1.0"
   stack_trace:
     dependency: transitive
     description:
