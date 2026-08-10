@@ -18,8 +18,8 @@
 /// // Use design system
 /// Container(
 ///   color: SparkweaverColors.primary,
-///   padding: FlashcardSpacing.edgeInsetsLg,
-///   child: Text('Hello', style: FlashcardTypography.heading1),
+///   padding: SparkweaverSpacing.edgeInsetsLg,
+///   child: Text('Hello', style: SparkweaverTypography.heading1),
 /// )
 ///
 /// // Use components

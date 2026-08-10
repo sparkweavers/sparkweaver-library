@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../design_system/color_scheme.dart';
+import '../../design_system/theme.dart';
 import '../../design_system/tokens.dart';
 import 'fc_icon.dart';
 
@@ -42,28 +42,28 @@ class FcAvatar extends StatelessWidget {
     required this.icon,
     required this.backgroundColor,
     required this.iconColor,
-    this.size = FlashcardTokens.avatarMd,
+    this.size = SparkweaverTokens.avatarMd,
   });
 
   /// Creates a user avatar (green theme)
   factory FcAvatar.user({double? size, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return FcAvatar(
       icon: Icons.person,
       backgroundColor: colors.userAvatarBg,
       iconColor: colors.secondary,
-      size: size ?? FlashcardTokens.avatarMd,
+      size: size ?? SparkweaverTokens.avatarMd,
     );
   }
 
   /// Creates an AI/Assistant avatar (blue theme)
   factory FcAvatar.ai({double? size, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return FcAvatar(
       icon: Icons.smart_toy,
       backgroundColor: colors.aiAvatarBg,
       iconColor: colors.primary,
-      size: size ?? FlashcardTokens.avatarMd,
+      size: size ?? SparkweaverTokens.avatarMd,
     );
   }
 
@@ -78,7 +78,7 @@ class FcAvatar extends StatelessWidget {
       icon: icon,
       backgroundColor: backgroundColor,
       iconColor: iconColor,
-      size: size ?? FlashcardTokens.avatarMd,
+      size: size ?? SparkweaverTokens.avatarMd,
     );
   }
 
@@ -96,11 +96,7 @@ class FcAvatar extends StatelessWidget {
     return CircleAvatar(
       radius: size / 2,
       backgroundColor: backgroundColor,
-      child: FcIcon(
-        icon,
-        size: _getIconSize(),
-        color: iconColor,
-      ),
+      child: FcIcon(icon, size: _getIconSize(), color: iconColor),
     );
   }
 }
@@ -110,25 +106,25 @@ class FcAvatarSizes {
   FcAvatarSizes._();
 
   /// Extra small avatar (16px)
-  static const double xs = FlashcardTokens.avatarXs;
+  static const double xs = SparkweaverTokens.avatarXs;
 
   /// Small avatar (24px)
-  static const double sm = FlashcardTokens.avatarSm;
+  static const double sm = SparkweaverTokens.avatarSm;
 
   /// Medium avatar (32px) - Default
-  static const double md = FlashcardTokens.avatarMd;
+  static const double md = SparkweaverTokens.avatarMd;
 
   /// Large avatar (40px)
-  static const double lg = FlashcardTokens.avatarLg;
+  static const double lg = SparkweaverTokens.avatarLg;
 
   /// Extra large avatar (48px)
-  static const double xl = FlashcardTokens.avatarXl;
+  static const double xl = SparkweaverTokens.avatarXl;
 
   /// 2X large avatar (64px)
-  static const double xxl = FlashcardTokens.avatarXxl;
+  static const double xxl = SparkweaverTokens.avatarXxl;
 
   /// 3X large avatar (96px)
-  static const double xxxl = FlashcardTokens.avatarXxxl;
+  static const double xxxl = SparkweaverTokens.avatarXxxl;
 }
 
 /// Predefined avatar type variants
@@ -136,22 +132,28 @@ class FcAvatarVariants {
   FcAvatarVariants._();
 
   /// User avatar with default size
-  static FcAvatar user({double? size, required BuildContext context}) => FcAvatar.user(size: size, context: context);
+  static FcAvatar user({double? size, required BuildContext context}) =>
+      FcAvatar.user(size: size, context: context);
 
   /// User avatar - small
-  static FcAvatar userSmall({required BuildContext context}) => FcAvatar.user(size: FcAvatarSizes.sm, context: context);
+  static FcAvatar userSmall({required BuildContext context}) =>
+      FcAvatar.user(size: FcAvatarSizes.sm, context: context);
 
   /// User avatar - large
-  static FcAvatar userLarge({required BuildContext context}) => FcAvatar.user(size: FcAvatarSizes.lg, context: context);
+  static FcAvatar userLarge({required BuildContext context}) =>
+      FcAvatar.user(size: FcAvatarSizes.lg, context: context);
 
   /// AI avatar with default size
-  static FcAvatar ai({double? size, required BuildContext context}) => FcAvatar.ai(size: size, context: context);
+  static FcAvatar ai({double? size, required BuildContext context}) =>
+      FcAvatar.ai(size: size, context: context);
 
   /// AI avatar - small
-  static FcAvatar aiSmall({required BuildContext context}) => FcAvatar.ai(size: FcAvatarSizes.sm, context: context);
+  static FcAvatar aiSmall({required BuildContext context}) =>
+      FcAvatar.ai(size: FcAvatarSizes.sm, context: context);
 
   /// AI avatar - large
-  static FcAvatar aiLarge({required BuildContext context}) => FcAvatar.ai(size: FcAvatarSizes.lg, context: context);
+  static FcAvatar aiLarge({required BuildContext context}) =>
+      FcAvatar.ai(size: FcAvatarSizes.lg, context: context);
 
   /// Custom avatar
   static FcAvatar custom({

@@ -3,7 +3,7 @@ import '../../design_system/design_system.dart';
 import '../atoms/fc_input_field.dart';
 import 'fc_input_field_with_label.dart';
 
-/// Flashcard Password Input Field Component (Molecule)
+/// Sparkweaver Password Input Field Component (Molecule)
 ///
 /// A labeled password input with an eye-icon suffix that toggles between
 /// obscured (`••••••••`) and clear text. Composes [FcInputFieldWithLabel]
@@ -98,8 +98,8 @@ class _FcPasswordInputFieldState extends State<FcPasswordInputField> {
       textInputAction: widget.textInputAction,
       obscureText: _isObscured,
       suffixIcon: _isObscured
-          ? FlashcardIcons.actionVisibility
-          : FlashcardIcons.actionVisibilityOff,
+          ? SparkweaverIcons.actionVisibility
+          : SparkweaverIcons.actionVisibilityOff,
       onSuffixIconPressed: widget.enabled ? _toggle : null,
     );
   }

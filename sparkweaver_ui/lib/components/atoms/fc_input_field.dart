@@ -31,7 +31,7 @@ enum FcInputState {
   disabled,
 }
 
-/// Flashcard Input Field Component (Atom)
+/// Sparkweaver Input Field Component (Atom)
 ///
 /// A reusable input field with consistent styling and variants.
 ///
@@ -192,7 +192,7 @@ class FcInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return TextField(
       controller: controller,
       focusNode: focusNode,
@@ -206,34 +206,28 @@ class FcInputField extends StatelessWidget {
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
       onSubmitted: onSubmitted,
-      style: FlashcardTypography.bodyMedium.copyWith(
+      style: SparkweaverTypography.bodyMedium.copyWith(
         color: enabled ? colors.textPrimary : colors.textDisabled,
       ),
       decoration: InputDecoration(
         labelText: labelText,
-        labelStyle: FlashcardTypography.bodyMedium.copyWith(
-          color: errorText != null
-              ? colors.error
-              : colors.textSecondary,
+        labelStyle: SparkweaverTypography.bodyMedium.copyWith(
+          color: errorText != null ? colors.error : colors.textSecondary,
         ),
         hintText: hintText,
-        hintStyle: FlashcardTypography.bodyMedium.copyWith(
+        hintStyle: SparkweaverTypography.bodyMedium.copyWith(
           color: colors.textHint,
         ),
         helperText: errorText == null ? helperText : null,
-        helperStyle: FlashcardTypography.caption.copyWith(
+        helperStyle: SparkweaverTypography.caption.copyWith(
           color: colors.textSecondary,
         ),
         errorText: errorText,
-        errorStyle: FlashcardTypography.caption.copyWith(
-          color: colors.error,
-        ),
+        errorStyle: SparkweaverTypography.caption.copyWith(color: colors.error),
         prefixIcon: prefixIcon != null
             ? Icon(
                 prefixIcon,
-                color: errorText != null
-                    ? colors.error
-                    : colors.textSecondary,
+                color: errorText != null ? colors.error : colors.textSecondary,
               )
             : null,
         suffixIcon: suffixIcon != null
@@ -249,51 +243,37 @@ class FcInputField extends StatelessWidget {
             : null,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: colors.borderLight,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: colors.borderLight, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: colors.borderLight,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: colors.borderLight, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: errorText != null
-                ? colors.error
-                : colors.primary,
+            color: errorText != null ? colors.error : colors.primary,
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: colors.error,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: colors.error, width: 1),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: colors.error,
-            width: 2,
-          ),
+          borderSide: BorderSide(color: colors.error, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: colors.borderLight,
-            width: 1,
-          ),
+          borderSide: BorderSide(color: colors.borderLight, width: 1),
         ),
         filled: true,
         fillColor: enabled ? colors.white : colors.gray100,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
       ),
     );
   }

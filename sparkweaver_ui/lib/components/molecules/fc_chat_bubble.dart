@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
-import '../../design_system/color_scheme.dart';
+import '../../design_system/theme.dart';
 import '../../design_system/markdown_style.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
@@ -97,38 +97,36 @@ class FcChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
-    final bubbleColor = backgroundColor ??
-        (isUser
-            ? colors.userMessageBg
-            : colors.aiMessageBg);
+    final colors = SparkweaverTheme.of(context);
+    final bubbleColor =
+        backgroundColor ?? (isUser ? colors.userMessageBg : colors.aiMessageBg);
 
-    final bubbleBorderColor = borderColor ??
-        (isUser
-            ? colors.primary30
-            : colors.gray30);
+    final bubbleBorderColor =
+        borderColor ?? (isUser ? colors.primary30 : colors.gray30);
 
     final textColor = isUser ? colors.primary : colors.textPrimary;
 
     return Padding(
-      padding: FlashcardSpacing.chatBubbleMargin,
+      padding: SparkweaverSpacing.chatBubbleMargin,
       child: Row(
-        mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // AI Avatar (left side)
           if (!isUser) ...[
             avatar ?? _buildDefaultAvatar(context: context, isAi: true),
-            FlashcardSpacing.horizontalSpaceSm,
+            SparkweaverSpacing.horizontalSpaceSm,
           ],
 
           // Message Content
           Flexible(
             child: Container(
-              padding: FlashcardSpacing.chatBubblePadding,
+              padding: SparkweaverSpacing.chatBubblePadding,
               decoration: BoxDecoration(
                 color: bubbleColor,
-                borderRadius: FlashcardTokens.chatBubbleRadius,
+                borderRadius: SparkweaverTokens.chatBubbleRadius,
                 border: Border.all(color: bubbleBorderColor),
               ),
               child: Column(
@@ -138,30 +136,38 @@ class FcChatBubble extends StatelessWidget {
                   interpretMarkdown
                       ? MarkdownBody(
                           data: message,
-                          styleSheet: FlashcardMarkdownStyle.forBody(
-                            baseStyle: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
-                              color: textColor,
-                              fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
-                            ),
+                          styleSheet: SparkweaverMarkdownStyle.forBody(
+                            baseStyle:
+                                (messageStyle ?? SparkweaverTypography.chatUser)
+                                    .copyWith(
+                                      color: textColor,
+                                      fontStyle: isTyping
+                                          ? FontStyle.italic
+                                          : FontStyle.normal,
+                                    ),
                             textColor: textColor,
                           ),
                         )
                       : Text(
                           message,
-                          style: (messageStyle ?? FlashcardTypography.chatUser).copyWith(
-                            color: textColor,
-                            fontStyle: isTyping ? FontStyle.italic : FontStyle.normal,
-                          ),
+                          style:
+                              (messageStyle ?? SparkweaverTypography.chatUser)
+                                  .copyWith(
+                                    color: textColor,
+                                    fontStyle: isTyping
+                                        ? FontStyle.italic
+                                        : FontStyle.normal,
+                                  ),
                         ),
 
                   // Multiple-choice options (AI messages only). Rendered as
                   // ChoiceChips; disabled when [onOptionSelected] is null
                   // (scrollback view of an already-answered question).
                   if (!isUser && options != null && options!.isNotEmpty) ...[
-                    FlashcardSpacing.verticalSpaceSm,
+                    SparkweaverSpacing.verticalSpaceSm,
                     Wrap(
-                      spacing: FlashcardSpacing.xs,
-                      runSpacing: FlashcardSpacing.xs,
+                      spacing: SparkweaverSpacing.xs,
+                      runSpacing: SparkweaverSpacing.xs,
                       children: List<Widget>.generate(options!.length, (i) {
                         final isSelected = selectedOptionIndex == i;
                         return ChoiceChip(
@@ -172,7 +178,7 @@ class FcChatBubble extends StatelessWidget {
                               : (_) => onOptionSelected!(i),
                           selectedColor: colors.primary30,
                           backgroundColor: colors.aiMessageBg,
-                          labelStyle: FlashcardTypography.bodyMedium.copyWith(
+                          labelStyle: SparkweaverTypography.bodyMedium.copyWith(
                             color: isSelected ? colors.primary : textColor,
                           ),
                           side: BorderSide(color: colors.primary30),
@@ -182,13 +188,20 @@ class FcChatBubble extends StatelessWidget {
                   ],
 
                   // File References (AI messages only)
-                  if (!isUser && referencedFiles != null && referencedFiles!.isNotEmpty) ...[
-                    FlashcardSpacing.verticalSpaceSm,
+                  if (!isUser &&
+                      referencedFiles != null &&
+                      referencedFiles!.isNotEmpty) ...[
+                    SparkweaverSpacing.verticalSpaceSm,
                     Wrap(
-                      spacing: FlashcardSpacing.xs,
-                      runSpacing: FlashcardSpacing.xs,
+                      spacing: SparkweaverSpacing.xs,
+                      runSpacing: SparkweaverSpacing.xs,
                       children: referencedFiles!
-                          .map((filename) => FcBadgeVariants.file(filename: filename, context: context))
+                          .map(
+                            (filename) => FcBadgeVariants.file(
+                              filename: filename,
+                              context: context,
+                            ),
+                          )
                           .toList(),
                     ),
                   ],
@@ -199,7 +212,7 @@ class FcChatBubble extends StatelessWidget {
 
           // User Avatar (right side)
           if (isUser) ...[
-            FlashcardSpacing.horizontalSpaceSm,
+            SparkweaverSpacing.horizontalSpaceSm,
             avatar ?? _buildDefaultAvatar(context: context, isAi: false),
           ],
         ],
@@ -208,12 +221,14 @@ class FcChatBubble extends StatelessWidget {
   }
 
   /// Builds the default avatar widget
-  Widget _buildDefaultAvatar({required BuildContext context, required bool isAi}) {
+  Widget _buildDefaultAvatar({
+    required BuildContext context,
+    required bool isAi,
+  }) {
     return isAi
-        ? FcAvatar.ai(size: FlashcardTokens.avatarSm, context: context)
-        : FcAvatar.user(size: FlashcardTokens.avatarSm, context: context);
+        ? FcAvatar.ai(size: SparkweaverTokens.avatarSm, context: context)
+        : FcAvatar.user(size: SparkweaverTokens.avatarSm, context: context);
   }
-
 }
 
 /// Predefined chat bubble variants

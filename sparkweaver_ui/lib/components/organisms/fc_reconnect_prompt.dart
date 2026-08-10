@@ -4,7 +4,7 @@ import '../atoms/fc_button.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 
-/// Flashcard Reconnect Prompt Component (Organism)
+/// Sparkweaver Reconnect Prompt Component (Organism)
 ///
 /// Displays a persistent prompt for live/streaming features (e.g. chat,
 /// voice) when a transport connection has dropped. Shows an icon, a
@@ -52,24 +52,20 @@ class FcReconnectPrompt extends StatelessWidget {
     this.buttonLabel = 'Reconnect',
     required this.onReconnect,
     this.isReconnecting = false,
-    this.padding = FlashcardSpacing.edgeInsetsLg,
+    this.padding = SparkweaverSpacing.edgeInsetsLg,
   });
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Padding(
       padding: padding,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          FcIcon(
-            icon,
-            size: FcIconSize.xLarge,
-            color: colors.error,
-          ),
-          FlashcardSpacing.verticalSpaceSm,
+          FcIcon(icon, size: FcIconSize.xLarge, color: colors.error),
+          SparkweaverSpacing.verticalSpaceSm,
           FcText(
             title,
             style: FcTextStyle.heading5,
@@ -77,7 +73,7 @@ class FcReconnectPrompt extends StatelessWidget {
             color: colors.textPrimary,
           ),
           if (subtitle != null) ...[
-            FlashcardSpacing.verticalSpaceXs,
+            SparkweaverSpacing.verticalSpaceXs,
             FcText(
               subtitle!,
               style: FcTextStyle.bodySmall,
@@ -85,7 +81,7 @@ class FcReconnectPrompt extends StatelessWidget {
               color: colors.textSecondary,
             ),
           ],
-          FlashcardSpacing.verticalSpaceMd,
+          SparkweaverSpacing.verticalSpaceMd,
           FcButton(
             label: buttonLabel,
             icon: Icons.refresh,

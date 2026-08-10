@@ -25,7 +25,7 @@ class FcDrawerItem {
   });
 }
 
-/// Flashcard App Drawer Component (Organism)
+/// Sparkweaver App Drawer Component (Organism)
 ///
 /// A reusable side drawer with a user header, an optional list of
 /// navigation items, and a free-form footer slot.
@@ -97,11 +97,11 @@ class FcAppDrawer extends StatelessWidget {
     this.userNameTrailing,
     this.items = const [],
     this.footer,
-    this.padding = FlashcardSpacing.edgeInsetsLg,
+    this.padding = SparkweaverSpacing.edgeInsetsLg,
   });
 
   Widget _buildItem(BuildContext context, FcDrawerItem item) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return ListTile(
       leading: Icon(item.icon, color: colors.textPrimary),
       title: FcText(
@@ -130,7 +130,7 @@ class FcAppDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Flexible(child: nameText),
-              FlashcardSpacing.horizontalSpaceSm,
+              SparkweaverSpacing.horizontalSpaceSm,
               userNameTrailing!,
             ],
           );
@@ -140,10 +140,10 @@ class FcAppDrawer extends StatelessWidget {
     }
 
     return InkWell(
-      borderRadius: FlashcardTokens.borderRadiusMd,
+      borderRadius: SparkweaverTokens.borderRadiusMd,
       onTap: onUserNameTap,
       child: Padding(
-        padding: FlashcardSpacing.inputPaddingInsets,
+        padding: SparkweaverSpacing.inputPaddingInsets,
         child: nameRow,
       ),
     );
@@ -151,8 +151,8 @@ class FcAppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final avatar = userAvatar ??
-        FcAvatar.user(context: context, size: FcAvatarSizes.xxl);
+    final avatar =
+        userAvatar ?? FcAvatar.user(context: context, size: FcAvatarSizes.xxl);
 
     return Drawer(
       child: SafeArea(
@@ -165,10 +165,10 @@ class FcAppDrawer extends StatelessWidget {
                 child: Column(
                   children: [
                     avatar,
-                    FlashcardSpacing.verticalSpaceMd,
+                    SparkweaverSpacing.verticalSpaceMd,
                     _buildUserName(context),
                     if (userSubtitle != null) ...[
-                      FlashcardSpacing.verticalSpaceXs,
+                      SparkweaverSpacing.verticalSpaceXs,
                       FcText(
                         userSubtitle!,
                         style: FcTextStyle.bodySmall,
@@ -179,7 +179,7 @@ class FcAppDrawer extends StatelessWidget {
                 ),
               ),
               if (items.isNotEmpty) ...[
-                FlashcardSpacing.verticalSpaceLg,
+                SparkweaverSpacing.verticalSpaceLg,
                 const Divider(),
                 ...items.map((item) => _buildItem(context, item)),
               ],

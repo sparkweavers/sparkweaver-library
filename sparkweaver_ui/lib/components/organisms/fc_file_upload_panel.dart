@@ -77,12 +77,10 @@ class FcFileUploadPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -92,15 +90,9 @@ class FcFileUploadPanel extends StatelessWidget {
             // Header
             Row(
               children: [
-                FcIcon(
-                  Icons.upload_file,
-                  color: colors.primary,
-                ),
+                FcIcon(Icons.upload_file, color: colors.primary),
                 const SizedBox(width: 8),
-                FcText(
-                  title,
-                  style: FcTextStyle.heading4,
-                ),
+                FcText(title, style: FcTextStyle.heading4),
               ],
             ),
 
@@ -128,10 +120,7 @@ class FcFileUploadPanel extends StatelessWidget {
             // Status Message
             if (statusMessage != null && statusVariant != null) ...[
               const SizedBox(height: 12),
-              FcStatusMessage(
-                message: statusMessage!,
-                variant: statusVariant!,
-              ),
+              FcStatusMessage(message: statusMessage!, variant: statusVariant!),
             ],
 
             // Uploaded Files List
@@ -139,10 +128,7 @@ class FcFileUploadPanel extends StatelessWidget {
               const SizedBox(height: 16),
               const Divider(),
               const SizedBox(height: 8),
-              FcText(
-                'Uploaded Files:',
-                style: FcTextStyle.labelMedium,
-              ),
+              FcText('Uploaded Files:', style: FcTextStyle.labelMedium),
               const SizedBox(height: 8),
               ...uploadedFiles!.asMap().entries.map((entry) {
                 final index = entry.key;
@@ -152,7 +138,9 @@ class FcFileUploadPanel extends StatelessWidget {
                   child: FcFileListItem(
                     filename: file.filename,
                     metadata: file.size,
-                    actionIcon: onFileRemove != null ? Icons.delete_outline : null,
+                    actionIcon: onFileRemove != null
+                        ? Icons.delete_outline
+                        : null,
                     onActionPressed: onFileRemove != null
                         ? () => onFileRemove!(index)
                         : null,
@@ -184,8 +172,5 @@ class FileInfo {
   final String filename;
   final String size;
 
-  const FileInfo({
-    required this.filename,
-    required this.size,
-  });
+  const FileInfo({required this.filename, required this.size});
 }

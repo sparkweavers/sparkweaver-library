@@ -36,7 +36,7 @@ enum FcTextStyle {
   overline,
 }
 
-/// Flashcard Text Component (Atom)
+/// Sparkweaver Text Component (Atom)
 ///
 /// A reusable text component using the design system typography.
 /// Replaces MenduText from ai-flash-card with design system integration.
@@ -101,64 +101,64 @@ class FcText extends StatelessWidget {
 
     switch (style) {
       case FcTextStyle.displayLarge:
-        baseStyle = FlashcardTypography.displayLarge;
+        baseStyle = SparkweaverTypography.displayLarge;
         break;
       case FcTextStyle.displayMedium:
-        baseStyle = FlashcardTypography.displayMedium;
+        baseStyle = SparkweaverTypography.displayMedium;
         break;
       case FcTextStyle.displaySmall:
-        baseStyle = FlashcardTypography.displaySmall;
+        baseStyle = SparkweaverTypography.displaySmall;
         break;
       case FcTextStyle.heading1:
-        baseStyle = FlashcardTypography.heading1;
+        baseStyle = SparkweaverTypography.heading1;
         break;
       case FcTextStyle.heading2:
-        baseStyle = FlashcardTypography.heading2;
+        baseStyle = SparkweaverTypography.heading2;
         break;
       case FcTextStyle.heading3:
-        baseStyle = FlashcardTypography.heading3;
+        baseStyle = SparkweaverTypography.heading3;
         break;
       case FcTextStyle.heading4:
-        baseStyle = FlashcardTypography.heading4;
+        baseStyle = SparkweaverTypography.heading4;
         break;
       case FcTextStyle.heading5:
-        baseStyle = FlashcardTypography.heading5;
+        baseStyle = SparkweaverTypography.heading5;
         break;
       case FcTextStyle.heading6:
-        baseStyle = FlashcardTypography.heading6;
+        baseStyle = SparkweaverTypography.heading6;
         break;
       case FcTextStyle.bodyLarge:
-        baseStyle = FlashcardTypography.bodyLarge;
+        baseStyle = SparkweaverTypography.bodyLarge;
         break;
       case FcTextStyle.bodyMedium:
-        baseStyle = FlashcardTypography.bodyMedium;
+        baseStyle = SparkweaverTypography.bodyMedium;
         break;
       case FcTextStyle.bodySmall:
-        baseStyle = FlashcardTypography.bodySmall;
+        baseStyle = SparkweaverTypography.bodySmall;
         break;
       case FcTextStyle.labelLarge:
-        baseStyle = FlashcardTypography.labelLarge;
+        baseStyle = SparkweaverTypography.labelLarge;
         break;
       case FcTextStyle.labelMedium:
-        baseStyle = FlashcardTypography.labelMedium;
+        baseStyle = SparkweaverTypography.labelMedium;
         break;
       case FcTextStyle.labelSmall:
-        baseStyle = FlashcardTypography.labelSmall;
+        baseStyle = SparkweaverTypography.labelSmall;
         break;
       case FcTextStyle.caption:
-        baseStyle = FlashcardTypography.caption;
+        baseStyle = SparkweaverTypography.caption;
         break;
       case FcTextStyle.captionSmall:
-        baseStyle = FlashcardTypography.captionSmall;
+        baseStyle = SparkweaverTypography.captionSmall;
         break;
       case FcTextStyle.button:
-        baseStyle = FlashcardTypography.button;
+        baseStyle = SparkweaverTypography.button;
         break;
       case FcTextStyle.link:
-        baseStyle = FlashcardTypography.link;
+        baseStyle = SparkweaverTypography.link;
         break;
       case FcTextStyle.overline:
-        baseStyle = FlashcardTypography.overline;
+        baseStyle = SparkweaverTypography.overline;
         break;
     }
 

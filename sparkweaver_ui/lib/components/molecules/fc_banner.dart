@@ -18,10 +18,10 @@ enum FcBannerVariant {
   info,
 }
 
-/// Flashcard Banner Component (Molecule)
+/// Sparkweaver Banner Component (Molecule)
 ///
 /// A full-width banner for displaying important messages at the top of the screen.
-/// Similar to MaterialBanner but using Flashcard UI design system.
+/// Similar to MaterialBanner but using Sparkweaver UI design system.
 ///
 /// ## Usage
 ///
@@ -71,7 +71,7 @@ class FcBanner extends MaterialBanner {
   /// before the banner is ever laid out — there is no `build(context)`
   /// to hook into here the way there is for a plain [StatelessWidget].
   /// So every factory takes the caller's [BuildContext] and resolves the
-  /// themed variant colour up front, via [FlashcardColorScheme.of]. The
+  /// themed variant colour up front, via [SparkweaverTheme.of]. The
   /// call site already has one on hand: it's the same context used for
   /// `ScaffoldMessenger.of(context)`.
   FcBanner._({
@@ -83,7 +83,7 @@ class FcBanner extends MaterialBanner {
   }) : super(
          content: _BannerContent(message: message, variant: variant),
          backgroundColor: _getBackgroundColor(
-           FlashcardColorScheme.of(context),
+           SparkweaverTheme.of(context),
            variant,
          ),
          actions: [
@@ -95,7 +95,7 @@ class FcBanner extends MaterialBanner {
                  // White stays literal: it is the foreground for a
                  // filled, saturated banner background in both themes,
                  // not a surface colour that should track brightness.
-                 style: FlashcardTypography.labelMedium.copyWith(
+                 style: SparkweaverTypography.labelMedium.copyWith(
                    color: SparkweaverColors.white,
                  ),
                ),
@@ -169,7 +169,7 @@ class FcBanner extends MaterialBanner {
 
   /// Get background color for variant
   static Color _getBackgroundColor(
-    FlashcardColorScheme colors,
+    SparkweaverTheme colors,
     FcBannerVariant variant,
   ) {
     switch (variant) {

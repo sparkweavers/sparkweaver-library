@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../design_system/color_scheme.dart';
+import '../../design_system/theme.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 
@@ -26,7 +26,7 @@ enum FcCardVariant {
 /// [SparkweaverColors] palette. Those constants do not change with the
 /// theme, so every such card stayed light when the consuming app switched
 /// to dark mode. [FcCard] resolves its colours through
-/// [FlashcardColorScheme], so a card is correct in both themes and there is
+/// [SparkweaverTheme], so a card is correct in both themes and there is
 /// one place to change if that ever needs revisiting.
 ///
 /// Usage:
@@ -43,7 +43,7 @@ class FcCard extends StatelessWidget {
     super.key,
     required this.child,
     this.variant = FcCardVariant.surface,
-    this.padding = FlashcardSpacing.edgeInsetsLg,
+    this.padding = SparkweaverSpacing.edgeInsetsLg,
     this.width,
   });
 
@@ -61,7 +61,7 @@ class FcCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     final isSurface = variant == FcCardVariant.surface;
 
     return Container(
@@ -69,7 +69,7 @@ class FcCard extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         color: isSurface ? colors.surface : colors.surfaceVariant,
-        borderRadius: FlashcardTokens.cardRadius,
+        borderRadius: SparkweaverTokens.cardRadius,
         border: isSurface ? Border.all(color: colors.primaryLight) : null,
       ),
       child: child,

@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 
-/// Flashcard UI Design System - Spacing
+/// Sparkweaver UI Design System - Spacing
 ///
 /// Defines the spacing system for consistent layout and padding.
 /// Uses a scale based on multiples of 4 for rhythm and consistency.
-class FlashcardSpacing {
-  FlashcardSpacing._();
+class SparkweaverSpacing {
+  SparkweaverSpacing._();
 
   // ============================================================
   // Base Spacing Unit
@@ -182,9 +182,7 @@ class FlashcardSpacing {
   );
 
   /// Chat bubble margin (vertical: 4px)
-  static const EdgeInsets chatBubbleMargin = EdgeInsets.symmetric(
-    vertical: xs,
-  );
+  static const EdgeInsets chatBubbleMargin = EdgeInsets.symmetric(vertical: xs);
 
   /// Badge padding (all: 6px)
   static const EdgeInsets badgePadding = EdgeInsets.all(6.0);

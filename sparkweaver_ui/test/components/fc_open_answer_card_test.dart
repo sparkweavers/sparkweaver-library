@@ -96,7 +96,7 @@ void main() {
           ),
         );
 
-        final dark = FlashcardColorScheme.dark();
+        final dark = SparkweaverTheme.dark();
 
         final questionCard = tester
             .widgetList<Container>(find.byType(Container))

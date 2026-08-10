@@ -140,7 +140,7 @@ void main() {
           ),
         );
 
-        final dark = FlashcardColorScheme.dark();
+        final dark = SparkweaverTheme.dark();
 
         final questionCard = tester
             .widgetList<Container>(find.byType(Container))
@@ -188,7 +188,7 @@ void main() {
           ),
         );
 
-        final colors = FlashcardColorScheme.light();
+        final colors = SparkweaverTheme.light();
 
         expect(backgroundColorFor(tester, 'Skinner'), colors.success);
         expect(backgroundColorFor(tester, 'Pawlow'), colors.error);
@@ -210,7 +210,7 @@ void main() {
         ),
       );
 
-      final colors = FlashcardColorScheme.light();
+      final colors = SparkweaverTheme.light();
 
       for (final label in ['Freud', 'Watson']) {
         expect(backgroundColorFor(tester, label), colors.surface);
@@ -263,7 +263,7 @@ void main() {
         ),
       );
 
-      final colors = FlashcardColorScheme.light();
+      final colors = SparkweaverTheme.light();
       expect(backgroundColorFor(tester, 'Skinner'), colors.primary);
     });
   });

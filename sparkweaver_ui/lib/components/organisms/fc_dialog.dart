@@ -6,7 +6,7 @@ import '../atoms/fc_icon.dart';
 import '../atoms/fc_input_field.dart';
 import '../molecules/fc_input_field_with_label.dart';
 
-/// Flashcard Confirmation Dialog (Organism)
+/// Sparkweaver Confirmation Dialog (Organism)
 ///
 /// A simple confirmation dialog with title, message, and action buttons.
 ///
@@ -60,30 +60,22 @@ class FcConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return AlertDialog(
       title: Row(
         children: [
           if (icon != null) ...[
             FcIcon(
               icon!,
-              color: iconColor ??
-                  (isDestructive ? colors.error : colors.primary),
+              color:
+                  iconColor ?? (isDestructive ? colors.error : colors.primary),
             ),
             const SizedBox(width: 12),
           ],
-          Expanded(
-            child: FcText(
-              title,
-              style: FcTextStyle.heading3,
-            ),
-          ),
+          Expanded(child: FcText(title, style: FcTextStyle.heading3)),
         ],
       ),
-      content: FcText(
-        message,
-        style: FcTextStyle.bodyMedium,
-      ),
+      content: FcText(message, style: FcTextStyle.bodyMedium),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, false),
@@ -124,7 +116,7 @@ class DialogInputField {
   });
 }
 
-/// Flashcard Form Dialog (Organism)
+/// Sparkweaver Form Dialog (Organism)
 ///
 /// A dialog with input fields and submit/cancel buttons.
 ///
@@ -217,12 +209,9 @@ class _FcFormDialogState extends State<FcFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return AlertDialog(
-      title: FcText(
-        widget.title,
-        style: FcTextStyle.heading3,
-      ),
+      title: FcText(widget.title, style: FcTextStyle.heading3),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -260,7 +249,7 @@ class _FcFormDialogState extends State<FcFormDialog> {
   }
 }
 
-/// Flashcard Alert Dialog (Organism)
+/// Sparkweaver Alert Dialog (Organism)
 ///
 /// A simple alert dialog with icon, message, and OK button.
 ///
@@ -304,29 +293,18 @@ class FcAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return AlertDialog(
       title: Row(
         children: [
           if (icon != null) ...[
-            FcIcon(
-              icon!,
-              color: iconColor ?? colors.primary,
-            ),
+            FcIcon(icon!, color: iconColor ?? colors.primary),
             const SizedBox(width: 12),
           ],
-          Expanded(
-            child: FcText(
-              title,
-              style: FcTextStyle.heading3,
-            ),
-          ),
+          Expanded(child: FcText(title, style: FcTextStyle.heading3)),
         ],
       ),
-      content: FcText(
-        message,
-        style: FcTextStyle.bodyMedium,
-      ),
+      content: FcText(message, style: FcTextStyle.bodyMedium),
       actions: [
         FcButton(
           label: okLabel,

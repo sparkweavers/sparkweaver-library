@@ -85,9 +85,9 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Padding(
-      padding: FlashcardSpacing.edgeInsetsLg,
+      padding: SparkweaverSpacing.edgeInsetsLg,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -95,22 +95,22 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
           if (widget.progressLabel != null) ...[
             Text(
               widget.progressLabel!,
-              style: FlashcardTypography.labelSmall.copyWith(
+              style: SparkweaverTypography.labelSmall.copyWith(
                 color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
-            FlashcardSpacing.verticalSpaceSm,
+            SparkweaverSpacing.verticalSpaceSm,
           ],
           FcCard(
             child: Text(
               widget.question,
-              style: FlashcardTypography.heading4.copyWith(
+              style: SparkweaverTypography.heading4.copyWith(
                 color: colors.textPrimary,
               ),
             ),
           ),
-          FlashcardSpacing.verticalSpaceMd,
+          SparkweaverSpacing.verticalSpaceMd,
           FcInputField(
             controller: _controller,
             type: FcInputType.multiline,
@@ -119,22 +119,22 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
             maxLines: 8,
             hintText: 'Type your answer…',
           ),
-          FlashcardSpacing.verticalSpaceMd,
+          SparkweaverSpacing.verticalSpaceMd,
           FcButton(
             label: widget.submitLabel,
             fullWidth: true,
             onPressed: widget.locked ? null : _handleSubmit,
           ),
           if (widget.feedback != null && widget.feedback!.isNotEmpty) ...[
-            FlashcardSpacing.verticalSpaceMd,
+            SparkweaverSpacing.verticalSpaceMd,
             FcCard(
               variant: FcCardVariant.muted,
               width: double.infinity,
-              padding: FlashcardSpacing.edgeInsetsMd,
+              padding: SparkweaverSpacing.edgeInsetsMd,
               child: MarkdownBody(
                 data: widget.feedback!,
-                styleSheet: FlashcardMarkdownStyle.forBody(
-                  baseStyle: FlashcardTypography.bodyMedium.copyWith(
+                styleSheet: SparkweaverMarkdownStyle.forBody(
+                  baseStyle: SparkweaverTypography.bodyMedium.copyWith(
                     color: colors.textPrimary,
                   ),
                   textColor: colors.textPrimary,

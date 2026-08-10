@@ -140,7 +140,7 @@ void main() {
         final textFinder = find.text('Your answer: wrong option');
         expect(textFinder, findsOneWidget);
         final textWidget = tester.widget<Text>(textFinder);
-        expect(textWidget.style?.color, FlashcardColorScheme.light().error);
+        expect(textWidget.style?.color, SparkweaverTheme.light().error);
       },
     );
 
@@ -241,7 +241,7 @@ void main() {
           ),
         );
 
-        final dark = FlashcardColorScheme.dark();
+        final dark = SparkweaverTheme.dark();
 
         // The score card is an FcCard(surface): themed surface colour
         // plus a primaryLight border.
@@ -287,7 +287,7 @@ void main() {
           ),
         );
 
-        final dark = FlashcardColorScheme.dark();
+        final dark = SparkweaverTheme.dark();
 
         // The distribution card is an FcCard(muted): themed surfaceVariant
         // colour, no border.

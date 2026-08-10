@@ -34,7 +34,7 @@ enum FcIconVariant {
   info,
 }
 
-/// Flashcard Icon Component (Atom)
+/// Sparkweaver Icon Component (Atom)
 ///
 /// A reusable icon component with consistent sizing and semantic variants.
 ///
@@ -92,7 +92,7 @@ class FcIcon extends StatelessWidget {
   }
 
   Color _getColor(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     // If variant is specified, use semantic colors
     switch (variant) {
       case FcIconVariant.success:

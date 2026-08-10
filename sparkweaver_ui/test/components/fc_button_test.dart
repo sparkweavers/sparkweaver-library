@@ -49,7 +49,7 @@ void main() {
           ),
         );
 
-        final colors = FlashcardColorScheme.light();
+        final colors = SparkweaverTheme.light();
         expect(backgroundColorFor(tester, 'Skinner'), colors.success);
 
         final text = tester.widget<Text>(find.text('Skinner'));
@@ -72,7 +72,7 @@ void main() {
           ),
         );
 
-        final colors = FlashcardColorScheme.light();
+        final colors = SparkweaverTheme.light();
         expect(backgroundColorFor(tester, 'Skinner'), colors.success);
 
         // Blocked by IgnorePointer — Flutter warns that the tap didn't hit
@@ -107,7 +107,7 @@ void main() {
           ),
         );
 
-        final colors = FlashcardColorScheme.light();
+        final colors = SparkweaverTheme.light();
 
         // Revealed: taps are blocked, but the variant colour survives.
         expect(backgroundColorFor(tester, 'Revealed'), colors.success);
@@ -131,7 +131,7 @@ void main() {
         wrap(const FcButton(label: 'Submit', onPressed: null)),
       );
 
-      final colors = FlashcardColorScheme.light();
+      final colors = SparkweaverTheme.light();
       expect(backgroundColorFor(tester, 'Submit'), colors.gray300);
       expect(isEnabledFor(tester, 'Submit'), isFalse);
     });
@@ -158,9 +158,12 @@ void main() {
     );
 
     final material = tester.widget<Material>(
-      find.descendant(of: find.byType(FcButton), matching: find.byType(Material)),
+      find.descendant(
+        of: find.byType(FcButton),
+        matching: find.byType(Material),
+      ),
     );
-    expect(material.color, FlashcardColorScheme.dark().surface);
+    expect(material.color, SparkweaverTheme.dark().surface);
     expect(material.elevation, 0);
   });
 }

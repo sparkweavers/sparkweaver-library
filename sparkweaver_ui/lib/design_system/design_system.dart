@@ -1,4 +1,4 @@
-/// Flashcard UI Design System
+/// Sparkweaver UI Design System
 ///
 /// This file exports all design system components for easy importing.
 ///
@@ -8,14 +8,14 @@
 ///
 /// // Now you can use:
 /// // - SparkweaverColors
-/// // - FlashcardColorScheme
-/// // - FlashcardTypography
-/// // - FlashcardSpacing
-/// // - FlashcardTokens
+/// // - SparkweaverTheme
+/// // - SparkweaverTypography
+/// // - SparkweaverSpacing
+/// // - SparkweaverTokens
 /// ```
 library;
 
-export 'color_scheme.dart';
+export 'theme.dart';
 export 'colors.dart';
 export 'icons.dart';
 export 'markdown_style.dart';

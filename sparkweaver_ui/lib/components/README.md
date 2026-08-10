@@ -83,7 +83,7 @@ Page structures that arrange organisms into layouts.
 
 ## Component Naming
 
-All components are prefixed with `Fc` (Flashcard):
+All components are prefixed with `Fc`:
 - `FcBadge` - Atom
 - `FcChatBubble` - Molecule
 - `FcConversationList` - Organism (future)
