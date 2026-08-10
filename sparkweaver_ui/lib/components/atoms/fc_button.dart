@@ -217,6 +217,12 @@ class FcButton extends StatelessWidget {
       case FcButtonVariant.success:
         return colors.success;
       case FcButtonVariant.outlined:
+        // Filled, not transparent. A transparent fill combined with the
+        // elevation below painted nothing but a drop shadow, which read as
+        // a greyed-out disabled button. surfaceVariant sits one step off
+        // the card's own surface, so the button is visible on a card in
+        // both themes without competing with the filled variants.
+        return colors.surfaceVariant;
       case FcButtonVariant.text:
         return Colors.transparent;
     }
@@ -304,7 +310,13 @@ class FcButton extends StatelessWidget {
         disabledBackgroundColor: colors.gray300,
         disabledForegroundColor: colors.textDisabled,
         padding: _getPadding(),
-        elevation: variant == FcButtonVariant.text ? 0 : 2,
+        // Outlined and text buttons are flat by definition; elevating them
+        // paints a shadow that reads as a disabled block.
+        elevation:
+            variant == FcButtonVariant.text ||
+                variant == FcButtonVariant.outlined
+            ? 0
+            : 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
           side: _getBorderSide(context) ?? BorderSide.none,

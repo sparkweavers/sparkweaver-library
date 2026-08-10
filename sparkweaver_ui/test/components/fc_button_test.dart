@@ -136,4 +136,31 @@ void main() {
       expect(isEnabledFor(tester, 'Submit'), isFalse);
     });
   });
+
+  testWidgets('outlined is a filled, flat button, not a transparent shadow', (
+    tester,
+  ) async {
+    // Regression: outlined used to paint Colors.transparent while still
+    // carrying elevation 2, so all you saw was a drop shadow. On a card that
+    // reads as a greyed-out disabled button, which is what made unanswered
+    // multiple-choice options look locked.
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData.dark(),
+        home: Scaffold(
+          body: FcButton(
+            label: 'Option',
+            variant: FcButtonVariant.outlined,
+            onPressed: () {},
+          ),
+        ),
+      ),
+    );
+
+    final material = tester.widget<Material>(
+      find.descendant(of: find.byType(FcButton), matching: find.byType(Material)),
+    );
+    expect(material.color, FlashcardColorScheme.dark().surfaceVariant);
+    expect(material.elevation, 0);
+  });
 }

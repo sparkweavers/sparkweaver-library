@@ -213,7 +213,7 @@ void main() {
       final colors = FlashcardColorScheme.light();
 
       for (final label in ['Freud', 'Watson']) {
-        expect(backgroundColorFor(tester, label), Colors.transparent);
+        expect(backgroundColorFor(tester, label), colors.surfaceVariant);
         final shape = shapeFor(tester, label) as RoundedRectangleBorder;
         expect(shape.side.color, colors.primary);
 
