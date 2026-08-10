@@ -57,14 +57,49 @@ Widget destructiveButton(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(name: 'Success Button', type: FcButton)
+Widget successButton(BuildContext context) {
+  return Center(
+    child: FcButton(
+      label: 'Correct!',
+      onPressed: () {},
+      variant: FcButtonVariant.success,
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Non-interactive (Revealed) Button', type: FcButton)
+Widget nonInteractiveButton(BuildContext context) {
+  return Center(
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // `interactive: false` keeps the success variant's colour — this is
+        // what a revealed, correct multiple-choice option looks like once
+        // the user has answered. Tapping it does nothing.
+        FcButton(
+          label: 'Correct answer (locked)',
+          onPressed: () {},
+          variant: FcButtonVariant.success,
+          interactive: false,
+        ),
+        const SizedBox(height: 16),
+        // For contrast: a genuinely disabled button of the same variant
+        // falls back to the grey disabled styling instead.
+        const FcButton(
+          label: 'Disabled (for contrast)',
+          onPressed: null,
+          variant: FcButtonVariant.success,
+        ),
+      ],
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Button with Icon', type: FcButton)
 Widget buttonWithIcon(BuildContext context) {
   return Center(
-    child: FcButton(
-      label: 'Upload',
-      icon: Icons.upload,
-      onPressed: () {},
-    ),
+    child: FcButton(label: 'Upload', icon: Icons.upload, onPressed: () {}),
   );
 }
 
@@ -82,33 +117,20 @@ Widget iconOnlyButton(BuildContext context) {
 @widgetbook.UseCase(name: 'Loading Button', type: FcButton)
 Widget loadingButton(BuildContext context) {
   return Center(
-    child: FcButton(
-      label: 'Processing',
-      onPressed: null,
-      isLoading: true,
-    ),
+    child: FcButton(label: 'Processing', onPressed: null, isLoading: true),
   );
 }
 
 @widgetbook.UseCase(name: 'Disabled Button', type: FcButton)
 Widget disabledButton(BuildContext context) {
-  return Center(
-    child: FcButton(
-      label: 'Disabled',
-      onPressed: null,
-    ),
-  );
+  return Center(child: FcButton(label: 'Disabled', onPressed: null));
 }
 
 @widgetbook.UseCase(name: 'Full Width Button', type: FcButton)
 Widget fullWidthButton(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(16),
-    child: FcButton(
-      label: 'Full Width',
-      onPressed: () {},
-      fullWidth: true,
-    ),
+    child: FcButton(label: 'Full Width', onPressed: () {}, fullWidth: true),
   );
 }
 
@@ -118,23 +140,11 @@ Widget buttonSizes(BuildContext context) {
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        FcButton(
-          label: 'Small',
-          onPressed: () {},
-          size: FcButtonSize.small,
-        ),
+        FcButton(label: 'Small', onPressed: () {}, size: FcButtonSize.small),
         const SizedBox(height: 16),
-        FcButton(
-          label: 'Medium',
-          onPressed: () {},
-          size: FcButtonSize.medium,
-        ),
+        FcButton(label: 'Medium', onPressed: () {}, size: FcButtonSize.medium),
         const SizedBox(height: 16),
-        FcButton(
-          label: 'Large',
-          onPressed: () {},
-          size: FcButtonSize.large,
-        ),
+        FcButton(label: 'Large', onPressed: () {}, size: FcButtonSize.large),
       ],
     ),
   );
@@ -148,11 +158,36 @@ Widget allButtonVariants(BuildContext context) {
       runSpacing: 12,
       alignment: WrapAlignment.center,
       children: [
-        FcButton(label: 'Primary', onPressed: () {}, variant: FcButtonVariant.primary),
-        FcButton(label: 'Secondary', onPressed: () {}, variant: FcButtonVariant.secondary),
-        FcButton(label: 'Outlined', onPressed: () {}, variant: FcButtonVariant.outlined),
-        FcButton(label: 'Text', onPressed: () {}, variant: FcButtonVariant.text),
-        FcButton(label: 'Destructive', onPressed: () {}, variant: FcButtonVariant.destructive),
+        FcButton(
+          label: 'Primary',
+          onPressed: () {},
+          variant: FcButtonVariant.primary,
+        ),
+        FcButton(
+          label: 'Secondary',
+          onPressed: () {},
+          variant: FcButtonVariant.secondary,
+        ),
+        FcButton(
+          label: 'Outlined',
+          onPressed: () {},
+          variant: FcButtonVariant.outlined,
+        ),
+        FcButton(
+          label: 'Text',
+          onPressed: () {},
+          variant: FcButtonVariant.text,
+        ),
+        FcButton(
+          label: 'Destructive',
+          onPressed: () {},
+          variant: FcButtonVariant.destructive,
+        ),
+        FcButton(
+          label: 'Success',
+          onPressed: () {},
+          variant: FcButtonVariant.success,
+        ),
       ],
     ),
   );

@@ -7,9 +7,10 @@ import '../atoms/fc_card.dart';
 ///
 /// Displays a question and four selectable options as a vertical stack of
 /// buttons. Tapping an option calls [onSelected] with the option's index.
-/// Once an option is selected the buttons visually freeze — the option
-/// the user picked is highlighted, and the correct option (if [correctIndex]
-/// is provided) is styled to show whether the pick was right.
+/// Once an option is selected the buttons stop responding to taps but keep
+/// their reveal colour — the option the user picked is highlighted, and the
+/// correct option (if [correctIndex] is provided) is styled success (green)
+/// so it stays visible whether the pick was right.
 ///
 /// The widget does not evaluate correctness itself; the caller passes in
 /// [correctIndex] (typically after the server returns evaluation) and
@@ -40,16 +41,17 @@ class FcMcQuestionCard extends StatelessWidget {
   final int? selectedIndex;
 
   /// Index of the correct option, or null if the server hasn't evaluated
-  /// yet. When present, the correct option is highlighted primary and the
-  /// selected-but-wrong option is highlighted destructive.
+  /// yet. When present, the correct option is highlighted success (green)
+  /// and the selected-but-wrong option is highlighted destructive (red).
   final int? correctIndex;
 
   /// Optional feedback text rendered under the options (typically the
   /// LLM's short explanation of why an answer is right or wrong).
   final String? feedback;
 
-  /// Called when the user taps an option. Wired only while [selectedIndex]
-  /// is null — after a pick, taps are ignored.
+  /// Called when the user taps an option. Once [selectedIndex] is set the
+  /// options render `interactive: false` (see [FcButton]), so taps stop
+  /// reaching this callback even though it stays wired.
   final ValueChanged<int> onSelected;
 
   /// Optional short label rendered above the question (for example a
@@ -125,13 +127,18 @@ class FcMcQuestionCard extends StatelessWidget {
       label: options[index],
       variant: variant,
       fullWidth: true,
-      onPressed: locked ? null : () => onSelected(index),
+      // Once locked the callback stays wired — `interactive: false` is what
+      // blocks the tap. Passing `onPressed: null` here would fall back to
+      // FcButton's disabled grey and destroy the reveal colours computed by
+      // `_variantFor` above.
+      interactive: !locked,
+      onPressed: () => onSelected(index),
     );
   }
 
   FcButtonVariant _variantFor(int index) {
     if (correctIndex != null && index == correctIndex) {
-      return FcButtonVariant.primary;
+      return FcButtonVariant.success;
     }
     if (selectedIndex != null && index == selectedIndex) {
       return correctIndex == null
