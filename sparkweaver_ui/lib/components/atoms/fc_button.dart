@@ -219,10 +219,11 @@ class FcButton extends StatelessWidget {
       case FcButtonVariant.outlined:
         // Filled, not transparent. A transparent fill combined with the
         // elevation below painted nothing but a drop shadow, which read as
-        // a greyed-out disabled button. surfaceVariant sits one step off
-        // the card's own surface, so the button is visible on a card in
-        // both themes without competing with the filled variants.
-        return colors.surfaceVariant;
+        // a greyed-out disabled button. `surface` is the neutral fill:
+        // white in light, dark violet in dark, so it lifts off the page
+        // background in both themes without competing with the filled
+        // variants or tinting the button the way surfaceVariant did.
+        return colors.surface;
       case FcButtonVariant.text:
         return Colors.transparent;
     }

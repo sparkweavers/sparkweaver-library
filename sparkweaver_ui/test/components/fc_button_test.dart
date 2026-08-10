@@ -160,7 +160,7 @@ void main() {
     final material = tester.widget<Material>(
       find.descendant(of: find.byType(FcButton), matching: find.byType(Material)),
     );
-    expect(material.color, FlashcardColorScheme.dark().surfaceVariant);
+    expect(material.color, FlashcardColorScheme.dark().surface);
     expect(material.elevation, 0);
   });
 }
