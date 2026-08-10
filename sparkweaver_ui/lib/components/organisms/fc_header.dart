@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_text.dart';
 
-/// Flashcard Header Component (Organism)
+/// Sparkweaver Header Component (Organism)
 ///
 /// A reusable app bar/header with title and customizable actions.
 /// Generic component that can be used across different screens.
@@ -77,15 +77,12 @@ class FcHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return AppBar(
       leading: leading,
-      title: titleWidget ??
-          FcText(
-            title,
-            style: FcTextStyle.heading3,
-            color: colors.textPrimary,
-          ),
+      title:
+          titleWidget ??
+          FcText(title, style: FcTextStyle.heading3, color: colors.textPrimary),
       actions: actions,
       backgroundColor: backgroundColor ?? colors.surface,
       elevation: elevation,

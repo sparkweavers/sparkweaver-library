@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Flashcard Icons
+/// Sparkweaver Icons
 ///
 /// Centralized icon constants for consistent icon usage across the component library.
 /// These constants reference Material Icons and provide semantic naming for common use cases.
@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 /// ## Usage
 ///
 /// ```dart
-/// FcIcon(FlashcardIcons.actionSend)
-/// FcIcon(FlashcardIcons.statusSuccess, variant: FcIconVariant.success)
+/// FcIcon(SparkweaverIcons.actionSend)
+/// FcIcon(SparkweaverIcons.statusSuccess, variant: FcIconVariant.success)
 /// ```
-class FlashcardIcons {
-  FlashcardIcons._();
+class SparkweaverIcons {
+  SparkweaverIcons._();
 
   // ==================== UI Actions ====================
 

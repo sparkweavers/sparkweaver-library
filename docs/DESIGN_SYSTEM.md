@@ -1,6 +1,6 @@
 # Design System & Components
 
-Complete reference for the Flashcard UI design system and component library.
+Complete reference for the Sparkweaver UI design system and component library.
 
 ## Design System
 
@@ -14,7 +14,7 @@ Complete reference for the Flashcard UI design system and component library.
 
 **Variants**
 - Each brand color has `Light`, `Dark` variants
-- Supports light and dark mode (via `FlashcardColorScheme`)
+- Supports light and dark mode (via `SparkweaverTheme`)
 
 **Semantic Colors**
 - `success` (#05764D Green), `error` (#E21C3D Red)
@@ -38,7 +38,7 @@ Complete reference for the Flashcard UI design system and component library.
 **Gradient**
 - `shinyGradient` - Blue to Pink gradient
 
-### Typography (`FlashcardTypography`)
+### Typography (`SparkweaverTypography`)
 
 **Display Styles**
 - `displayLarge` (48px), `displayMedium` (36px), `displaySmall` (32px)
@@ -56,7 +56,7 @@ Complete reference for the Flashcard UI design system and component library.
 - `caption`, `button`, `code`, `link`, `overline`
 - `chatUser`, `chatAi`, `badge`
 
-### Spacing (`FlashcardSpacing`)
+### Spacing (`SparkweaverSpacing`)
 
 **Scale**
 - `xs` (4px), `sm` (8px), `md` (12px), `lg` (16px), `xl` (24px), `xxl` (32px)
@@ -74,7 +74,7 @@ Complete reference for the Flashcard UI design system and component library.
 - `pagePaddingInsets`, `cardPaddingInsets`, `buttonPaddingInsets`
 - `chatBubblePadding`, `badgePadding`
 
-### Tokens (`FlashcardTokens`)
+### Tokens (`SparkweaverTokens`)
 
 **Border Radius**
 - `radiusXs` (2px) to `radiusFull` (9999px)
@@ -246,15 +246,15 @@ Wrap(
 **Using Design System:**
 ```dart
 Container(
-  padding: FlashcardSpacing.edgeInsetsLg,
+  padding: SparkweaverSpacing.edgeInsetsLg,
   decoration: BoxDecoration(
     color: SparkweaverColors.surface,
-    borderRadius: FlashcardTokens.cardRadius,
-    boxShadow: FlashcardTokens.shadowMd,
+    borderRadius: SparkweaverTokens.cardRadius,
+    boxShadow: SparkweaverTokens.shadowMd,
   ),
   child: Text(
     'Card Content',
-    style: FlashcardTypography.bodyMedium,
+    style: SparkweaverTypography.bodyMedium,
   ),
 )
 ```

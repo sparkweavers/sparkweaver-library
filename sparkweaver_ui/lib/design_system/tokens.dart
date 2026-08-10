@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-/// Flashcard UI Design System - Design Tokens
+/// Sparkweaver UI Design System - Design Tokens
 ///
 /// Defines the design tokens for border radius, shadows, elevation,
 /// opacity values, and other visual properties.
-class FlashcardTokens {
-  FlashcardTokens._();
+class SparkweaverTokens {
+  SparkweaverTokens._();
 
   // ============================================================
   // Border Radius
@@ -46,22 +46,34 @@ class FlashcardTokens {
   static const BorderRadius borderRadiusNone = BorderRadius.zero;
 
   /// Small border radius (4px)
-  static const BorderRadius borderRadiusSm = BorderRadius.all(Radius.circular(radiusSm));
+  static const BorderRadius borderRadiusSm = BorderRadius.all(
+    Radius.circular(radiusSm),
+  );
 
   /// Medium border radius (8px)
-  static const BorderRadius borderRadiusMd = BorderRadius.all(Radius.circular(radiusMd));
+  static const BorderRadius borderRadiusMd = BorderRadius.all(
+    Radius.circular(radiusMd),
+  );
 
   /// Large border radius (12px)
-  static const BorderRadius borderRadiusLg = BorderRadius.all(Radius.circular(radiusLg));
+  static const BorderRadius borderRadiusLg = BorderRadius.all(
+    Radius.circular(radiusLg),
+  );
 
   /// Extra large border radius (16px)
-  static const BorderRadius borderRadiusXl = BorderRadius.all(Radius.circular(radiusXl));
+  static const BorderRadius borderRadiusXl = BorderRadius.all(
+    Radius.circular(radiusXl),
+  );
 
   /// 2X large border radius (20px)
-  static const BorderRadius borderRadiusXxl = BorderRadius.all(Radius.circular(radiusXxl));
+  static const BorderRadius borderRadiusXxl = BorderRadius.all(
+    Radius.circular(radiusXxl),
+  );
 
   /// Circular border radius
-  static const BorderRadius borderRadiusFull = BorderRadius.all(Radius.circular(radiusFull));
+  static const BorderRadius borderRadiusFull = BorderRadius.all(
+    Radius.circular(radiusFull),
+  );
 
   // ============================================================
   // Component-Specific Border Radius

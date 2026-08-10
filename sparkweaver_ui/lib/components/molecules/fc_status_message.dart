@@ -18,7 +18,7 @@ enum FcStatusVariant {
   info,
 }
 
-/// Flashcard Status Message Component (Molecule)
+/// Sparkweaver Status Message Component (Molecule)
 ///
 /// A composable status/feedback message combining icon + text.
 /// Used for showing success, error, warning, or info messages.
@@ -121,7 +121,7 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
   }
 
   Color _getBackgroundColor(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     switch (widget.variant) {
       case FcStatusVariant.success:
         return colors.successLight.withValues(alpha: 0.1);
@@ -135,7 +135,7 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
   }
 
   Color _getForegroundColor(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     switch (widget.variant) {
       case FcStatusVariant.success:
         return colors.success;
@@ -169,11 +169,7 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
       ),
       child: Row(
         children: [
-          FcIcon(
-            _getIcon(),
-            size: FcIconSize.medium,
-            color: foregroundColor,
-          ),
+          FcIcon(_getIcon(), size: FcIconSize.medium, color: foregroundColor),
           const SizedBox(width: 12),
           Expanded(
             child: FcText(

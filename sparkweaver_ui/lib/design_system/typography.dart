@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-/// Flashcard UI Design System - Typography
+/// Sparkweaver UI Design System - Typography
 ///
 /// Defines the typography system including font families, sizes, weights,
 /// and predefined text styles for consistent text rendering.
-class FlashcardTypography {
-  FlashcardTypography._();
+class SparkweaverTypography {
+  SparkweaverTypography._();
 
   // ============================================================
   // Font Families

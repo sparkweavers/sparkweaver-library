@@ -71,10 +71,10 @@ class FcMcQuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     final locked = selectedIndex != null;
     return Padding(
-      padding: FlashcardSpacing.edgeInsetsLg,
+      padding: SparkweaverSpacing.edgeInsetsLg,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
@@ -82,35 +82,35 @@ class FcMcQuestionCard extends StatelessWidget {
           if (progressLabel != null) ...[
             Text(
               progressLabel!,
-              style: FlashcardTypography.labelSmall.copyWith(
+              style: SparkweaverTypography.labelSmall.copyWith(
                 color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
-            FlashcardSpacing.verticalSpaceSm,
+            SparkweaverSpacing.verticalSpaceSm,
           ],
           FcCard(
             child: Text(
               question,
-              style: FlashcardTypography.heading4.copyWith(
+              style: SparkweaverTypography.heading4.copyWith(
                 color: colors.textPrimary,
               ),
             ),
           ),
-          FlashcardSpacing.verticalSpaceLg,
+          SparkweaverSpacing.verticalSpaceLg,
           for (var i = 0; i < options.length; i++) ...[
             _optionButton(index: i, locked: locked),
-            if (i < options.length - 1) FlashcardSpacing.verticalSpaceSm,
+            if (i < options.length - 1) SparkweaverSpacing.verticalSpaceSm,
           ],
           if (feedback != null && feedback!.isNotEmpty) ...[
-            FlashcardSpacing.verticalSpaceMd,
+            SparkweaverSpacing.verticalSpaceMd,
             FcCard(
               variant: FcCardVariant.muted,
               width: double.infinity,
-              padding: FlashcardSpacing.edgeInsetsMd,
+              padding: SparkweaverSpacing.edgeInsetsMd,
               child: Text(
                 feedback!,
-                style: FlashcardTypography.bodyMedium.copyWith(
+                style: SparkweaverTypography.bodyMedium.copyWith(
                   color: colors.textPrimary,
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 
-/// Flashcard Flip Card Component (Molecule)
+/// Sparkweaver Flip Card Component (Molecule)
 ///
 /// A two-sided card that flips on tap to reveal its back face. Used in
 /// flashcard-mode learning sessions: the front shows the question, the
@@ -77,23 +77,23 @@ class _FcFlipCardState extends State<FcFlipCard>
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         if (widget.progressLabel != null) ...[
           Padding(
-            padding: FlashcardSpacing.horizontalMd,
+            padding: SparkweaverSpacing.horizontalMd,
             child: Text(
               widget.progressLabel!,
-              style: FlashcardTypography.labelSmall.copyWith(
+              style: SparkweaverTypography.labelSmall.copyWith(
                 color: colors.textSecondary,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          FlashcardSpacing.verticalSpaceSm,
+          SparkweaverSpacing.verticalSpaceSm,
         ],
         GestureDetector(
           onTap: _toggle,
@@ -145,13 +145,13 @@ class _FlipFace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Container(
       constraints: const BoxConstraints(minHeight: 240),
-      padding: FlashcardSpacing.edgeInsetsXl,
+      padding: SparkweaverSpacing.edgeInsetsXl,
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: FlashcardTokens.cardRadius,
+        borderRadius: SparkweaverTokens.cardRadius,
         // Not [FcCard]: both faces keep the purple border regardless of
         // fill colour, so the card reads as one continuous surface while
         // it flips. That always-bordered back face doesn't match either
@@ -166,22 +166,22 @@ class _FlipFace extends StatelessWidget {
         children: [
           Text(
             isBack ? 'Answer' : 'Question',
-            style: FlashcardTypography.labelSmall.copyWith(
+            style: SparkweaverTypography.labelSmall.copyWith(
               color: colors.textSecondary,
             ),
           ),
-          FlashcardSpacing.verticalSpaceSm,
+          SparkweaverSpacing.verticalSpaceSm,
           Text(
             text,
-            style: FlashcardTypography.heading4.copyWith(
+            style: SparkweaverTypography.heading4.copyWith(
               color: colors.textPrimary,
             ),
             textAlign: TextAlign.center,
           ),
-          FlashcardSpacing.verticalSpaceMd,
+          SparkweaverSpacing.verticalSpaceMd,
           Text(
             isBack ? 'Tap to see the question' : 'Tap to reveal the answer',
-            style: FlashcardTypography.bodySmall.copyWith(
+            style: SparkweaverTypography.bodySmall.copyWith(
               color: colors.textSecondary,
             ),
           ),

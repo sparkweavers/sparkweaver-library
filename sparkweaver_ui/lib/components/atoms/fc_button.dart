@@ -36,7 +36,7 @@ enum FcButtonSize {
   large,
 }
 
-/// Flashcard Button Component (Atom)
+/// Sparkweaver Button Component (Atom)
 ///
 /// A reusable button with multiple variants, sizes, and states.
 ///
@@ -186,11 +186,11 @@ class FcButton extends StatelessWidget {
   TextStyle _getTextStyle() {
     switch (size) {
       case FcButtonSize.small:
-        return FlashcardTypography.labelSmall;
+        return SparkweaverTypography.labelSmall;
       case FcButtonSize.medium:
-        return FlashcardTypography.labelMedium;
+        return SparkweaverTypography.labelMedium;
       case FcButtonSize.large:
-        return FlashcardTypography.labelLarge;
+        return SparkweaverTypography.labelLarge;
     }
   }
 
@@ -206,7 +206,7 @@ class FcButton extends StatelessWidget {
   }
 
   Color _getBackgroundColor(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     switch (variant) {
       case FcButtonVariant.primary:
         return colors.primary;
@@ -230,7 +230,7 @@ class FcButton extends StatelessWidget {
   }
 
   Color _getForegroundColor(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     switch (variant) {
       case FcButtonVariant.primary:
       case FcButtonVariant.secondary:
@@ -245,7 +245,7 @@ class FcButton extends StatelessWidget {
   }
 
   BorderSide? _getBorderSide(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     switch (variant) {
       case FcButtonVariant.outlined:
         return BorderSide(color: colors.primary, width: 1);
@@ -260,7 +260,7 @@ class FcButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     Widget buttonChild;
 
     if (isLoading) {

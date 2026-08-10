@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../organisms/fc_header.dart';
 
-/// Flashcard Main Content Template
+/// Sparkweaver Main Content Template
 ///
 /// A standard app screen layout with header, scrollable content, and optional FAB.
 /// Used for most app screens.
@@ -77,17 +77,12 @@ class FcMainContentTemplate extends StatelessWidget {
 
     // Add padding if specified
     if (padding != null) {
-      content = Padding(
-        padding: padding!,
-        child: content,
-      );
+      content = Padding(padding: padding!, child: content);
     }
 
     // Wrap in scroll view if needed
     if (scrollable) {
-      content = SingleChildScrollView(
-        child: content,
-      );
+      content = SingleChildScrollView(child: content);
     }
 
     return Scaffold(

@@ -2,7 +2,7 @@
 
 ## ✅ Project Completed Successfully
 
-A comprehensive Flutter component library with Widgetbook integration has been created for the Flashcard ecosystem.
+A comprehensive Flutter component library with Widgetbook integration has been created for the Sparkweaver ecosystem.
 
 ## 📦 What Was Created
 
@@ -26,7 +26,7 @@ sparkweaver-library/
 │   │   └── sparkweaver_ui_test.dart    # Unit tests
 │   └── pubspec.yaml                   # Package configuration
 │
-├── flashcard_ui_widgetbook/           # Interactive Component Showcase
+├── sparkweaver_widgetbook/           # Interactive Component Showcase
 │   ├── lib/
 │   │   ├── usecases/                  # Component Use Cases
 │   │   │   ├── badge_usecases.dart   # Badge component demos
@@ -41,7 +41,7 @@ sparkweaver-library/
 
 ## 🎨 Design System Components
 
-### 1. Colors (`FlashcardColors`)
+### 1. Colors (`SparkweaverColors`)
 - **Primary Colors**: Primary, secondary with light/dark variants
 - **Semantic Colors**: Success, error, warning, info
 - **Neutral Grays**: 50-900 scale
@@ -51,7 +51,7 @@ sparkweaver-library/
 - **Border Colors**: Light, medium, dark
 - **Opacity Helpers**: Pre-defined opacity variants (10%, 20%, 30%, etc.)
 
-### 2. Typography (`FlashcardTypography`)
+### 2. Typography (`SparkweaverTypography`)
 - **Display Styles**: Large, medium, small (48px, 36px, 32px)
 - **Headings**: H1-H6 (28px down to 14px)
 - **Body Text**: Large, medium, small
@@ -60,14 +60,14 @@ sparkweaver-library/
 - **Special Styles**: Button, code, link, overline
 - **Chat-Specific**: User/AI message text, badge text
 
-### 3. Spacing (`FlashcardSpacing`)
+### 3. Spacing (`SparkweaverSpacing`)
 - **Scale**: xs (4px), sm (8px), md (12px), lg (16px), xl (24px), xxl (32px)
 - **EdgeInsets Presets**: All sides, symmetric horizontal/vertical
 - **SizedBox Presets**: Vertical and horizontal spacing widgets
 - **Component-Specific**: Page, card, button, input, chat bubble padding
 - **Gap Sizes**: For Flex layouts
 
-### 4. Design Tokens (`FlashcardTokens`)
+### 4. Design Tokens (`SparkweaverTokens`)
 - **Border Radius**: xs to xxxl scale, plus component-specific
 - **Border Width**: Thin to extra thick
 - **Elevation**: 0-24dp scale
@@ -136,7 +136,7 @@ FcChatBubbleVariants.ai(
 
 **Running Widgetbook:**
 ```bash
-cd flashcard_ui_widgetbook
+cd sparkweaver_widgetbook
 flutter run
 ```
 
@@ -205,15 +205,15 @@ flutter run
 
    // Replace ChatBubble with FcChatBubble
    // Replace Batch with FcBadge
-   // Use FlashcardColors instead of hardcoded colors
-   // Use FlashcardSpacing instead of hardcoded spacing
+   // Use SparkweaverColors instead of hardcoded colors
+   // Use SparkweaverSpacing instead of hardcoded spacing
    ```
 
 3. **See INTEGRATION_GUIDE.md for detailed migration steps**
 
 ## 🎉 Benefits
 
-1. **Consistency**: Unified design across all Flashcard apps
+1. **Consistency**: Unified design across all Sparkweaver apps
 2. **Maintainability**: Update designs in one place
 3. **Reusability**: Share components across projects
 4. **Documentation**: Interactive Widgetbook showcase
@@ -240,7 +240,7 @@ Potential additions:
 - [Main README](README.md) - Complete documentation
 - [Integration Guide](INTEGRATION_GUIDE.md) - How to use in ai-flash-card
 - [sparkweaver_ui README](sparkweaver_ui/README.md) - Package documentation
-- [Widgetbook README](flashcard_ui_widgetbook/README.md) - Showcase app docs
+- [Widgetbook README](sparkweaver_widgetbook/README.md) - Showcase app docs
 
 ## ✨ Success Criteria Met
 

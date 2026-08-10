@@ -2,7 +2,7 @@
 
 ## Project Purpose
 
-A reusable Flutter UI component library with a complete design system for Flashcard applications. Provides consistent, type-safe components following industry best practices.
+A reusable Flutter UI component library with a complete design system for Sparkweaver applications. Provides consistent, type-safe components following industry best practices.
 
 ## Core Principles (Non-Negotiable)
 
@@ -37,9 +37,9 @@ A reusable Flutter UI component library with a complete design system for Flashc
 
 **Design System Prevents Duplication:**
 - Colors: Use `SparkweaverColors.primary` not `Color(0xFF7F28A8)`
-- Spacing: Use `FlashcardSpacing.edgeInsetsLg` not `EdgeInsets.all(16)`
-- Typography: Use `FlashcardTypography.heading1` not custom TextStyle
-- Tokens: Use `FlashcardTokens.cardRadius` not `BorderRadius.circular(12)`
+- Spacing: Use `SparkweaverSpacing.edgeInsetsLg` not `EdgeInsets.all(16)`
+- Typography: Use `SparkweaverTypography.heading1` not custom TextStyle
+- Tokens: Use `SparkweaverTokens.cardRadius` not `BorderRadius.circular(12)`
 
 **Component Variants Prevent Duplication:**
 - Common configurations become variants
@@ -125,10 +125,10 @@ components/
 **Component File Rules:**
 1. One component per file
 2. Include variants in same file
-3. Prefix all components with `Fc` (Flashcard)
+3. Prefix all components with `Fc`
 4. Use design system tokens, never hardcoded values
 
-### Widgetbook (`flashcard_ui_widgetbook/lib/usecases/`)
+### Widgetbook (`sparkweaver_widgetbook/lib/usecases/`)
 
 **One use case file per component:**
 - `badge_usecases.dart` for FcBadge
@@ -163,7 +163,7 @@ When creating a new component:
 - Variants: `FcComponentNameVariants` (e.g., `FcBadgeVariants`)
 
 **Design System:**
-- Class: `FlashcardCategory` (e.g., `FlashcardColors`)
+- Class: `SparkweaverCategory` (e.g., `SparkweaverColors`)
 - Properties: `camelCase` (e.g., `primaryLight`, `edgeInsetsLg`)
 
 **Files:**
@@ -186,7 +186,7 @@ When creating a new component:
 - Create variants in separate files
 
 ✅ **DO:**
-- Use tokens: `Container(padding: FlashcardSpacing.edgeInsetsLg)`
+- Use tokens: `Container(padding: SparkweaverSpacing.edgeInsetsLg)`
 - Use design system: `color: SparkweaverColors.primary`
 - Keep components focused and small
 - Separate UI from logic
@@ -291,7 +291,7 @@ If ANY answer is "no", refactor before committing.
 - No state management
 - No API calls
 
-**flashcard_ui_widgetbook (Showcase):**
+**sparkweaver_widgetbook (Showcase):**
 - Depends on sparkweaver_ui
 - Only for development and documentation
 - Never imported by consuming apps
@@ -304,4 +304,4 @@ If ANY answer is "no", refactor before committing.
 - **Design system** over hardcoded values
 - **Documentation** over assumptions
 
-Built for the Flashcard ecosystem with ❤️
+Built for the Sparkweaver ecosystem with ❤️

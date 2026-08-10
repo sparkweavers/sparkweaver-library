@@ -3,7 +3,7 @@ import '../../design_system/design_system.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 
-/// Flashcard File List Item Component (Molecule)
+/// Sparkweaver File List Item Component (Molecule)
 ///
 /// A composable file list item showing file icon, name, metadata, and optional action.
 /// Used in file upload panels and file management interfaces.
@@ -75,7 +75,7 @@ class FcFileListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     final item = Container(
       padding: dense
           ? const EdgeInsets.symmetric(vertical: 6, horizontal: 8)

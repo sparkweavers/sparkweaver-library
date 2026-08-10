@@ -1,6 +1,6 @@
-# Flashcard UI
+# Sparkweaver UI
 
-A comprehensive Flutter UI component library with a complete design system for building Flashcard applications.
+A comprehensive Flutter UI component library with a complete design system for building Sparkweaver applications.
 
 ## Features
 
@@ -30,10 +30,10 @@ import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 // Use design system
 Container(
   color: SparkweaverColors.primary,
-  padding: FlashcardSpacing.edgeInsetsLg,
+  padding: SparkweaverSpacing.edgeInsetsLg,
   child: Text(
     'Hello',
-    style: FlashcardTypography.heading1,
+    style: SparkweaverTypography.heading1,
   ),
 )
 
@@ -60,28 +60,28 @@ SparkweaverColors.textPrimary
 ### Typography
 
 ```dart
-FlashcardTypography.heading1
-FlashcardTypography.bodyMedium
-FlashcardTypography.button
+SparkweaverTypography.heading1
+SparkweaverTypography.bodyMedium
+SparkweaverTypography.button
 // ... and many more
 ```
 
 ### Spacing
 
 ```dart
-FlashcardSpacing.edgeInsetsLg
-FlashcardSpacing.verticalSpaceMd
-FlashcardSpacing.horizontalSpaceSm
+SparkweaverSpacing.edgeInsetsLg
+SparkweaverSpacing.verticalSpaceMd
+SparkweaverSpacing.horizontalSpaceSm
 // ... and many more
 ```
 
 ### Design Tokens
 
 ```dart
-FlashcardTokens.cardRadius
-FlashcardTokens.shadowMd
-FlashcardTokens.iconLg
-FlashcardTokens.durationNormal
+SparkweaverTokens.cardRadius
+SparkweaverTokens.shadowMd
+SparkweaverTokens.iconLg
+SparkweaverTokens.durationNormal
 // ... and many more
 ```
 
@@ -115,4 +115,4 @@ See the main [README](../README.md) for complete documentation.
 
 ## License
 
-Part of the Flashcard application suite.
+Part of the Sparkweaver application suite.

@@ -4,7 +4,7 @@ import '../atoms/fc_button.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 
-/// Flashcard Error State Component (Organism)
+/// Sparkweaver Error State Component (Organism)
 ///
 /// Displays an error state with icon, error message, and retry action.
 /// Composed from atoms (Icon, Text, Button).
@@ -66,7 +66,7 @@ class FcErrorState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Center(
       child: Padding(
         padding: padding ?? const EdgeInsets.all(32),

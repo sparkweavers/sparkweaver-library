@@ -5,14 +5,9 @@ import '../organisms/fc_error_state.dart';
 import '../organisms/fc_header.dart';
 
 /// List Detail Template State
-enum FcListState {
-  loading,
-  loaded,
-  empty,
-  error,
-}
+enum FcListState { loading, loaded, empty, error }
 
-/// Flashcard List Detail Template
+/// Sparkweaver List Detail Template
 ///
 /// A master-detail list view template with loading, empty, and error states.
 /// Used for list-based screens with expandable items.
@@ -95,7 +90,8 @@ class FcListDetailTemplate extends StatelessWidget {
     return Scaffold(
       appBar: appBar ?? FcHeader(title: title),
       body: _buildBody(),
-      floatingActionButton: (state == FcListState.loading || state == FcListState.error)
+      floatingActionButton:
+          (state == FcListState.loading || state == FcListState.error)
           ? null
           : floatingActionButton,
       floatingActionButtonLocation: floatingActionButtonLocation,
@@ -105,9 +101,7 @@ class FcListDetailTemplate extends StatelessWidget {
   Widget _buildBody() {
     switch (state) {
       case FcListState.loading:
-        return Center(
-          child: FcLoadingIndicator(size: FcLoadingSize.large),
-        );
+        return Center(child: FcLoadingIndicator(size: FcLoadingSize.large));
 
       case FcListState.error:
         return FcErrorState(

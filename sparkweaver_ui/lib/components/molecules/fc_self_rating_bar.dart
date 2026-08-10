@@ -10,11 +10,7 @@ import '../atoms/fc_button.dart';
 ///
 /// Maps 1:1 to `public.answers.grade` (`smallint 0|1|2`) and drives the
 /// deterministic branch of the LangGraph `answer_evaluator` node.
-enum FcSelfRatingGrade {
-  again,
-  almost,
-  knewIt,
-}
+enum FcSelfRatingGrade { again, almost, knewIt }
 
 /// Convert a grade to its numeric wire value (0, 1, 2). Kept as an
 /// extension so the enum stays UI-friendly while the wire mapping is
@@ -32,7 +28,7 @@ extension FcSelfRatingGradeValue on FcSelfRatingGrade {
   }
 }
 
-/// Flashcard Self-Rating Bar (Molecule)
+/// Sparkweaver Self-Rating Bar (Molecule)
 ///
 /// Three buttons rendered in a row: "Again", "Almost", "Knew it". Tapping
 /// any one calls [onRated] with the corresponding [FcSelfRatingGrade].
@@ -83,7 +79,7 @@ class _FcSelfRatingBarState extends State<FcSelfRatingBar> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: FlashcardSpacing.edgeInsetsMd,
+      padding: SparkweaverSpacing.edgeInsetsMd,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -92,13 +88,13 @@ class _FcSelfRatingBarState extends State<FcSelfRatingBar> {
             variant: FcButtonVariant.destructive,
             grade: FcSelfRatingGrade.again,
           ),
-          FlashcardSpacing.horizontalSpaceSm,
+          SparkweaverSpacing.horizontalSpaceSm,
           _buildButton(
             label: widget.almostLabel,
             variant: FcButtonVariant.outlined,
             grade: FcSelfRatingGrade.almost,
           ),
-          FlashcardSpacing.horizontalSpaceSm,
+          SparkweaverSpacing.horizontalSpaceSm,
           _buildButton(
             label: widget.knewItLabel,
             variant: FcButtonVariant.primary,

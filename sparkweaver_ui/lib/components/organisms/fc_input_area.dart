@@ -19,7 +19,7 @@ enum FcInputAreaType {
   textWithVoice,
 }
 
-/// Flashcard Input Area Component (Organism)
+/// Sparkweaver Input Area Component (Organism)
 ///
 /// A composable input area for chat, messaging, or any input interface.
 /// Combines input field + action button (send/record/attach).
@@ -189,17 +189,12 @@ class _FcInputAreaState extends State<FcInputArea> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Container(
       padding: widget.padding,
       decoration: BoxDecoration(
         color: colors.surface,
-        border: Border(
-          top: BorderSide(
-            color: colors.borderLight,
-            width: 1,
-          ),
-        ),
+        border: Border(top: BorderSide(color: colors.borderLight, width: 1)),
       ),
       child: Row(
         children: [
@@ -233,7 +228,10 @@ class _FcInputAreaState extends State<FcInputArea> {
                 textInputAction: TextInputAction.send,
                 maxLength: widget.maxLength,
                 showCounter: widget.showCounter,
-                enabled: !widget.disabled && !widget.isSending && !widget.isRecording,
+                enabled:
+                    !widget.disabled &&
+                    !widget.isSending &&
+                    !widget.isRecording,
                 onSubmitted: (_) => _handleSend(),
               ),
             ),
@@ -260,7 +258,9 @@ class _FcInputAreaState extends State<FcInputArea> {
             // Send button
             FcButton.icon(
               icon: widget.sendIcon ?? Icons.send,
-              onPressed: widget.disabled || widget.isSending ? null : _handleSend,
+              onPressed: widget.disabled || widget.isSending
+                  ? null
+                  : _handleSend,
               variant: FcButtonVariant.primary,
               isLoading: widget.isSending,
             ),

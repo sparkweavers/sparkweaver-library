@@ -3,7 +3,7 @@ import '../../design_system/design_system.dart';
 import '../atoms/fc_input_field.dart';
 import '../atoms/fc_text.dart';
 
-/// Flashcard Input Field with Label Component (Molecule)
+/// Sparkweaver Input Field with Label Component (Molecule)
 ///
 /// A composable input field with label, helper text, and error message.
 /// Composes FcText + FcInputField for form usage.
@@ -124,7 +124,7 @@ class FcInputFieldWithLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
@@ -139,11 +139,7 @@ class FcInputFieldWithLabel extends StatelessWidget {
             ),
             if (required) ...[
               const SizedBox(width: 4),
-              FcText(
-                '*',
-                style: FcTextStyle.labelMedium,
-                color: colors.error,
-              ),
+              FcText('*', style: FcTextStyle.labelMedium, color: colors.error),
             ],
           ],
         ),

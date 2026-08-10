@@ -1,4 +1,4 @@
-/// Flashcard UI Components
+/// Sparkweaver UI Components
 ///
 /// All UI components organized by Atomic Design principles.
 ///

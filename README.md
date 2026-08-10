@@ -1,10 +1,10 @@
 # Sparkweaver Library
 
 ---
-[![Release sparkweaver_ui](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml/badge.svg)](https://github.com/Job-O-Matic/sparkweaver-library/actions/workflows/release-flashcard-ui.yml)
+[![Release sparkweaver_ui](https://github.com/sparkweavers/sparkweaver-library/actions/workflows/release-sparkweaver-ui.yml/badge.svg)](https://github.com/sparkweavers/sparkweaver-library/actions/workflows/release-sparkweaver-ui.yml)
 ---
 
-Flutter UI component library with design system and interactive Widgetbook showcase for Flashcard applications.
+Flutter UI component library with design system and interactive Widgetbook showcase for Sparkweaver applications.
 
 ## Quick Start
 
@@ -13,7 +13,7 @@ Flutter UI component library with design system and interactive Widgetbook showc
 cd sparkweaver_ui && flutter pub get
 
 # View components in Widgetbook
-cd flashcard_ui_widgetbook && flutter pub get && flutter run
+cd sparkweaver_widgetbook && flutter pub get && flutter run
 ```
 
 ## Documentation
@@ -30,7 +30,7 @@ cd flashcard_ui_widgetbook && flutter pub get && flutter run
 dependencies:
   sparkweaver_ui:
     git:
-      url: git@github.com:Job-O-Matic/sparkweaver-library.git
+      url: git@github.com:sparkweavers/sparkweaver-library.git
       ref: v0.1.0
       path: sparkweaver_ui
 ```
@@ -41,8 +41,8 @@ import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 // Use design system
 Container(
   color: SparkweaverColors.primary,
-  padding: FlashcardSpacing.edgeInsetsLg,
-  child: Text('Hello', style: FlashcardTypography.heading1),
+  padding: SparkweaverSpacing.edgeInsetsLg,
+  child: Text('Hello', style: SparkweaverTypography.heading1),
 )
 
 // Use components

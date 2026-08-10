@@ -6,14 +6,9 @@ import '../atoms/fc_loading_indicator.dart';
 import '../atoms/fc_text.dart';
 
 /// Audio Player State
-enum FcAudioPlayerState {
-  loading,
-  playing,
-  paused,
-  error,
-}
+enum FcAudioPlayerState { loading, playing, paused, error }
 
-/// Flashcard Audio Player Component (Organism)
+/// Sparkweaver Audio Player Component (Organism)
 ///
 /// An audio player with play/pause controls and loading/error states.
 /// Accepts audio source and state management from parent.
@@ -64,7 +59,7 @@ class FcAudioPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,

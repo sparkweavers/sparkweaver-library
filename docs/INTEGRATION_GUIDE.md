@@ -118,8 +118,8 @@ Container(
 **After**:
 ```dart
 Container(
-  padding: FlashcardSpacing.chatBubblePadding,
-  margin: FlashcardSpacing.chatBubbleMargin,
+  padding: SparkweaverSpacing.chatBubblePadding,
+  margin: SparkweaverSpacing.chatBubbleMargin,
 )
 ```
 
@@ -140,7 +140,7 @@ Text(
 ```dart
 Text(
   message,
-  style: FlashcardTypography.bodyMedium,
+  style: SparkweaverTypography.bodyMedium,
 )
 ```
 
@@ -159,7 +159,7 @@ Container(
 ```dart
 Container(
   decoration: BoxDecoration(
-    borderRadius: FlashcardTokens.chatBubbleRadius,
+    borderRadius: SparkweaverTokens.chatBubbleRadius,
   ),
 )
 ```
@@ -254,7 +254,7 @@ flutter pub get
 
 The new components use the design system colors. If appearance differs:
 - Check that you're using the correct color variants
-- Adjust `FlashcardColors` in the library if needed
+- Adjust `SparkweaverColors` in the library if needed
 - Use custom parameters to override defaults
 
 ### Build Errors
@@ -285,7 +285,7 @@ If you need to customize colors or other tokens:
 
 1. **Explore Widgetbook**: Run the Widgetbook app to see all components
    ```bash
-   cd sparkweaver-library/flashcard_ui_widgetbook
+   cd sparkweaver-library/sparkweaver_widgetbook
    flutter run
    ```
 
@@ -293,14 +293,14 @@ If you need to customize colors or other tokens:
 
 3. **Create Variants**: Add component variants for different use cases
 
-4. **Share**: Use the same component library in other Flashcard-related projects
+4. **Share**: Use the same component library in other Sparkweaver-related projects
 
 ## Support
 
 For questions or issues:
 - Check the [main README](README.md)
 - Review component documentation in Widgetbook
-- Examine use case examples in `flashcard_ui_widgetbook/lib/usecases/`
+- Examine use case examples in `sparkweaver_widgetbook/lib/usecases/`
 
 ---
 

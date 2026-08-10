@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 void main() {
-  group('FlashcardColors', () {
+  group('SparkweaverColors', () {
     test('should have primary colors defined', () {
       expect(SparkweaverColors.primary, isNotNull);
       expect(SparkweaverColors.secondary, isNotNull);
@@ -16,26 +16,26 @@ void main() {
     });
   });
 
-  group('FlashcardSpacing', () {
+  group('SparkweaverSpacing', () {
     test('should have spacing scale values', () {
-      expect(FlashcardSpacing.xs, 4.0);
-      expect(FlashcardSpacing.sm, 8.0);
-      expect(FlashcardSpacing.md, 12.0);
-      expect(FlashcardSpacing.lg, 16.0);
+      expect(SparkweaverSpacing.xs, 4.0);
+      expect(SparkweaverSpacing.sm, 8.0);
+      expect(SparkweaverSpacing.md, 12.0);
+      expect(SparkweaverSpacing.lg, 16.0);
     });
   });
 
-  group('FlashcardTokens', () {
+  group('SparkweaverTokens', () {
     test('should have border radius values', () {
-      expect(FlashcardTokens.radiusSm, 4.0);
-      expect(FlashcardTokens.radiusMd, 8.0);
-      expect(FlashcardTokens.radiusLg, 12.0);
+      expect(SparkweaverTokens.radiusSm, 4.0);
+      expect(SparkweaverTokens.radiusMd, 8.0);
+      expect(SparkweaverTokens.radiusLg, 12.0);
     });
 
     test('should have icon size values', () {
-      expect(FlashcardTokens.iconSm, 16.0);
-      expect(FlashcardTokens.iconMd, 20.0);
-      expect(FlashcardTokens.iconLg, 24.0);
+      expect(SparkweaverTokens.iconSm, 16.0);
+      expect(SparkweaverTokens.iconMd, 20.0);
+      expect(SparkweaverTokens.iconLg, 24.0);
     });
   });
 }

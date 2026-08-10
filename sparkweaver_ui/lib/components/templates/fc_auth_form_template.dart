@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../atoms/fc_button.dart';
 import '../organisms/fc_header.dart';
 
-/// Flashcard Auth Form Template
+/// Sparkweaver Auth Form Template
 ///
 /// A centered form layout template for authentication screens.
 /// Used for sign in, sign up, forgot password, etc.
@@ -83,10 +83,12 @@ class FcAuthFormTemplate extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Form fields
-              ...fields.map((field) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: field,
-                  )),
+              ...fields.map(
+                (field) => Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: field,
+                ),
+              ),
 
               const SizedBox(height: 8),
 

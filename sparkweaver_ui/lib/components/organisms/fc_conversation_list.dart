@@ -17,7 +17,7 @@ class ChatMessageData {
   });
 }
 
-/// Flashcard Conversation List Component (Organism)
+/// Sparkweaver Conversation List Component (Organism)
 ///
 /// A scrollable conversation list with chat bubbles, infinite scroll, and loading states.
 /// Composed from molecules (ChatBubble) and atoms.
@@ -135,14 +135,12 @@ class _FcConversationListState extends State<FcConversationList> {
   Widget build(BuildContext context) {
     // Loading state
     if (widget.isLoading) {
-      return Center(
-        child: FcLoadingIndicator(size: FcLoadingSize.large),
-      );
+      return Center(child: FcLoadingIndicator(size: FcLoadingSize.large));
     }
 
     // Empty state
     if (widget.messages.isEmpty && !widget.showTypingIndicator) {
-      final colors = FlashcardColorScheme.of(context);
+      final colors = SparkweaverTheme.of(context);
       return FcEmptyState(
         icon: Icons.chat_bubble_outline,
         title: widget.emptyStateMessage,
@@ -155,17 +153,17 @@ class _FcConversationListState extends State<FcConversationList> {
       controller: _scrollController,
       reverse: widget.reverse,
       padding: widget.padding ?? const EdgeInsets.all(8),
-      itemCount: widget.messages.length +
+      itemCount:
+          widget.messages.length +
           (widget.showTypingIndicator ? 1 : 0) +
           (widget.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
         // Loading more indicator at the end (top with reverse: true)
-        if (index == widget.messages.length + (widget.showTypingIndicator ? 1 : 0)) {
+        if (index ==
+            widget.messages.length + (widget.showTypingIndicator ? 1 : 0)) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: FcLoadingIndicator(),
-            ),
+            child: Center(child: FcLoadingIndicator()),
           );
         }
 

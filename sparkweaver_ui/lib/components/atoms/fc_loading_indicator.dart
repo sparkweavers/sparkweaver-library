@@ -13,7 +13,7 @@ enum FcLoadingSize {
   large,
 }
 
-/// Flashcard Loading Indicator Component (Atom)
+/// Sparkweaver Loading Indicator Component (Atom)
 ///
 /// A reusable loading/progress indicator with consistent sizing.
 ///
@@ -79,15 +79,13 @@ class FcLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     return SizedBox(
       width: _getSizeValue(),
       height: _getSizeValue(),
       child: CircularProgressIndicator(
         strokeWidth: _getStrokeWidth(),
-        valueColor: AlwaysStoppedAnimation<Color>(
-          color ?? colors.primary,
-        ),
+        valueColor: AlwaysStoppedAnimation<Color>(color ?? colors.primary),
         semanticsLabel: semanticLabel,
       ),
     );

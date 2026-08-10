@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../design_system/color_scheme.dart';
+import '../../design_system/theme.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
@@ -62,37 +62,31 @@ class FcBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = FlashcardColorScheme.of(context);
+    final colors = SparkweaverTheme.of(context);
     final bgColor = backgroundColor ?? colors.primary10;
     final fgColor = foregroundColor ?? colors.primary;
     final bdColor = borderColor ?? colors.primary20;
 
     return Container(
-      padding: padding ?? FlashcardSpacing.badgePadding,
+      padding: padding ?? SparkweaverSpacing.badgePadding,
       decoration: BoxDecoration(
         color: bgColor,
-        borderRadius: FlashcardTokens.badgeRadius,
+        borderRadius: SparkweaverTokens.badgeRadius,
         border: Border.all(color: bdColor),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            FcIcon(
-              icon!,
-              size: FcIconSize.small,
-              color: fgColor,
-            ),
-            FlashcardSpacing.horizontalSpaceXs,
+            FcIcon(icon!, size: FcIconSize.small, color: fgColor),
+            SparkweaverSpacing.horizontalSpaceXs,
           ],
           Text(
             text,
-            style: FlashcardTypography.badge.copyWith(
-              color: fgColor,
-            ),
+            style: SparkweaverTypography.badge.copyWith(color: fgColor),
           ),
           if (closeable && onClose != null) ...[
-            FlashcardSpacing.horizontalSpaceXs,
+            SparkweaverSpacing.horizontalSpaceXs,
             GestureDetector(
               onTap: onClose,
               child: FcIcon(
@@ -113,8 +107,12 @@ class FcBadgeVariants {
   FcBadgeVariants._();
 
   /// Primary badge (blue theme)
-  static Widget primary({required String text, IconData? icon, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget primary({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
@@ -125,8 +123,12 @@ class FcBadgeVariants {
   }
 
   /// Success badge (green theme)
-  static Widget success({required String text, IconData? icon, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget success({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
@@ -137,8 +139,12 @@ class FcBadgeVariants {
   }
 
   /// Warning badge (orange theme)
-  static Widget warning({required String text, IconData? icon, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget warning({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
@@ -149,8 +155,12 @@ class FcBadgeVariants {
   }
 
   /// Error badge (red theme)
-  static Widget error({required String text, IconData? icon, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget error({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
@@ -161,8 +171,12 @@ class FcBadgeVariants {
   }
 
   /// Info badge (blue theme)
-  static Widget info({required String text, IconData? icon, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget info({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
@@ -173,8 +187,12 @@ class FcBadgeVariants {
   }
 
   /// Neutral badge (gray theme)
-  static Widget neutral({required String text, IconData? icon, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget neutral({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: text,
       icon: icon,
@@ -185,8 +203,11 @@ class FcBadgeVariants {
   }
 
   /// File badge (document icon with primary theme)
-  static Widget file({required String filename, required BuildContext context}) {
-    final colors = FlashcardColorScheme.of(context);
+  static Widget file({
+    required String filename,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
     return FcBadge(
       text: filename,
       icon: Icons.description,

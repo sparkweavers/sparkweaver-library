@@ -85,7 +85,7 @@ void main() {
       (tester) async {
         await openOverlay(tester, itemCount: 0, theme: ThemeData.dark());
 
-        final dark = FlashcardColorScheme.dark();
+        final dark = SparkweaverTheme.dark();
 
         final sheet = tester
             .widgetList<Container>(find.byType(Container))
