@@ -8,6 +8,9 @@ import 'typography.dart';
 /// feedback panels, tutor replies) should pull its stylesheet from
 /// here so headings, bold, italic, code, rules, and lists all look
 /// the same across the app.
+///
+/// `forBody` styles h1-h6 from [SparkweaverTypography] and `textColor`,
+/// so `baseStyle`'s weight and size do not govern heading nodes.
 class SparkweaverMarkdownStyle {
   SparkweaverMarkdownStyle._();
 
@@ -44,6 +47,44 @@ class SparkweaverMarkdownStyle {
       horizontalRuleDecoration: BoxDecoration(
         border: Border(top: BorderSide(color: textColor, width: 1)),
       ),
+      listBullet: baseStyle.copyWith(color: textColor),
+      listIndent: 24.0,
+      listBulletPadding: const EdgeInsets.only(right: 4),
+    );
+  }
+
+  /// Build a stylesheet for markdown inside a single-row layout (icon plus
+  /// text). Headings, list items and blockquotes all render at [baseStyle]
+  /// size, [blockSpacing] is zero, and blockquote/rule decorations are
+  /// dropped, so the row grows only through natural text wrap.
+  static MarkdownStyleSheet forInline({
+    required TextStyle baseStyle,
+    required Color textColor,
+  }) {
+    final blockStyle = baseStyle.copyWith(color: textColor);
+    return MarkdownStyleSheet(
+      p: baseStyle,
+      a: baseStyle.copyWith(
+        color: textColor,
+        decoration: TextDecoration.underline,
+      ),
+      h1: blockStyle,
+      h2: blockStyle,
+      h3: blockStyle,
+      h4: blockStyle,
+      h5: blockStyle,
+      h6: blockStyle,
+      strong: baseStyle.copyWith(
+        fontWeight: SparkweaverTypography.bold,
+        color: textColor,
+      ),
+      em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
+      code: SparkweaverTypography.bodyMedium.copyWith(
+        fontFamily: SparkweaverTypography.fontFamilyMono,
+        color: textColor,
+      ),
+      blockquote: blockStyle,
+      blockSpacing: 0,
       listBullet: baseStyle.copyWith(color: textColor),
       listIndent: 24.0,
       listBulletPadding: const EdgeInsets.only(right: 4),
