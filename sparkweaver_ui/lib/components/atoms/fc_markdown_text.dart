@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
+import '../../design_system/colors.dart';
 import '../../design_system/markdown_style.dart';
 
 /// Matches common Markdown metacharacters at the start of a line or inline.
@@ -90,14 +91,13 @@ class FcMarkdownText extends StatelessWidget {
       return Text(data, style: baseStyle, textAlign: textAlign);
     }
 
-    // No BuildContext here, so no design-system color can safely guess
-    // whether this sits on a light or dark surface; require a real one.
-    final resolvedColor = textColor ?? baseStyle.color;
-    if (resolvedColor == null) {
-      throw ArgumentError(
-        'FcMarkdownText requires baseStyle to carry a color when textColor is omitted.',
-      );
-    }
+    // Falls back the same way the plain [Text] path above does, so both
+    // paths resolve an omitted color identically instead of diverging.
+    final resolvedColor =
+        textColor ??
+        baseStyle.color ??
+        DefaultTextStyle.of(context).style.color ??
+        SparkweaverColors.textPrimary;
     var styleSheet = inlineOnly
         ? SparkweaverMarkdownStyle.forInline(
             baseStyle: baseStyle,

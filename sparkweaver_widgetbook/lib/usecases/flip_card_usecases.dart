@@ -64,3 +64,23 @@ Widget longContent(BuildContext context) {
     ),
   );
 }
+
+@widgetbook.UseCase(name: 'Markdown Content', type: FcFlipCard)
+Widget markdownContent(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: FcFlipCard(
+      front:
+          'Which **three primary colors** of light combine to create '
+          'white light?',
+      back:
+          '## Primary Colors of Light\n\n'
+          '- Red\n'
+          '- Green\n'
+          '- Blue\n\n'
+          'At full intensity they combine into `white light`, which works '
+          'by *additive* mixing, unlike pigment mixing.',
+      progressLabel: '8 / 10',
+    ),
+  );
+}

@@ -86,10 +86,10 @@ Widget aiMessageWithOptions(BuildContext context) {
     padding: const EdgeInsets.all(16.0),
     child: FcChatBubble(
       message:
-          'Wer ist der bekannteste Vertreter des klassischen '
-          'Konditionierens?',
+          'Who is the best known figure associated with classical '
+          'conditioning?',
       isUser: false,
-      options: const ['Pawlow', 'Skinner', 'Freud', 'Watson'],
+      options: const ['Pavlov', 'Skinner', 'Freud', 'Watson'],
       onOptionSelected: (i) => debugPrint('User picked option $i'),
     ),
   );
@@ -104,12 +104,33 @@ Widget aiMessageWithOptionsAnswered(BuildContext context) {
     padding: EdgeInsets.all(16.0),
     child: FcChatBubble(
       message:
-          'Wer ist der bekannteste Vertreter des klassischen '
-          'Konditionierens?',
+          'Who is the best known figure associated with classical '
+          'conditioning?',
       isUser: false,
-      options: ['Pawlow', 'Skinner', 'Freud', 'Watson'],
+      options: ['Pavlov', 'Skinner', 'Freud', 'Watson'],
       selectedOptionIndex: 0,
       // No onOptionSelected → chips are read-only (scrollback view).
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'AI Message with Markdown', type: FcChatBubble)
+Widget aiMessageWithMarkdown(BuildContext context) {
+  return const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: FcChatBubble(
+      message:
+          '## Study Tip\n\n'
+          'To remember the **stages of mitosis**, use the mnemonic '
+          '*"PMAT"*:\n\n'
+          '- Prophase\n'
+          '- Metaphase\n'
+          '- Anaphase\n'
+          '- Telophase\n\n'
+          'Note that `interphase` comes before mitosis starts. See the '
+          '[mitosis flashcard set](https://example.com/mitosis) for more.',
+      isUser: false,
+      interpretMarkdown: true,
     ),
   );
 }

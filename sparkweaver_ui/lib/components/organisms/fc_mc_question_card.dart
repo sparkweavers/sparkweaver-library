@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
 import '../atoms/fc_card.dart';
+import '../atoms/fc_markdown_text.dart';
 
 /// Multiple-Choice Question Card (Organism)
 ///
@@ -90,9 +91,9 @@ class FcMcQuestionCard extends StatelessWidget {
             SparkweaverSpacing.verticalSpaceSm,
           ],
           FcCard(
-            child: Text(
-              question,
-              style: SparkweaverTypography.heading4.copyWith(
+            child: FcMarkdownText(
+              data: question,
+              baseStyle: SparkweaverTypography.heading4.copyWith(
                 color: colors.textPrimary,
               ),
             ),
@@ -108,9 +109,9 @@ class FcMcQuestionCard extends StatelessWidget {
               variant: FcCardVariant.muted,
               width: double.infinity,
               padding: SparkweaverSpacing.edgeInsetsMd,
-              child: Text(
-                feedback!,
-                style: SparkweaverTypography.bodyMedium.copyWith(
+              child: FcMarkdownText(
+                data: feedback!,
+                baseStyle: SparkweaverTypography.bodyMedium.copyWith(
                   color: colors.textPrimary,
                 ),
               ),

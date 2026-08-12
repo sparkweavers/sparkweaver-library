@@ -54,6 +54,29 @@ Widget infoMessage(BuildContext context) {
   );
 }
 
+// inlineOnly maps every block style onto baseStyle and zeroes blockSpacing,
+// so the heading and list below still parse but add no extra block margin.
+@widgetbook.UseCase(
+  name: 'Markdown Message (Inline Only)',
+  type: FcStatusMessage,
+)
+Widget markdownMessage(BuildContext context) {
+  return const Center(
+    child: Padding(
+      padding: EdgeInsets.all(16),
+      child: FcStatusMessage(
+        message:
+            '## Upload Complete\n\n'
+            'Detected sections:\n\n'
+            '- Chapter 1\n'
+            '- Chapter 2\n'
+            '- Chapter 3',
+        variant: FcStatusVariant.success,
+      ),
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Closeable Message', type: FcStatusMessage)
 Widget closeableMessage(BuildContext context) {
   return const Center(

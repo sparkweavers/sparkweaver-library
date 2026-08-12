@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
+import '../atoms/fc_markdown_text.dart';
 
 /// Sparkweaver Flip Card Component (Molecule)
 ///
@@ -171,9 +172,9 @@ class _FlipFace extends StatelessWidget {
             ),
           ),
           SparkweaverSpacing.verticalSpaceSm,
-          Text(
-            text,
-            style: SparkweaverTypography.heading4.copyWith(
+          FcMarkdownText(
+            data: text,
+            baseStyle: SparkweaverTypography.heading4.copyWith(
               color: colors.textPrimary,
             ),
             textAlign: TextAlign.center,

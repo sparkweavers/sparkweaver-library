@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
 import '../atoms/fc_card.dart';
 import '../atoms/fc_input_field.dart';
+import '../atoms/fc_markdown_text.dart';
 
 /// Open-Answer Question Card (Organism)
 ///
@@ -103,9 +103,9 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
             SparkweaverSpacing.verticalSpaceSm,
           ],
           FcCard(
-            child: Text(
-              widget.question,
-              style: SparkweaverTypography.heading4.copyWith(
+            child: FcMarkdownText(
+              data: widget.question,
+              baseStyle: SparkweaverTypography.heading4.copyWith(
                 color: colors.textPrimary,
               ),
             ),
@@ -131,14 +131,12 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
               variant: FcCardVariant.muted,
               width: double.infinity,
               padding: SparkweaverSpacing.edgeInsetsMd,
-              child: MarkdownBody(
+              child: FcMarkdownText(
                 data: widget.feedback!,
-                styleSheet: SparkweaverMarkdownStyle.forBody(
-                  baseStyle: SparkweaverTypography.bodyMedium.copyWith(
-                    color: colors.textPrimary,
-                  ),
-                  textColor: colors.textPrimary,
+                baseStyle: SparkweaverTypography.bodyMedium.copyWith(
+                  color: colors.textPrimary,
                 ),
+                textColor: colors.textPrimary,
               ),
             ),
           ],
