@@ -3,11 +3,12 @@ import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/markdown_style.dart';
 
 /// Matches common Markdown metacharacters at the start of a line or inline.
-/// Kept conservative on purpose: any ambiguous string falls through to
-/// [MarkdownBody] rather than being wrongly treated as plain text.
+/// CommonMark's own flanking rules already protect `3 * 3 * 9`; only the
+/// underscore's intraword restriction is mirrored here to skip identifiers.
 final RegExp _markdownSyntaxPattern = RegExp(
   r'(^|\n)\s{0,3}(#{1,6}\s|>\s|[-*+]\s|\d+\.\s|```|(-{3,}|\*{3,}|_{3,})\s*$)'
-  r'|(\*\*[^*\n]+\*\*|__[^_\n]+__|~~[^~\n]+~~|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\))',
+  r'|(\*\*[^*\n]+\*\*|__[^_\n]+__|~~[^~\n]+~~|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\))'
+  r'|\*[^*\n]+\*|(?<![A-Za-z0-9])_[^_\n]+_(?![A-Za-z0-9])',
   multiLine: true,
 );
 
@@ -45,12 +46,18 @@ class FcMarkdownText extends StatelessWidget {
   /// Uses [SparkweaverMarkdownStyle.forInline] instead of `forBody`.
   final bool inlineOnly;
 
+  /// Paragraph alignment. `MarkdownBody` reads alignment from its
+  /// stylesheet, not the ambient `DefaultTextStyle`, so this must be passed
+  /// explicitly for centred or right-aligned callers like a flip card face.
+  final TextAlign? textAlign;
+
   const FcMarkdownText({
     super.key,
     required this.data,
     required this.baseStyle,
     this.textColor,
     this.inlineOnly = false,
+    this.textAlign,
   });
 
   /// Conservative check for Markdown syntax. Plain strings with no match
@@ -59,14 +66,32 @@ class FcMarkdownText extends StatelessWidget {
     return _markdownSyntaxPattern.hasMatch(data);
   }
 
+  /// Maps the handful of alignments call sites actually use onto
+  /// `MarkdownStyleSheet.textAlign`'s `WrapAlignment` type.
+  static WrapAlignment? _wrapAlignmentFor(TextAlign? textAlign) {
+    switch (textAlign) {
+      case null:
+        return null;
+      case TextAlign.center:
+        return WrapAlignment.center;
+      case TextAlign.end:
+      case TextAlign.right:
+        return WrapAlignment.end;
+      case TextAlign.start:
+      case TextAlign.left:
+      case TextAlign.justify:
+        return WrapAlignment.start;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!_hasMarkdownSyntax(data)) {
-      return Text(data, style: baseStyle);
+      return Text(data, style: baseStyle, textAlign: textAlign);
     }
 
     final resolvedColor = textColor ?? baseStyle.color ?? Colors.black;
-    final styleSheet = inlineOnly
+    var styleSheet = inlineOnly
         ? SparkweaverMarkdownStyle.forInline(
             baseStyle: baseStyle,
             textColor: resolvedColor,
@@ -75,6 +100,10 @@ class FcMarkdownText extends StatelessWidget {
             baseStyle: baseStyle,
             textColor: resolvedColor,
           );
+    final wrapAlignment = _wrapAlignmentFor(textAlign);
+    if (wrapAlignment != null) {
+      styleSheet = styleSheet.copyWith(textAlign: wrapAlignment);
+    }
 
     return MarkdownBody(
       data: data,
