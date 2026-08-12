@@ -8,11 +8,14 @@ import '../../design_system/markdown_style.dart';
 /// `snake_case_words` stay on the plain [Text] path.
 final RegExp _markdownSyntaxPattern = RegExp(
   r'(^|\n)\s{0,3}(#{1,6}\s|>\s|[-*+]\s|\d+\.\s|```|(-{3,}|\*{3,}|_{3,})\s*$)'
-  r'|(\*\*[^*\n]+\*\*|__[^_\n]+__|~~[^~\n]+~~|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\))'
-  r'|\*[^*\s](?:[^*\n]*[^*\s])?\*'
-  r'|(?<![A-Za-z0-9])_[^_\n]+_(?![A-Za-z0-9])',
+  r'|\*\*[^*]+\*\*|__[^_]+__|~~[^~]+~~|`[^`]+`|\[[^\]]+\]\([^)]+\)'
+  r'|\*[^*\s](?:[^*]*[^*\s])?\*'
+  r'|(?<![A-Za-z0-9])_[^_]+_(?![A-Za-z0-9])',
   multiLine: true,
 );
+
+/// Splits on blank lines, since emphasis cannot span a paragraph break.
+final RegExp _paragraphBreak = RegExp(r'\n\s*\n');
 
 /// Sparkweaver Markdown Text Component (Atom)
 ///
@@ -62,10 +65,10 @@ class FcMarkdownText extends StatelessWidget {
     this.textAlign,
   });
 
-  /// Conservative check for Markdown syntax. Plain strings with no match
-  /// render as a bare [Text] so existing call sites see zero regression.
+  /// Checks each paragraph, so inline syntax wrapped across a single
+  /// newline still counts while a blank line correctly ends it.
   static bool _hasMarkdownSyntax(String data) {
-    return _markdownSyntaxPattern.hasMatch(data);
+    return data.split(_paragraphBreak).any(_markdownSyntaxPattern.hasMatch);
   }
 
   /// Maps the handful of alignments call sites actually use onto

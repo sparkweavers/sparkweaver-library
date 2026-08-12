@@ -40,6 +40,10 @@ class SparkweaverMarkdownStyle {
         color: textColor,
       ),
       em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
+      del: baseStyle.copyWith(
+        decoration: TextDecoration.lineThrough,
+        color: textColor,
+      ),
       code: SparkweaverTypography.bodyMedium.copyWith(
         fontFamily: SparkweaverTypography.fontFamilyMono,
         color: textColor,
@@ -80,6 +84,10 @@ class SparkweaverMarkdownStyle {
         color: textColor,
       ),
       em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
+      del: baseStyle.copyWith(
+        decoration: TextDecoration.lineThrough,
+        color: textColor,
+      ),
       code: SparkweaverTypography.bodyMedium.copyWith(
         fontFamily: SparkweaverTypography.fontFamilyMono,
         color: textColor,

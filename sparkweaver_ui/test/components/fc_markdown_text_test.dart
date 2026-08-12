@@ -101,9 +101,40 @@ void main() {
 
       expect(find.byType(MarkdownBody), findsNothing);
     });
+
+    testWidgets('a blank line ends emphasis, so it stays plain', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(
+          const FcMarkdownText(
+            data: '**not bold\n\nstill not**',
+            baseStyle: TextStyle(),
+          ),
+        ),
+      );
+
+      expect(find.byType(MarkdownBody), findsNothing);
+    });
   });
 
   group('FcMarkdownText — detection boundary: renders as Markdown', () {
+    testWidgets('bold wrapped across a single newline still renders', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(
+          const FcMarkdownText(
+            data: '**This learning\noutcome matters**',
+            baseStyle: TextStyle(fontSize: 14),
+          ),
+        ),
+      );
+
+      expect(find.byType(MarkdownBody), findsOneWidget);
+      expect(find.textContaining('**', findRichText: true), findsNothing);
+    });
+
     final cases = <(String data, String expectedText, String forbidden)>[
       ('**bold**', 'bold', '**'),
       ('*italic*', 'italic', '*italic*'),
