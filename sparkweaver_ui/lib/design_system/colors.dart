@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 /// Sparkweaver Color Palette
 ///
 /// Purple/Pink gradient theme - the official Sparkweaver brand colors
