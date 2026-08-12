@@ -4,12 +4,13 @@ import '../../design_system/colors.dart';
 import '../../design_system/markdown_style.dart';
 
 /// Matches common Markdown metacharacters at the start of a line or inline.
-/// CommonMark's own flanking rules already protect `3 * 3 * 9`; only the
-/// underscore's intraword restriction is mirrored here to skip identifiers.
+/// Emphasis mirrors CommonMark's flanking rules, so `3 * 3 * 9` and
+/// `snake_case_words` stay on the plain [Text] path.
 final RegExp _markdownSyntaxPattern = RegExp(
   r'(^|\n)\s{0,3}(#{1,6}\s|>\s|[-*+]\s|\d+\.\s|```|(-{3,}|\*{3,}|_{3,})\s*$)'
   r'|(\*\*[^*\n]+\*\*|__[^_\n]+__|~~[^~\n]+~~|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\))'
-  r'|\*[^*\n]+\*|(?<![A-Za-z0-9])_[^_\n]+_(?![A-Za-z0-9])',
+  r'|\*[^*\s](?:[^*\n]*[^*\s])?\*'
+  r'|(?<![A-Za-z0-9])_[^_\n]+_(?![A-Za-z0-9])',
   multiLine: true,
 );
 

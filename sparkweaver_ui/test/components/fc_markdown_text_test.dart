@@ -94,19 +94,13 @@ void main() {
       });
     }
 
-    // Known gap: the single-asterisk branch has no flanking guard, unlike
-    // the underscore branch, so this false-positives into the Markdown path.
-    testWidgets(
-      '"3 * 3 * 9" should take the Text path (currently misdetected)',
-      (tester) async {
-        await tester.pumpWidget(
-          wrap(const FcMarkdownText(data: '3 * 3 * 9', baseStyle: TextStyle())),
-        );
+    testWidgets('"3 * 3 * 9" takes the Text path', (tester) async {
+      await tester.pumpWidget(
+        wrap(const FcMarkdownText(data: '3 * 3 * 9', baseStyle: TextStyle())),
+      );
 
-        expect(find.byType(MarkdownBody), findsNothing);
-      },
-      skip: true,
-    );
+      expect(find.byType(MarkdownBody), findsNothing);
+    });
   });
 
   group('FcMarkdownText — detection boundary: renders as Markdown', () {
