@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 void main() {
-  Widget wrap(Widget child) =>
-      MaterialApp(home: Scaffold(body: child));
+  Widget wrap(Widget child) => MaterialApp(home: Scaffold(body: child));
 
   group('FcChatBubble — multiple-choice options', () {
     const question = 'Wer ist der bekannteste Vertreter?';
@@ -19,18 +19,14 @@ void main() {
 
     testWidgets('renders no chips when options is empty', (tester) async {
       await tester.pumpWidget(
-        wrap(
-          const FcChatBubble(
-            message: question,
-            isUser: false,
-            options: [],
-          ),
-        ),
+        wrap(const FcChatBubble(message: question, isUser: false, options: [])),
       );
       expect(find.byType(ChoiceChip), findsNothing);
     });
 
-    testWidgets('renders one ChoiceChip per option with its label', (tester) async {
+    testWidgets('renders one ChoiceChip per option with its label', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         wrap(
           const FcChatBubble(
@@ -47,27 +43,24 @@ void main() {
       }
     });
 
-    testWidgets(
-      'invokes onOptionSelected with the tapped index and does not '
-      'toggle a chip when the callback is absent',
-      (tester) async {
-        int? tapped;
-        await tester.pumpWidget(
-          wrap(
-            FcChatBubble(
-              message: question,
-              isUser: false,
-              options: options,
-              onOptionSelected: (i) => tapped = i,
-            ),
+    testWidgets('invokes onOptionSelected with the tapped index and does not '
+        'toggle a chip when the callback is absent', (tester) async {
+      int? tapped;
+      await tester.pumpWidget(
+        wrap(
+          FcChatBubble(
+            message: question,
+            isUser: false,
+            options: options,
+            onOptionSelected: (i) => tapped = i,
           ),
-        );
+        ),
+      );
 
-        await tester.tap(find.text('Skinner'));
-        await tester.pump();
-        expect(tapped, 1);
-      },
-    );
+      await tester.tap(find.text('Skinner'));
+      await tester.pump();
+      expect(tapped, 1);
+    });
 
     testWidgets(
       'renders chips as disabled (non-tappable) when onOptionSelected '
@@ -84,8 +77,9 @@ void main() {
           ),
         );
 
-        final chips =
-            tester.widgetList<ChoiceChip>(find.byType(ChoiceChip)).toList();
+        final chips = tester
+            .widgetList<ChoiceChip>(find.byType(ChoiceChip))
+            .toList();
         expect(chips, hasLength(options.length));
         expect(chips.every((c) => c.onSelected == null), isTrue);
         expect(chips[2].selected, isTrue);
@@ -93,7 +87,9 @@ void main() {
       },
     );
 
-    testWidgets('user bubbles never render options, even if passed', (tester) async {
+    testWidgets('user bubbles never render options, even if passed', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         wrap(
           FcChatBubble(
@@ -105,6 +101,43 @@ void main() {
         ),
       );
       expect(find.byType(ChoiceChip), findsNothing);
+    });
+  });
+
+  group('FcChatBubble — interpretMarkdown', () {
+    const bold = 'This is **bold** text';
+
+    testWidgets('true renders via MarkdownBody with no literal asterisks', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(
+          const FcChatBubble(
+            message: bold,
+            isUser: false,
+            interpretMarkdown: true,
+          ),
+        ),
+      );
+
+      expect(find.byType(MarkdownBody), findsOneWidget);
+      final rendered = tester
+          .widgetList<RichText>(find.byType(RichText))
+          .map((w) => w.text.toPlainText())
+          .join();
+      expect(rendered, isNot(contains('**')));
+      expect(rendered, contains('bold'));
+    });
+
+    testWidgets('default (false) renders plain Text with asterisks kept', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(const FcChatBubble(message: bold, isUser: false)),
+      );
+
+      expect(find.byType(MarkdownBody), findsNothing);
+      expect(find.text(bold), findsOneWidget);
     });
   });
 }
