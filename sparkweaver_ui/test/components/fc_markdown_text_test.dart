@@ -152,6 +152,21 @@ void main() {
       expect(observer.pushCount, pushesBeforeTap);
       expect(find.byType(FcMarkdownText), findsOneWidget);
     });
+
+    testWidgets('an image renders nothing and issues no request', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(
+          const FcMarkdownText(
+            data: '![chart](https://example.com/beacon.png)',
+            baseStyle: TextStyle(fontSize: 14),
+          ),
+        ),
+      );
+
+      expect(find.byType(Image), findsNothing);
+    });
   });
 
   group('FcMarkdownText — inlineOnly', () {

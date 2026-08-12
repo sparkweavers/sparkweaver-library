@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
+import 'spacing.dart';
 import 'typography.dart';
 
 /// Shared markdown stylesheet for the Sparkweaver design system.
@@ -43,13 +44,13 @@ class SparkweaverMarkdownStyle {
         fontFamily: SparkweaverTypography.fontFamilyMono,
         color: textColor,
       ),
-      blockSpacing: 8,
+      blockSpacing: SparkweaverSpacing.sm,
       horizontalRuleDecoration: BoxDecoration(
         border: Border(top: BorderSide(color: textColor, width: 1)),
       ),
       listBullet: baseStyle.copyWith(color: textColor),
-      listIndent: 24.0,
-      listBulletPadding: const EdgeInsets.only(right: 4),
+      listIndent: SparkweaverSpacing.xl,
+      listBulletPadding: const EdgeInsets.only(right: SparkweaverSpacing.xs),
     );
   }
 
@@ -86,8 +87,8 @@ class SparkweaverMarkdownStyle {
       blockquote: blockStyle,
       blockSpacing: 0,
       listBullet: baseStyle.copyWith(color: textColor),
-      listIndent: 24.0,
-      listBulletPadding: const EdgeInsets.only(right: 4),
+      listIndent: SparkweaverSpacing.xl,
+      listBulletPadding: const EdgeInsets.only(right: SparkweaverSpacing.xs),
     );
   }
 }

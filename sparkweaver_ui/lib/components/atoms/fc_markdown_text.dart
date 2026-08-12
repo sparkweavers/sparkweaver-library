@@ -120,6 +120,9 @@ class FcMarkdownText extends StatelessWidget {
       fitContent: true,
       // AI-authored URLs are unvetted, so tapping a link must do nothing.
       onTapLink: (_, _, _) {},
+      // Without this the default builder calls Image.network on an
+      // AI-authored URL, leaking the user's IP with no interaction.
+      imageBuilder: (_, _, _) => const SizedBox.shrink(),
     );
   }
 }
