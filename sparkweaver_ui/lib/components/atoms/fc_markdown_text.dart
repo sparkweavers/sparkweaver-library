@@ -90,7 +90,14 @@ class FcMarkdownText extends StatelessWidget {
       return Text(data, style: baseStyle, textAlign: textAlign);
     }
 
-    final resolvedColor = textColor ?? baseStyle.color ?? Colors.black;
+    // No BuildContext here, so no design-system color can safely guess
+    // whether this sits on a light or dark surface; require a real one.
+    final resolvedColor = textColor ?? baseStyle.color;
+    if (resolvedColor == null) {
+      throw ArgumentError(
+        'FcMarkdownText requires baseStyle to carry a color when textColor is omitted.',
+      );
+    }
     var styleSheet = inlineOnly
         ? SparkweaverMarkdownStyle.forInline(
             baseStyle: baseStyle,
