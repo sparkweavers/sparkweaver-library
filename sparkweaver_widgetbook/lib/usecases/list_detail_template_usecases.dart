@@ -8,7 +8,7 @@ Widget listLoading(BuildContext context) {
     title: 'Topics',
     state: FcListState.loading,
     itemCount: 0,
-    itemBuilder: (_, __) => const SizedBox(),
+    itemBuilder: (_, _) => const SizedBox(),
   );
 }
 
@@ -22,7 +22,7 @@ Widget listEmpty(BuildContext context) {
     emptyStateActionLabel: 'Create Topic',
     onEmptyStateAction: () {},
     itemCount: 0,
-    itemBuilder: (_, __) => const SizedBox(),
+    itemBuilder: (_, _) => const SizedBox(),
   );
 }
 
@@ -34,7 +34,7 @@ Widget listError(BuildContext context) {
     errorMessage: 'Failed to load topics',
     onRetry: () {},
     itemCount: 0,
-    itemBuilder: (_, __) => const SizedBox(),
+    itemBuilder: (_, _) => const SizedBox(),
   );
 }
 

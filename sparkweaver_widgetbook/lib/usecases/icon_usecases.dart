@@ -6,13 +6,11 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 class _IconWithLabel extends StatelessWidget {
   final IconData icon;
   final String label;
-  final FcIconSize size;
   final FcIconVariant variant;
 
   const _IconWithLabel({
     required this.icon,
     required this.label,
-    this.size = FcIconSize.large,
     this.variant = FcIconVariant.defaultIcon,
   });
 
@@ -21,7 +19,7 @@ class _IconWithLabel extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        FcIcon(icon, size: size, variant: variant),
+        FcIcon(icon, size: FcIconSize.large, variant: variant),
         const SizedBox(height: 8),
         Text(
           label,

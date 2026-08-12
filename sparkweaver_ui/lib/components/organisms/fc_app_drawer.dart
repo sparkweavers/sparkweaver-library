@@ -184,7 +184,7 @@ class FcAppDrawer extends StatelessWidget {
                 ...items.map((item) => _buildItem(context, item)),
               ],
               const Spacer(),
-              if (footer != null) footer!,
+              ?footer,
             ],
           ),
         ),
