@@ -3,22 +3,13 @@ import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import 'spacing.dart';
 import 'typography.dart';
 
-/// Shared markdown stylesheet for the Sparkweaver design system.
-///
-/// Any surface that renders AI-generated markdown (chat bubbles,
-/// feedback panels, tutor replies) should pull its stylesheet from
-/// here so headings, bold, italic, code, rules, and lists all look
-/// the same across the app.
-///
-/// `forBody` styles h1-h6 from [SparkweaverTypography] and `textColor`,
-/// so `baseStyle`'s weight and size do not govern heading nodes.
+/// Shared markdown stylesheets, so every AI-text surface looks the same.
+/// Headings come from [SparkweaverTypography], not from `baseStyle`.
 class SparkweaverMarkdownStyle {
   SparkweaverMarkdownStyle._();
 
-  /// Build a stylesheet tuned to [baseStyle] and [textColor]. The
-  /// caller supplies the base body style so the same markdown block
-  /// can adopt user-message vs AI-message typography (or, for the
-  /// feedback panel, a body-medium style on an accent background).
+  /// The caller supplies [baseStyle] so one markdown block can adopt
+  /// user-message, AI-message or feedback-panel typography.
   static MarkdownStyleSheet forBody({
     required TextStyle baseStyle,
     required Color textColor,
@@ -58,10 +49,8 @@ class SparkweaverMarkdownStyle {
     );
   }
 
-  /// Build a stylesheet for markdown inside a single-row layout (icon plus
-  /// text). Headings, list items and blockquotes all render at [baseStyle]
-  /// size, [blockSpacing] is zero, and blockquote/rule decorations are
-  /// dropped, so the row grows only through natural text wrap.
+  /// Flattens every block node onto [baseStyle] and zeroes the spacing, so
+  /// markdown cannot expand a single-row icon-plus-text layout.
   static MarkdownStyleSheet forInline({
     required TextStyle baseStyle,
     required Color textColor,

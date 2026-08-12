@@ -3,9 +3,8 @@ import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/colors.dart';
 import '../../design_system/markdown_style.dart';
 
-/// Matches common Markdown metacharacters at the start of a line or inline.
-/// Emphasis mirrors CommonMark's flanking rules, so `3 * 3 * 9` and
-/// `snake_case_words` stay on the plain [Text] path.
+/// Matches Markdown metacharacters, with emphasis following CommonMark's
+/// flanking rules so `3 * 3 * 9` and `snake_case_words` stay plain.
 final RegExp _markdownSyntaxPattern = RegExp(
   r'(^|\n)\s{0,3}(#{1,6}\s|>\s|[-*+]\s|\d+\.\s|```|(-{3,}|\*{3,}|_{3,})\s*$)'
   r'|\*\*[^*]+\*\*|__[^_]+__|~~[^~]+~~|`[^`]+`|\[[^\]]+\]\([^)]+\)'
@@ -17,32 +16,13 @@ final RegExp _markdownSyntaxPattern = RegExp(
 /// Splits on blank lines, since emphasis cannot span a paragraph break.
 final RegExp _paragraphBreak = RegExp(r'\n\s*\n');
 
-/// Sparkweaver Markdown Text Component (Atom)
-///
-/// Renders [data] as Markdown when it contains Markdown syntax, otherwise
-/// falls back to a bare [Text] so plain strings keep today's zero-spacing
-/// behaviour. Composes only [MarkdownBody] and [SparkweaverMarkdownStyle].
-///
-/// `forBody` (the default stylesheet) styles h1-h6 from
-/// `SparkweaverTypography` and `textColor`, so `baseStyle`'s weight and size
-/// do not govern heading nodes. Use `inlineOnly: true` to keep every node at
-/// `baseStyle` size, for single-row icon-plus-text layouts.
-///
-/// ## Usage
-///
-/// ```dart
-/// FcMarkdownText(
-///   data: feedback,
-///   baseStyle: SparkweaverTypography.bodyMedium,
-///   textColor: colors.textPrimary,
-/// )
-/// ```
+/// Renders [data] as Markdown, falling back to a bare [Text] when it holds
+/// none so plain strings keep their existing spacing.
 class FcMarkdownText extends StatelessWidget {
   /// The text to render, plain or Markdown.
   final String data;
 
-  /// The base style applied to body text and, for `forBody`, inherited by
-  /// bold/italic/code nodes.
+  /// Body style, inherited by bold, italic and code nodes.
   final TextStyle baseStyle;
 
   /// Color for headings, links and rules. Defaults to [baseStyle]'s color.
@@ -51,9 +31,8 @@ class FcMarkdownText extends StatelessWidget {
   /// Uses [SparkweaverMarkdownStyle.forInline] instead of `forBody`.
   final bool inlineOnly;
 
-  /// Paragraph alignment. `MarkdownBody` reads alignment from its
-  /// stylesheet, not the ambient `DefaultTextStyle`, so this must be passed
-  /// explicitly for centred or right-aligned callers like a flip card face.
+  /// Needed explicitly because MarkdownBody aligns from its stylesheet
+  /// rather than the ambient `DefaultTextStyle`.
   final TextAlign? textAlign;
 
   const FcMarkdownText({
@@ -65,14 +44,13 @@ class FcMarkdownText extends StatelessWidget {
     this.textAlign,
   });
 
-  /// Checks each paragraph, so inline syntax wrapped across a single
-  /// newline still counts while a blank line correctly ends it.
+  /// Checks per paragraph, so emphasis may span a newline but not a
+  /// blank line.
   static bool _hasMarkdownSyntax(String data) {
     return data.split(_paragraphBreak).any(_markdownSyntaxPattern.hasMatch);
   }
 
-  /// Maps the handful of alignments call sites actually use onto
-  /// `MarkdownStyleSheet.textAlign`'s `WrapAlignment` type.
+  /// Maps onto `MarkdownStyleSheet.textAlign`'s `WrapAlignment`.
   static WrapAlignment? _wrapAlignmentFor(TextAlign? textAlign) {
     switch (textAlign) {
       case null:
@@ -95,8 +73,7 @@ class FcMarkdownText extends StatelessWidget {
       return Text(data, style: baseStyle, textAlign: textAlign);
     }
 
-    // Falls back the same way the plain [Text] path above does, so both
-    // paths resolve an omitted color identically instead of diverging.
+    // Falls back as the plain [Text] path does, so neither diverges.
     final resolvedColor =
         textColor ??
         baseStyle.color ??
@@ -123,8 +100,8 @@ class FcMarkdownText extends StatelessWidget {
       fitContent: true,
       // AI-authored URLs are unvetted, so tapping a link must do nothing.
       onTapLink: (_, _, _) {},
-      // Without this the default builder calls Image.network on an
-      // AI-authored URL, leaking the user's IP with no interaction.
+      // The default builder would call Image.network on an AI-authored
+      // URL, leaking the viewer's IP with no interaction.
       imageBuilder: (_, _, _) => const SizedBox.shrink(),
     );
   }
