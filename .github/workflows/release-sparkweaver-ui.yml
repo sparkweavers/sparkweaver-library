@@ -98,14 +98,24 @@ jobs:
           next_version = f"{major}.{minor}.{patch}"
           next_tag = f"v{next_version}"
 
-          updated_file = re.sub(
-              r"^version:\s*\d+\.\d+\.\d+\s*$",
-              f"version: {next_version}",
-              current_file,
-              count=1,
-              flags=re.MULTILINE,
-          )
-          pubspec_path.write_text(updated_file, encoding="utf-8")
+          def write_version(path: Path, text: str) -> None:
+              path.write_text(
+                  re.sub(
+                      r"^version:\s*\d+\.\d+\.\d+\s*$",
+                      f"version: {next_version}",
+                      text,
+                      count=1,
+                      flags=re.MULTILINE,
+                  ),
+                  encoding="utf-8",
+              )
+
+          write_version(pubspec_path, current_file)
+
+          # The widgetbook ships the library's components, so it carries the
+          # same version rather than drifting on its own.
+          widgetbook_path = Path("sparkweaver_widgetbook/pubspec.yaml")
+          write_version(widgetbook_path, widgetbook_path.read_text(encoding="utf-8"))
 
           with output_path.open("a", encoding="utf-8") as out:
               out.write(f"latest_tag={latest_tag}\n")
@@ -115,7 +125,7 @@ jobs:
 
       - name: Commit version bump
         run: |
-          git add sparkweaver_ui/pubspec.yaml
+          git add sparkweaver_ui/pubspec.yaml sparkweaver_widgetbook/pubspec.yaml
           git commit -m "chore(release): bump sparkweaver_ui to ${{ steps.version.outputs.tag }}"
 
       - name: Create git tag
