@@ -25,6 +25,7 @@ export 'atoms/fc_button.dart';
 export 'atoms/fc_icon.dart';
 export 'atoms/fc_input_field.dart';
 export 'atoms/fc_loading_indicator.dart';
+export 'atoms/fc_markdown_text.dart';
 export 'atoms/fc_text.dart';
 
 // Molecules - Simple combinations of atoms

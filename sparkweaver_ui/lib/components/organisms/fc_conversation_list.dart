@@ -185,6 +185,7 @@ class _FcConversationListState extends State<FcConversationList> {
         return FcChatBubble(
           message: message.content,
           isUser: message.isUser,
+          interpretMarkdown: !message.isUser,
           referencedFiles: message.referencedFiles,
         );
       },

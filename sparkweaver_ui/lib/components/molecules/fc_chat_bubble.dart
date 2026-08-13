@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
 import '../../design_system/theme.dart';
-import '../../design_system/markdown_style.dart';
 import '../../design_system/spacing.dart';
 import '../../design_system/tokens.dart';
 import '../../design_system/typography.dart';
 import '../atoms/fc_avatar.dart';
 import '../atoms/fc_badge.dart';
+import '../atoms/fc_markdown_text.dart';
 
 /// A chat bubble component for displaying messages in a conversation
 ///
@@ -134,19 +133,17 @@ class FcChatBubble extends StatelessWidget {
                 children: [
                   // Message Text (plain or markdown)
                   interpretMarkdown
-                      ? MarkdownBody(
+                      ? FcMarkdownText(
                           data: message,
-                          styleSheet: SparkweaverMarkdownStyle.forBody(
-                            baseStyle:
-                                (messageStyle ?? SparkweaverTypography.chatUser)
-                                    .copyWith(
-                                      color: textColor,
-                                      fontStyle: isTyping
-                                          ? FontStyle.italic
-                                          : FontStyle.normal,
-                                    ),
-                            textColor: textColor,
-                          ),
+                          baseStyle:
+                              (messageStyle ?? SparkweaverTypography.chatUser)
+                                  .copyWith(
+                                    color: textColor,
+                                    fontStyle: isTyping
+                                        ? FontStyle.italic
+                                        : FontStyle.normal,
+                                  ),
+                          textColor: textColor,
                         )
                       : Text(
                           message,

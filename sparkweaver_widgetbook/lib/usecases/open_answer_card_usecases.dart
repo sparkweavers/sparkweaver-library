@@ -45,3 +45,30 @@ Widget withFeedback(BuildContext context) {
     onSubmit: (text) {},
   );
 }
+
+const _markdownQuestion =
+    '## Enzyme Function\n\n'
+    'Explain how enzymes speed up reactions. Mention the **active site** '
+    'and why the process is considered *catalytic*.';
+
+@widgetbook.UseCase(
+  name: 'Markdown Question and Feedback',
+  type: FcOpenAnswerCard,
+)
+Widget markdownQuestionAndFeedback(BuildContext context) {
+  return FcOpenAnswerCard(
+    question: _markdownQuestion,
+    controller: TextEditingController(
+      text: 'Enzymes bind to the active site and speed up reactions.',
+    ),
+    locked: true,
+    feedback:
+        'Good start — you correctly named the **active site**. To '
+        'improve, note that enzymes:\n\n'
+        '- lower the *activation energy*\n'
+        '- are not consumed by the reaction\n\n'
+        'Also try using the term `catalyst` explicitly.',
+    progressLabel: '5 / 10',
+    onSubmit: (text) {},
+  );
+}

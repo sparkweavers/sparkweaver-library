@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown_plus/flutter_markdown_plus.dart';
+import 'spacing.dart';
 import 'typography.dart';
 
-/// Shared markdown stylesheet for the Sparkweaver design system.
-///
-/// Any surface that renders AI-generated markdown (chat bubbles,
-/// feedback panels, tutor replies) should pull its stylesheet from
-/// here so headings, bold, italic, code, rules, and lists all look
-/// the same across the app.
+/// Shared markdown stylesheets, so every AI-text surface looks the same.
+/// Headings come from [SparkweaverTypography], not from `baseStyle`.
 class SparkweaverMarkdownStyle {
   SparkweaverMarkdownStyle._();
 
-  /// Build a stylesheet tuned to [baseStyle] and [textColor]. The
-  /// caller supplies the base body style so the same markdown block
-  /// can adopt user-message vs AI-message typography (or, for the
-  /// feedback panel, a body-medium style on an accent background).
+  /// The caller supplies [baseStyle] so one markdown block can adopt
+  /// user-message, AI-message or feedback-panel typography.
   static MarkdownStyleSheet forBody({
     required TextStyle baseStyle,
     required Color textColor,
@@ -36,17 +31,61 @@ class SparkweaverMarkdownStyle {
         color: textColor,
       ),
       em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
+      del: baseStyle.copyWith(
+        decoration: TextDecoration.lineThrough,
+        color: textColor,
+      ),
       code: SparkweaverTypography.bodyMedium.copyWith(
         fontFamily: SparkweaverTypography.fontFamilyMono,
         color: textColor,
       ),
-      blockSpacing: 8,
+      blockSpacing: SparkweaverSpacing.sm,
       horizontalRuleDecoration: BoxDecoration(
         border: Border(top: BorderSide(color: textColor, width: 1)),
       ),
       listBullet: baseStyle.copyWith(color: textColor),
-      listIndent: 24.0,
-      listBulletPadding: const EdgeInsets.only(right: 4),
+      listIndent: SparkweaverSpacing.xl,
+      listBulletPadding: const EdgeInsets.only(right: SparkweaverSpacing.xs),
+    );
+  }
+
+  /// Flattens every block node onto [baseStyle] and zeroes the spacing, so
+  /// markdown cannot expand a single-row icon-plus-text layout.
+  static MarkdownStyleSheet forInline({
+    required TextStyle baseStyle,
+    required Color textColor,
+  }) {
+    final blockStyle = baseStyle.copyWith(color: textColor);
+    return MarkdownStyleSheet(
+      p: baseStyle,
+      a: baseStyle.copyWith(
+        color: textColor,
+        decoration: TextDecoration.underline,
+      ),
+      h1: blockStyle,
+      h2: blockStyle,
+      h3: blockStyle,
+      h4: blockStyle,
+      h5: blockStyle,
+      h6: blockStyle,
+      strong: baseStyle.copyWith(
+        fontWeight: SparkweaverTypography.bold,
+        color: textColor,
+      ),
+      em: baseStyle.copyWith(fontStyle: FontStyle.italic, color: textColor),
+      del: baseStyle.copyWith(
+        decoration: TextDecoration.lineThrough,
+        color: textColor,
+      ),
+      code: SparkweaverTypography.bodyMedium.copyWith(
+        fontFamily: SparkweaverTypography.fontFamilyMono,
+        color: textColor,
+      ),
+      blockquote: blockStyle,
+      blockSpacing: 0,
+      listBullet: baseStyle.copyWith(color: textColor),
+      listIndent: SparkweaverSpacing.xl,
+      listBulletPadding: const EdgeInsets.only(right: SparkweaverSpacing.xs),
     );
   }
 }

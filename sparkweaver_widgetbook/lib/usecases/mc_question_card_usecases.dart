@@ -59,3 +59,37 @@ Widget withFeedback(BuildContext context) {
     onSelected: (i) {},
   );
 }
+
+const _markdownQuestion =
+    '## Chemical Bonding\n\n'
+    'Which type of bond forms when electrons are **shared** between two '
+    'atoms?';
+const _markdownOptions = [
+  'Covalent bond',
+  'Ionic bond',
+  'Metallic bond',
+  'Hydrogen bond',
+];
+
+@widgetbook.UseCase(
+  name: 'Markdown Question and Feedback',
+  type: FcMcQuestionCard,
+)
+Widget markdownQuestionAndFeedback(BuildContext context) {
+  return FcMcQuestionCard(
+    question: _markdownQuestion,
+    options: _markdownOptions,
+    selectedIndex: 0,
+    correctIndex: 0,
+    feedback:
+        'Correct! In a covalent bond, atoms *share* electron pairs. '
+        'Common examples include:\n\n'
+        '- `H2O`\n'
+        '- `CO2`\n'
+        '- `CH4`\n\n'
+        'Contrast this with an **ionic bond**, where electrons transfer '
+        'completely.',
+    progressLabel: '4 / 10',
+    onSelected: (i) {},
+  );
+}

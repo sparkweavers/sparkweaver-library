@@ -123,11 +123,10 @@ void main() {
             );
         expect((feedbackCard.decoration as BoxDecoration).border, isNull);
 
-        // The feedback panel renders through flutter_markdown_plus, which
-        // builds a Text.rich(TextSpan(style: ...)) rather than setting
-        // Text.style directly, so the resolved colour lives on the span.
+        // This feedback carries no Markdown, so FcMarkdownText renders a bare
+        // Text and the colour lands on style rather than on a span.
         final feedbackText = tester.widget<Text>(find.text('Well done.'));
-        expect(feedbackText.textSpan?.style?.color, dark.textPrimary);
+        expect(feedbackText.style?.color, dark.textPrimary);
       },
     );
   });

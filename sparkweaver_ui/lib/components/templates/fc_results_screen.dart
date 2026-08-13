@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
 import '../atoms/fc_card.dart';
+import '../atoms/fc_markdown_text.dart';
 
 /// One per-question row inside [FcResultsScreen]. Kept as a plain data
 /// class in the library so the widget doesn't depend on any app-side
@@ -296,9 +297,9 @@ class _QuestionRow extends StatelessWidget {
               ),
               SparkweaverSpacing.horizontalSpaceSm,
               Expanded(
-                child: Text(
-                  row.question,
-                  style: SparkweaverTypography.bodyLarge.copyWith(
+                child: FcMarkdownText(
+                  data: row.question,
+                  baseStyle: SparkweaverTypography.bodyLarge.copyWith(
                     color: colors.textPrimary,
                   ),
                 ),
@@ -348,18 +349,18 @@ class _QuestionRow extends StatelessWidget {
           // to see what "correct" actually was without flipping back.
           if (row.correctAnswer != null) ...[
             SparkweaverSpacing.verticalSpaceXs,
-            Text(
-              'Correct answer: ${row.correctAnswer}',
-              style: SparkweaverTypography.bodySmall.copyWith(
+            FcMarkdownText(
+              data: 'Correct answer: ${row.correctAnswer}',
+              baseStyle: SparkweaverTypography.bodySmall.copyWith(
                 color: colors.textSecondary,
               ),
             ),
           ],
           if (row.feedback != null && row.feedback!.isNotEmpty) ...[
             SparkweaverSpacing.verticalSpaceXs,
-            Text(
-              row.feedback!,
-              style: SparkweaverTypography.bodySmall.copyWith(
+            FcMarkdownText(
+              data: row.feedback!,
+              baseStyle: SparkweaverTypography.bodySmall.copyWith(
                 color: colors.textPrimary,
               ),
             ),

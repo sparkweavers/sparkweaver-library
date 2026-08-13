@@ -136,3 +136,32 @@ Widget fullSession(BuildContext context) {
     onFinish: () {},
   );
 }
+
+@widgetbook.UseCase(
+  name: 'Markdown question and feedback',
+  type: FcResultsScreen,
+)
+Widget markdownQuestionAndFeedback(BuildContext context) {
+  return FcResultsScreen(
+    correct: 1,
+    total: 1,
+    questions: const [
+      FcResultsQuestion(
+        number: 1,
+        question:
+            '## Newton\'s Second Law\n\n'
+            'What is the formula relating **force**, mass, and '
+            'acceleration?',
+        isCorrect: true,
+        correctAnswer: '`F = m * a`',
+        feedback:
+            'Well done — you correctly identified the *second law*. '
+            'Remember:\n\n'
+            '- force is measured in newtons\n'
+            '- mass is measured in kilograms\n'
+            '- acceleration is measured in `m/s^2`',
+      ),
+    ],
+    onFinish: () {},
+  );
+}

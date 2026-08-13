@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_icon.dart';
-import '../atoms/fc_text.dart';
+import '../atoms/fc_markdown_text.dart';
 
 /// Status Message Variant
 enum FcStatusVariant {
@@ -172,10 +172,13 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
           FcIcon(_getIcon(), size: FcIconSize.medium, color: foregroundColor),
           const SizedBox(width: 12),
           Expanded(
-            child: FcText(
-              widget.message,
-              style: FcTextStyle.bodySmall,
-              color: foregroundColor,
+            child: FcMarkdownText(
+              data: widget.message,
+              baseStyle: SparkweaverTypography.bodySmall.copyWith(
+                color: foregroundColor,
+              ),
+              textColor: foregroundColor,
+              inlineOnly: true,
             ),
           ),
           if (widget.closeable && widget.onClose != null) ...[
