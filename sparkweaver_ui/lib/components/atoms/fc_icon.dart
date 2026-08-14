@@ -14,6 +14,9 @@ enum FcIconSize {
 
   /// Extra large icon - 32px
   xLarge,
+
+  /// 2X large icon - 48px
+  xxLarge,
 }
 
 /// Semantic icon variants for common use cases
@@ -80,14 +83,17 @@ class FcIcon extends StatelessWidget {
 
   double _getSizeValue() {
     switch (size) {
+      // The only size with no matching token; iconXs is 12 and iconSm is 16.
       case FcIconSize.small:
         return 14.0;
       case FcIconSize.medium:
-        return 20.0;
+        return SparkweaverTokens.iconMd;
       case FcIconSize.large:
-        return 24.0;
+        return SparkweaverTokens.iconLg;
       case FcIconSize.xLarge:
-        return 32.0;
+        return SparkweaverTokens.iconXl;
+      case FcIconSize.xxLarge:
+        return SparkweaverTokens.iconXxl;
     }
   }
 

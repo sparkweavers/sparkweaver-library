@@ -293,6 +293,10 @@ Widget iconSizes(BuildContext context) {
         const Text('Extra Large (32px)', style: TextStyle(fontSize: 12)),
         const SizedBox(height: 8),
         const FcIcon(SparkweaverIcons.actionSend, size: FcIconSize.xLarge),
+        const SizedBox(height: 24),
+        const Text('2X Large (48px)', style: TextStyle(fontSize: 12)),
+        const SizedBox(height: 8),
+        const FcIcon(SparkweaverIcons.actionSend, size: FcIconSize.xxLarge),
       ],
     ),
   );
