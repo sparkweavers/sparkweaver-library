@@ -4,7 +4,9 @@ import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 void main() {
   Widget wrap(Widget child) {
-    return MaterialApp(home: Scaffold(body: child));
+    return MaterialApp(
+      home: Scaffold(body: child),
+    );
   }
 
   testWidgets('submits typed text in textWithVoice mode', (tester) async {

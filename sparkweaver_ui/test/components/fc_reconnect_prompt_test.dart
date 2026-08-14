@@ -8,7 +8,9 @@ void main() {
   }
 
   testWidgets('renders default title and button label', (tester) async {
-    await tester.pumpWidget(wrap(FcReconnectPrompt(onReconnect: () {})));
+    await tester.pumpWidget(
+      wrap(FcReconnectPrompt(onReconnect: () {})),
+    );
 
     expect(find.text('Disconnected'), findsOneWidget);
     expect(find.text('Reconnect'), findsOneWidget);
@@ -29,14 +31,18 @@ void main() {
   });
 
   testWidgets('omits subtitle when null', (tester) async {
-    await tester.pumpWidget(wrap(FcReconnectPrompt(onReconnect: () {})));
+    await tester.pumpWidget(
+      wrap(FcReconnectPrompt(onReconnect: () {})),
+    );
 
     expect(find.text('The connection was lost.'), findsNothing);
   });
 
   testWidgets('invokes onReconnect when tapped', (tester) async {
     var taps = 0;
-    await tester.pumpWidget(wrap(FcReconnectPrompt(onReconnect: () => taps++)));
+    await tester.pumpWidget(
+      wrap(FcReconnectPrompt(onReconnect: () => taps++)),
+    );
 
     await tester.tap(find.text('Reconnect'));
     await tester.pump();
@@ -44,12 +50,16 @@ void main() {
     expect(taps, 1);
   });
 
-  testWidgets('shows loading indicator and ignores taps when reconnecting', (
-    tester,
-  ) async {
+  testWidgets('shows loading indicator and ignores taps when reconnecting',
+      (tester) async {
     var taps = 0;
     await tester.pumpWidget(
-      wrap(FcReconnectPrompt(isReconnecting: true, onReconnect: () => taps++)),
+      wrap(
+        FcReconnectPrompt(
+          isReconnecting: true,
+          onReconnect: () => taps++,
+        ),
+      ),
     );
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);

@@ -24,7 +24,10 @@ void main() {
   testWidgets('renders userName and userSubtitle in header', (tester) async {
     await pumpDrawer(
       tester,
-      const FcAppDrawer(userName: 'Birgit', userSubtitle: 'Premium'),
+      const FcAppDrawer(
+        userName: 'Birgit',
+        userSubtitle: 'Premium',
+      ),
     );
 
     expect(find.text('Birgit'), findsOneWidget);
@@ -83,7 +86,10 @@ void main() {
   });
 
   testWidgets('omits Divider when items list is empty', (tester) async {
-    await pumpDrawer(tester, const FcAppDrawer(userName: 'Anonymous'));
+    await pumpDrawer(
+      tester,
+      const FcAppDrawer(userName: 'Anonymous'),
+    );
 
     expect(find.byType(Divider), findsNothing);
   });

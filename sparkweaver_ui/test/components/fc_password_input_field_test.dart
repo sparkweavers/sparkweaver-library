@@ -4,7 +4,9 @@ import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
 void main() {
   Widget wrap(Widget child) {
-    return MaterialApp(home: Scaffold(body: child));
+    return MaterialApp(
+      home: Scaffold(body: child),
+    );
   }
 
   TextField findTextField(WidgetTester tester) =>
@@ -40,7 +42,8 @@ void main() {
     expect(find.byIcon(Icons.visibility), findsNothing);
   });
 
-  testWidgets('tapping the eye again re-obscures the password', (tester) async {
+  testWidgets('tapping the eye again re-obscures the password',
+      (tester) async {
     await tester.pumpWidget(
       wrap(const FcPasswordInputField(label: 'Password')),
     );
