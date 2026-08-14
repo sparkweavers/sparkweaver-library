@@ -1,7 +1,7 @@
 name: sparkweaver_widgetbook
 description: "Component showcase and documentation for Sparkweaver UI library using Widgetbook"
 publish_to: 'none'
-version: 2.2.1
+version: 2.2.2
 environment:
   sdk: ">=3.8.0 <4.0.0"
   flutter: ">=3.41.0"
