@@ -47,6 +47,10 @@ class FcConfirmationDialog extends StatelessWidget {
   /// Icon color
   final Color? iconColor;
 
+  /// Renders the cancel action as a back link above the title instead of a
+  /// bottom button. Cancelling still returns false.
+  final String? backLabel;
+
   const FcConfirmationDialog({
     super.key,
     required this.title,
@@ -56,35 +60,67 @@ class FcConfirmationDialog extends StatelessWidget {
     this.isDestructive = false,
     this.icon,
     this.iconColor,
+    this.backLabel,
   });
 
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
     return AlertDialog(
-      title: Row(
+      title: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (icon != null) ...[
-            FcIcon(
-              icon!,
-              color:
-                  iconColor ?? (isDestructive ? colors.error : colors.primary),
+          if (backLabel != null) ...[
+            // An unpadded link, so the arrow lines up with the title's left edge.
+            InkWell(
+              onTap: () => Navigator.pop(context, false),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  FcIcon(
+                    SparkweaverIcons.navigationBack,
+                    size: FcIconSize.small,
+                    color: colors.textSecondary,
+                  ),
+                  SparkweaverSpacing.horizontalSpaceXs,
+                  FcText(
+                    backLabel!,
+                    style: FcTextStyle.labelMedium,
+                    color: colors.textSecondary,
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(width: 12),
+            SparkweaverSpacing.verticalSpaceSm,
           ],
-          Expanded(child: FcText(title, style: FcTextStyle.heading3)),
+          Row(
+            children: [
+              if (icon != null) ...[
+                FcIcon(
+                  icon!,
+                  color:
+                      iconColor ??
+                      (isDestructive ? colors.error : colors.primary),
+                ),
+                SparkweaverSpacing.horizontalSpaceSm,
+              ],
+              Expanded(child: FcText(title, style: FcTextStyle.heading3)),
+            ],
+          ),
         ],
       ),
       content: FcText(message, style: FcTextStyle.bodyMedium),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context, false),
-          child: FcText(
-            cancelLabel,
-            style: FcTextStyle.labelMedium,
-            color: colors.textSecondary,
+        if (backLabel == null)
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: FcText(
+              cancelLabel,
+              style: FcTextStyle.labelMedium,
+              color: colors.textSecondary,
+            ),
           ),
-        ),
         FcButton(
           label: confirmLabel,
           onPressed: () => Navigator.pop(context, true),

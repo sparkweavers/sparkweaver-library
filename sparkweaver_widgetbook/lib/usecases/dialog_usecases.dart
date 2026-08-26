@@ -22,6 +22,31 @@ Widget confirmationDialog(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(
+  name: 'Confirmation Dialog with back link',
+  type: FcConfirmationDialog,
+)
+Widget confirmationDialogWithBackLink(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: FcButton(
+        label: 'Show Confirmation With Back',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => const FcConfirmationDialog(
+              title: 'Nothing left to review',
+              message: 'No cards match that filter. Start a full run instead?',
+              confirmLabel: 'Practice all questions',
+              backLabel: 'Back to topics',
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Destructive Dialog', type: FcConfirmationDialog)
 Widget destructiveDialog(BuildContext context) {
   return Scaffold(
@@ -86,6 +111,122 @@ Widget alertDialog(BuildContext context) {
               message: 'Your changes have been saved successfully.',
               icon: Icons.check_circle,
               iconColor: SparkweaverColors.success,
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Choice Dialog - Default', type: FcChoiceDialog)
+Widget choiceDialogDefault(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: FcButton(
+        label: 'Show Choices',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => FcChoiceDialog<String>(
+              title: 'What would you like to practice?',
+              choices: const [
+                FcChoice(value: 'all', label: 'All questions'),
+                FcChoice(value: 'wrong', label: 'Only wrong answers'),
+              ],
+              onSelected: (_) => Navigator.of(ctx).pop(),
+              cancelLabel: 'Cancel',
+              onCancel: () => Navigator.of(ctx).pop(),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Choice Dialog - Subtitles', type: FcChoiceDialog)
+Widget choiceDialogSubtitles(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: FcButton(
+        label: 'Show Choices',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => FcChoiceDialog<String>(
+              title: 'What would you like to practice?',
+              message: 'Pick a filter for this study set.',
+              choices: const [
+                FcChoice(
+                  value: 'all',
+                  label: 'All questions',
+                  subtitle: 'All 10 cards again',
+                ),
+                FcChoice(
+                  value: 'wrong',
+                  label: 'Only wrong answers',
+                  subtitle: '3 cards',
+                ),
+              ],
+              onSelected: (_) => Navigator.of(ctx).pop(),
+              cancelLabel: 'Cancel',
+              onCancel: () => Navigator.of(ctx).pop(),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Choice Dialog - No Cancel', type: FcChoiceDialog)
+Widget choiceDialogNoCancel(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: FcButton(
+        label: 'Show Choices',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => FcChoiceDialog<String>(
+              title: 'Pick a study mode',
+              choices: const [
+                FcChoice(value: 'flashcard', label: 'Flashcards'),
+                FcChoice(value: 'quiz', label: 'Multiple choice'),
+              ],
+              onSelected: (_) => Navigator.of(ctx).pop(),
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Choice Dialog - Primary Row', type: FcChoiceDialog)
+Widget choiceDialogPrimaryRow(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: FcButton(
+        label: 'Show Choices',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => FcChoiceDialog<String>(
+              title: 'Session already in progress',
+              message: 'You have unsaved answers from a previous attempt.',
+              choices: const [
+                FcChoice(
+                  value: 'resume',
+                  label: 'Resume session',
+                  isPrimary: true,
+                ),
+                FcChoice(value: 'restart', label: 'Start over'),
+              ],
+              onSelected: (_) => Navigator.of(ctx).pop(),
+              cancelLabel: 'Cancel',
+              onCancel: () => Navigator.of(ctx).pop(),
             ),
           );
         },

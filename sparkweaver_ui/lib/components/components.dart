@@ -42,6 +42,7 @@ export 'molecules/fc_status_message.dart';
 export 'organisms/fc_app_drawer.dart';
 export 'organisms/fc_audio_player.dart';
 export 'organisms/fc_chat_overlay.dart';
+export 'organisms/fc_choice_dialog.dart';
 export 'organisms/fc_conversation_list.dart';
 export 'organisms/fc_dialog.dart';
 export 'organisms/fc_empty_state.dart';
