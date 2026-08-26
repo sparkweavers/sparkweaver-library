@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
+import '../atoms/fc_card.dart';
 import '../atoms/fc_text.dart';
 
 /// One selectable row in an [FcChoiceDialog].
@@ -14,7 +15,7 @@ class FcChoice<T> {
   /// Optional supporting line rendered under the label.
   final String? subtitle;
 
-  /// Renders as the filled primary row instead of an outlined one.
+  /// Renders as the selected-tint card instead of the default surface one.
   final bool isPrimary;
 
   const FcChoice({
@@ -87,7 +88,6 @@ class FcChoiceDialog<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = SparkweaverTheme.of(context);
     return AlertDialog(
       title: FcText(title, style: FcTextStyle.heading3),
       content: SingleChildScrollView(
@@ -99,27 +99,9 @@ class FcChoiceDialog<T> extends StatelessWidget {
               FcText(message!, style: FcTextStyle.bodyMedium),
               SparkweaverSpacing.verticalSpaceMd,
             ],
-            for (final choice in choices) ...[
-              FcButton(
-                label: choice.label,
-                fullWidth: true,
-                variant: choice.isPrimary
-                    ? FcButtonVariant.primary
-                    : FcButtonVariant.outlined,
-                onPressed: () => onSelected(choice.value),
-              ),
-              if (choice.subtitle != null) ...[
-                SparkweaverSpacing.verticalSpaceXs,
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: FcText(
-                    choice.subtitle!,
-                    style: FcTextStyle.caption,
-                    color: colors.textSecondary,
-                  ),
-                ),
-              ],
-              if (choice != choices.last) SparkweaverSpacing.verticalSpaceSm,
+            for (var i = 0; i < choices.length; i++) ...[
+              _ChoiceRow<T>(choice: choices[i], onSelected: onSelected),
+              if (i < choices.length - 1) SparkweaverSpacing.verticalSpaceSm,
             ],
           ],
         ),
@@ -127,15 +109,55 @@ class FcChoiceDialog<T> extends StatelessWidget {
       actions: cancelLabel == null
           ? null
           : [
-              TextButton(
+              FcButton(
+                label: cancelLabel!,
+                variant: FcButtonVariant.text,
                 onPressed: onCancel,
-                child: FcText(
-                  cancelLabel!,
-                  style: FcTextStyle.labelMedium,
-                  color: colors.textSecondary,
-                ),
               ),
             ],
+    );
+  }
+}
+
+/// A single tappable row: label and optional subtitle stacked, left-aligned,
+/// inside one [FcCard] hit area. Kept private — callers only ever see
+/// [FcChoiceDialog] and [FcChoice].
+class _ChoiceRow<T> extends StatelessWidget {
+  final FcChoice<T> choice;
+  final ValueChanged<T> onSelected;
+
+  const _ChoiceRow({required this.choice, required this.onSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = SparkweaverTheme.of(context);
+    return Material(
+      type: MaterialType.transparency,
+      borderRadius: SparkweaverTokens.cardRadius,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => onSelected(choice.value),
+        child: FcCard(
+          variant: choice.isPrimary
+              ? FcCardVariant.selected
+              : FcCardVariant.surface,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FcText(choice.label, style: FcTextStyle.labelLarge),
+              if (choice.subtitle != null) ...[
+                SparkweaverSpacing.verticalSpaceXs,
+                FcText(
+                  choice.subtitle!,
+                  style: FcTextStyle.caption,
+                  color: colors.textSecondary,
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

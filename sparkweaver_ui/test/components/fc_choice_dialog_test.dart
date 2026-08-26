@@ -87,11 +87,38 @@ void main() {
       );
 
       expect(find.text('Cancel'), findsNothing);
-      expect(find.byType(TextButton), findsNothing);
+      expect(
+        find.byWidgetPredicate(
+          (w) => w is FcButton && w.variant == FcButtonVariant.text,
+        ),
+        findsNothing,
+      );
+    });
+
+    testWidgets('tapping the subtitle text itself selects that row', (
+      tester,
+    ) async {
+      final selected = <int>[];
+      await tester.pumpWidget(
+        wrap(
+          FcChoiceDialog<int>(
+            title: 'Pick one',
+            choices: const [
+              FcChoice(value: 1, label: 'First', subtitle: 'first subtitle'),
+            ],
+            onSelected: selected.add,
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('first subtitle'));
+      await tester.pump();
+
+      expect(selected, [1]);
     });
 
     testWidgets(
-      'an isPrimary row renders a different button variant from the rest',
+      'an isPrimary row renders a different FcCard variant from the rest',
       (tester) async {
         await tester.pumpWidget(
           wrap(
@@ -106,21 +133,15 @@ void main() {
           ),
         );
 
-        final firstButton = tester.widget<FcButton>(
-          find.ancestor(
-            of: find.text('First'),
-            matching: find.byType(FcButton),
-          ),
+        final firstCard = tester.widget<FcCard>(
+          find.ancestor(of: find.text('First'), matching: find.byType(FcCard)),
         );
-        final secondButton = tester.widget<FcButton>(
-          find.ancestor(
-            of: find.text('Second'),
-            matching: find.byType(FcButton),
-          ),
+        final secondCard = tester.widget<FcCard>(
+          find.ancestor(of: find.text('Second'), matching: find.byType(FcCard)),
         );
 
-        expect(firstButton.variant, FcButtonVariant.outlined);
-        expect(secondButton.variant, FcButtonVariant.primary);
+        expect(firstCard.variant, FcCardVariant.surface);
+        expect(secondCard.variant, FcCardVariant.selected);
       },
     );
 
