@@ -26,37 +26,8 @@ class FcChoice<T> {
   });
 }
 
-/// Sparkweaver Choice Dialog (Organism)
-///
-/// A title, an optional message, and one full-width row per [FcChoice],
-/// followed by an optional cancel action.
-///
-/// Never calls [Navigator] itself — the caller owns dismissal, same
-/// contract as [FcResultsScreen.onFinish]. [onSelected] and [onCancel]
-/// are the only way this widget communicates a decision.
-///
-/// ## Usage
-///
-/// ```dart
-/// showDialog(
-///   context: context,
-///   builder: (ctx) => FcChoiceDialog<SessionFilter>(
-///     title: 'What would you like to practice?',
-///     choices: const [
-///       FcChoice(value: SessionFilter.all, label: 'All questions'),
-///       FcChoice(
-///         value: SessionFilter.wrong,
-///         label: 'Only wrong answers',
-///         subtitle: '3 cards',
-///         isPrimary: true,
-///       ),
-///     ],
-///     onSelected: (filter) => Navigator.of(context).pop(filter),
-///     cancelLabel: 'Cancel',
-///     onCancel: () => Navigator.of(context).pop(),
-///   ),
-/// );
-/// ```
+/// A title, an optional message, one row per [FcChoice], and an optional cancel action.
+/// Never calls [Navigator]; the caller owns dismissal through the callbacks.
 class FcChoiceDialog<T> extends StatelessWidget {
   /// Dialog title.
   final String title;
@@ -119,9 +90,7 @@ class FcChoiceDialog<T> extends StatelessWidget {
   }
 }
 
-/// A single tappable row: label and optional subtitle stacked, left-aligned,
-/// inside one [FcCard] hit area. Kept private — callers only ever see
-/// [FcChoiceDialog] and [FcChoice].
+/// One tappable row: label and optional subtitle stacked inside a single [FcCard] hit area.
 class _ChoiceRow<T> extends StatelessWidget {
   final FcChoice<T> choice;
   final ValueChanged<T> onSelected;
