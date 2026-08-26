@@ -12,6 +12,10 @@ enum FcCardVariant {
   /// A quieter block nested inside or beside a [FcCardVariant.surface] card,
   /// with no border. Used for feedback, hints and secondary panels.
   muted,
+
+  /// A card the user has picked out of several, tinted blue against the
+  /// purple-bordered [FcCardVariant.surface] cards it sits among.
+  selected,
 }
 
 /// The single card surface for the design system.
@@ -36,6 +40,11 @@ enum FcCardVariant {
 /// FcCard(
 ///   variant: FcCardVariant.muted,
 ///   child: Text('Nearly, but latent learning is not the same thing.'),
+/// )
+///
+/// FcCard(
+///   variant: FcCardVariant.selected,
+///   child: Text('Yearly'),
 /// )
 /// ```
 class FcCard extends StatelessWidget {
@@ -62,17 +71,34 @@ class FcCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
-    final isSurface = variant == FcCardVariant.surface;
+    final border = _borderColor(colors);
 
     return Container(
       width: width,
       padding: padding,
       decoration: BoxDecoration(
-        color: isSurface ? colors.surface : colors.surfaceVariant,
+        color: _background(colors),
         borderRadius: SparkweaverTokens.cardRadius,
-        border: isSurface ? Border.all(color: colors.primaryLight) : null,
+        border: border == null ? null : Border.all(color: border),
       ),
       child: child,
     );
   }
+
+  /// Blended rather than translucent, so the tint does not change with
+  /// whatever the card happens to sit on.
+  Color _background(SparkweaverTheme colors) => switch (variant) {
+    FcCardVariant.surface => colors.surface,
+    FcCardVariant.muted => colors.surfaceVariant,
+    FcCardVariant.selected => Color.alphaBlend(
+      colors.secondary10,
+      colors.surface,
+    ),
+  };
+
+  Color? _borderColor(SparkweaverTheme colors) => switch (variant) {
+    FcCardVariant.surface => colors.primaryLight,
+    FcCardVariant.muted => null,
+    FcCardVariant.selected => colors.secondary,
+  };
 }

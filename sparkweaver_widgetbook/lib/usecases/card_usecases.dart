@@ -33,6 +33,22 @@ Widget mutedCard(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(name: 'Selected Variant', type: FcCard)
+Widget selectedCard(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.all(16),
+    child: FcCard(
+      variant: FcCardVariant.selected,
+      child: Text(
+        'Yearly, the plan the user just picked.',
+        style: SparkweaverTypography.bodyMedium.copyWith(
+          color: SparkweaverTheme.of(context).textPrimary,
+        ),
+      ),
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Custom Padding', type: FcCard)
 Widget customPaddingCard(BuildContext context) {
   return Padding(
@@ -49,8 +65,8 @@ Widget customPaddingCard(BuildContext context) {
   );
 }
 
-@widgetbook.UseCase(name: 'Both Variants', type: FcCard)
-Widget bothVariants(BuildContext context) {
+@widgetbook.UseCase(name: 'All Variants', type: FcCard)
+Widget allVariants(BuildContext context) {
   final colors = SparkweaverTheme.of(context);
   return Padding(
     padding: const EdgeInsets.all(16),
@@ -70,6 +86,16 @@ Widget bothVariants(BuildContext context) {
           variant: FcCardVariant.muted,
           child: Text(
             'Muted: a quieter block nested beside a surface card.',
+            style: SparkweaverTypography.bodyMedium.copyWith(
+              color: colors.textPrimary,
+            ),
+          ),
+        ),
+        SparkweaverSpacing.verticalSpaceMd,
+        FcCard(
+          variant: FcCardVariant.selected,
+          child: Text(
+            'Selected: the one the user picked out of several.',
             style: SparkweaverTypography.bodyMedium.copyWith(
               color: colors.textPrimary,
             ),
