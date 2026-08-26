@@ -224,6 +224,9 @@ class SparkweaverTheme {
   Color get primary10 => primary.withValues(alpha: 0.1);
   Color get primary20 => primary.withValues(alpha: 0.2);
   Color get primary30 => primary.withValues(alpha: 0.3);
+  Color get secondary10 => secondary.withValues(alpha: 0.1);
+  Color get secondary20 => secondary.withValues(alpha: 0.2);
+  Color get secondary30 => secondary.withValues(alpha: 0.3);
   Color get gray10 => gray500.withValues(alpha: 0.1);
   Color get gray20 => gray500.withValues(alpha: 0.2);
   Color get gray30 => gray500.withValues(alpha: 0.3);

@@ -122,6 +122,22 @@ class FcBadgeVariants {
     );
   }
 
+  /// Secondary badge (brand blue theme)
+  static Widget secondary({
+    required String text,
+    IconData? icon,
+    required BuildContext context,
+  }) {
+    final colors = SparkweaverTheme.of(context);
+    return FcBadge(
+      text: text,
+      icon: icon,
+      backgroundColor: colors.secondary10,
+      borderColor: colors.secondary20,
+      foregroundColor: colors.secondary,
+    );
+  }
+
   /// Success badge (green theme)
   static Widget success({
     required String text,

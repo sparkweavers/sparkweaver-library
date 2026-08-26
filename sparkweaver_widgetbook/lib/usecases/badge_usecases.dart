@@ -20,6 +20,17 @@ Widget primaryBadge(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(name: 'Secondary Variant', type: FcBadge)
+Widget secondaryBadge(BuildContext context) {
+  return Center(
+    child: FcBadgeVariants.secondary(
+      text: 'Current plan',
+      icon: Icons.check_circle,
+      context: context,
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Success Variant', type: FcBadge)
 Widget successBadge(BuildContext context) {
   return Center(
@@ -68,6 +79,7 @@ Widget multipleBadges(BuildContext context) {
       runSpacing: 8,
       children: [
         FcBadgeVariants.primary(text: 'Primary', context: context),
+        FcBadgeVariants.secondary(text: 'Secondary', context: context),
         FcBadgeVariants.success(text: 'Success', context: context),
         FcBadgeVariants.warning(text: 'Warning', context: context),
         FcBadgeVariants.error(text: 'Error', context: context),
