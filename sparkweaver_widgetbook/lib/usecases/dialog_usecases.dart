@@ -22,6 +22,31 @@ Widget confirmationDialog(BuildContext context) {
   );
 }
 
+@widgetbook.UseCase(
+  name: 'Confirmation Dialog with back link',
+  type: FcConfirmationDialog,
+)
+Widget confirmationDialogWithBackLink(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: FcButton(
+        label: 'Show Confirmation With Back',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (ctx) => const FcConfirmationDialog(
+              title: 'Nothing left to review',
+              message: 'No cards match that filter. Start a full run instead?',
+              confirmLabel: 'Practice all questions',
+              backLabel: 'Back to topics',
+            ),
+          );
+        },
+      ),
+    ),
+  );
+}
+
 @widgetbook.UseCase(name: 'Destructive Dialog', type: FcConfirmationDialog)
 Widget destructiveDialog(BuildContext context) {
   return Scaffold(
