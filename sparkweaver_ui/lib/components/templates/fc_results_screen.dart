@@ -73,7 +73,7 @@ class FcResultsGradeDistribution {
 ///
 /// Shows the end-of-session summary: total correct out of total answered,
 /// an optional grade distribution (flashcard-mode only), and a scrollable
-/// per-question list with correct/incorrect chips + optional feedback.
+/// per-question list with outcome badges + optional feedback.
 ///
 /// Rendered inside a caller-provided Scaffold (or as the body of one) —
 /// the template does not wrap itself in Material chrome so it composes

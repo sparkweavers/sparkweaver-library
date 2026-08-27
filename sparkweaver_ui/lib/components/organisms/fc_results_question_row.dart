@@ -61,10 +61,8 @@ class FcResultsQuestionRow extends StatelessWidget {
               ),
             ),
           ],
-          // Always render the reference answer when we have one, on
-          // both correct and incorrect rows. Correct rows benefit for
-          // group study — students revisiting the set together want
-          // to see what "correct" actually was without flipping back.
+          // Shown on correct rows too, so group study doesn't need to
+          // flip back to see what "correct" was.
           if (row.correctAnswer != null) ...[
             SparkweaverSpacing.verticalSpaceXs,
             FcMarkdownText(
