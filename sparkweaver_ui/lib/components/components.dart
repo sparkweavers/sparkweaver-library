@@ -1,20 +1,4 @@
-/// Sparkweaver UI Components
-///
-/// All UI components organized by Atomic Design principles.
-///
-/// ## Atomic Design Hierarchy
-///
-/// **Atoms** - Smallest building blocks (single-purpose elements)
-/// - Avatar, Badge, Button, Icon, etc.
-///
-/// **Molecules** - Simple combinations of atoms
-/// - Chat bubble (avatar + text + badges), Input field with label, etc.
-///
-/// **Organisms** - Complex UI sections
-/// - Chat conversation list, File upload panel, etc.
-///
-/// **Templates** - Page-level layouts
-/// - Chat screen layout, Settings page layout, etc.
+/// All UI components, grouped by atomic design level.
 library;
 
 // Atoms - Single-purpose UI elements

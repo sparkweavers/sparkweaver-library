@@ -20,9 +20,7 @@ class FcGradedOutcome extends FcResultOutcome {
   const FcGradedOutcome(this.grade);
 }
 
-/// Session Results Outcome Badge (Molecule)
-///
-/// Solid-pill chip for one results-screen row; not an [FcBadge] variant.
+/// Solid-pill outcome chip for one results row, not an FcBadge variant.
 class FcOutcomeBadge extends StatelessWidget {
   final FcResultOutcome outcome;
   const FcOutcomeBadge({super.key, required this.outcome});

@@ -19,11 +19,7 @@ class FcResultsGradeDistribution {
   int get total => hard + medium + easy;
 }
 
-/// Session Results Grade Distribution Card (Molecule)
-///
-/// Shows how many flashcards were graded "Again", "Almost" and "Knew it"
-/// as coloured dot rows inside an [FcCard]. Rendered by `FcResultsScreen`
-/// only for flashcard-mode sessions.
+/// Grade distribution card, rendered only for flashcard-mode sessions.
 class FcResultsGradeDistributionCard extends StatelessWidget {
   final FcResultsGradeDistribution distribution;
 

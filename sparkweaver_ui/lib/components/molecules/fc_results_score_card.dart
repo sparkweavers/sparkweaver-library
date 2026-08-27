@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_card.dart';
 
-/// Session Results Score Card (Molecule)
-///
-/// Shows "X / N correct" plus the percentage inside an [FcCard]. Sits at
-/// the top of `FcResultsScreen`.
+/// Score card showing "X / N correct" and the percentage.
 class FcResultsScoreCard extends StatelessWidget {
   /// Number of correct answers on the latest attempt.
   final int correct;

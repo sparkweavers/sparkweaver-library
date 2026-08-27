@@ -5,30 +5,8 @@ import '../molecules/fc_results_grade_distribution_card.dart';
 import '../molecules/fc_results_score_card.dart';
 import '../organisms/fc_results_question_row.dart';
 
-/// Session Results Screen (Template)
-///
-/// Shows the end-of-session summary: total correct out of total answered,
-/// an optional grade distribution (flashcard-mode only), and a scrollable
-/// per-question list with outcome badges + optional feedback.
-///
-/// Rendered inside a caller-provided Scaffold (or as the body of one) —
-/// the template does not wrap itself in Material chrome so it composes
-/// with any AppBar or navigation the app wants.
-///
-/// ## Usage
-///
-/// ```dart
-/// FcResultsScreen(
-///   correct: 7,
-///   total: 10,
-///   questions: [
-///     FcResultsQuestion(number: 1, question: '…', outcome: FcScoredOutcome(true), feedback: '…'),
-///     ...
-///   ],
-///   gradeDistribution: FcResultsGradeDistribution(hard: 2, medium: 3, easy: 5),
-///   onFinish: () => Navigator.pop(context),
-/// )
-/// ```
+/// End-of-session summary. Renders inside a caller-provided Scaffold, so it
+/// adds no Material chrome of its own.
 class FcResultsScreen extends StatelessWidget {
   /// Number of correct answers on the latest attempt.
   final int correct;

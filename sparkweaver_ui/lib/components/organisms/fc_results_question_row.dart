@@ -4,9 +4,8 @@ import '../atoms/fc_card.dart';
 import '../atoms/fc_markdown_text.dart';
 import '../molecules/fc_outcome_badge.dart';
 
-/// One per-question row inside `FcResultsScreen`. Kept as a plain data
-/// class in the library so the widget doesn't depend on any app-side
-/// domain types.
+/// One per-question row, kept a plain data class so the library never
+/// depends on app-side domain types.
 class FcResultsQuestion {
   /// 1-indexed position in the summary list (usually questionIndex + 1).
   final int number;
@@ -44,11 +43,7 @@ class FcResultsQuestion {
   });
 }
 
-/// Session Results Question Row (Organism)
-///
-/// One per-question card inside `FcResultsScreen`: question text, an
-/// outcome badge, the student's answer (if any), the reference answer
-/// and any LLM feedback.
+/// One per-question card: question, outcome badge, answers and feedback.
 class FcResultsQuestionRow extends StatelessWidget {
   final FcResultsQuestion row;
 
