@@ -9,10 +9,19 @@ void main() {
     Widget Function(BuildContext, int)? itemBuilder,
     ValueChanged<String>? onSend,
     ThemeData? theme,
+    double? paddingBottom,
   }) async {
     await tester.pumpWidget(
       MaterialApp(
         theme: theme,
+        builder: paddingBottom == null
+            ? null
+            : (context, navigator) => MediaQuery(
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(padding: EdgeInsets.only(bottom: paddingBottom)),
+                child: navigator!,
+              ),
         home: Builder(
           builder: (context) {
             return Scaffold(
@@ -114,5 +123,28 @@ void main() {
         expect(emptyState.style?.color, dark.textSecondary);
       },
     );
+
+    testWidgets('input row clears the nav bar inside the modal sheet', (
+      tester,
+    ) async {
+      tester.view.physicalSize = const Size(400, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
+      await openOverlay(tester, itemCount: 0, paddingBottom: 48);
+
+      final screenBottom = tester.getRect(find.byType(MaterialApp)).bottom;
+      final rowBottom = tester
+          .getRect(
+            find.descendant(
+              of: find.byType(FcInputArea),
+              matching: find.byType(Container),
+            ),
+          )
+          .bottom;
+
+      expect(screenBottom - rowBottom, greaterThanOrEqualTo(48));
+    });
   });
 }
