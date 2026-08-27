@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
+import '../molecules/fc_outcome_badge.dart';
 import '../molecules/fc_results_grade_distribution_card.dart';
 import '../molecules/fc_results_score_card.dart';
 import '../organisms/fc_results_question_row.dart';
@@ -15,8 +16,9 @@ class FcResultsQuestion {
   /// The question text.
   final String question;
 
-  /// Whether the latest attempt was correct.
-  final bool isCorrect;
+  /// The resolved outcome: correct/incorrect for scored questions, or a
+  /// self-rating grade for flashcard questions.
+  final FcResultOutcome outcome;
 
   /// The reference / correct answer, if known. Rendered as tertiary text
   /// under the question when the user got it wrong.
@@ -43,7 +45,7 @@ class FcResultsQuestion {
   const FcResultsQuestion({
     required this.number,
     required this.question,
-    required this.isCorrect,
+    required this.outcome,
     this.correctAnswer,
     this.userAnswer,
     this.selectedAnswerText,
@@ -84,7 +86,7 @@ class FcResultsGradeDistribution {
 ///   correct: 7,
 ///   total: 10,
 ///   questions: [
-///     FcResultsQuestion(number: 1, question: '…', isCorrect: true, feedback: '…'),
+///     FcResultsQuestion(number: 1, question: '…', outcome: FcScoredOutcome(true), feedback: '…'),
 ///     ...
 ///   ],
 ///   gradeDistribution: FcResultsGradeDistribution(hard: 2, medium: 3, easy: 5),

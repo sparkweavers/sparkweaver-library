@@ -11,7 +11,7 @@ Widget correctRow(BuildContext context) {
       FcResultsQuestion(
         number: 1,
         question: 'Which planet is closest to the sun?',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer: 'Mercury',
       ),
     ],
@@ -31,7 +31,7 @@ Widget incorrectRowWithWrongSelection(BuildContext context) {
       FcResultsQuestion(
         number: 1,
         question: 'Which planet is closest to the sun?',
-        isCorrect: false,
+        outcome: FcScoredOutcome(false),
         correctAnswer: 'Mercury',
         selectedAnswerText: 'Venus',
       ),
@@ -52,7 +52,7 @@ Widget incorrectRowWithNoSelection(BuildContext context) {
       FcResultsQuestion(
         number: 1,
         question: 'Which planet is closest to the sun?',
-        isCorrect: false,
+        outcome: FcScoredOutcome(false),
         correctAnswer: 'Mercury',
       ),
     ],
@@ -72,39 +72,39 @@ Widget fullSession(BuildContext context) {
       FcResultsQuestion(
         number: 1,
         question: 'Which planet is closest to the sun?',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer: 'Mercury',
       ),
       FcResultsQuestion(
         number: 2,
         question: 'What is the powerhouse of the cell?',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer: 'Mitochondria',
       ),
       FcResultsQuestion(
         number: 3,
         question: 'Which gas do plants absorb from the atmosphere?',
-        isCorrect: false,
+        outcome: FcScoredOutcome(false),
         correctAnswer: 'Carbon dioxide',
         selectedAnswerText: 'Oxygen',
       ),
       FcResultsQuestion(
         number: 4,
         question: 'Who wrote "Romeo and Juliet"?',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer: 'William Shakespeare',
       ),
       FcResultsQuestion(
         number: 5,
         question: 'What is the largest planet in the solar system?',
-        isCorrect: false,
+        outcome: FcScoredOutcome(false),
         correctAnswer: 'Jupiter',
         selectedAnswerText: 'Saturn',
       ),
       FcResultsQuestion(
         number: 6,
         question: 'Explain, in your own words, what photosynthesis is.',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer:
             'The process by which plants convert light energy into '
             'chemical energy.',
@@ -115,7 +115,7 @@ Widget fullSession(BuildContext context) {
       FcResultsQuestion(
         number: 7,
         question: 'Explain, in your own words, why the sky is blue.',
-        isCorrect: false,
+        outcome: FcScoredOutcome(false),
         correctAnswer:
             'Shorter wavelengths of sunlight scatter more in the '
             'atmosphere, so blue light reaches our eyes from all directions.',
@@ -124,7 +124,7 @@ Widget fullSession(BuildContext context) {
       FcResultsQuestion(
         number: 8,
         question: 'What is the chemical symbol for gold?',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer: 'Au',
       ),
     ],
@@ -152,7 +152,7 @@ Widget markdownQuestionAndFeedback(BuildContext context) {
             '## Newton\'s Second Law\n\n'
             'What is the formula relating **force**, mass, and '
             'acceleration?',
-        isCorrect: true,
+        outcome: FcScoredOutcome(true),
         correctAnswer: '`F = m * a`',
         feedback:
             'Well done — you correctly identified the *second law*. '

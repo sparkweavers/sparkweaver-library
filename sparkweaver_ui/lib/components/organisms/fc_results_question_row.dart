@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_card.dart';
 import '../atoms/fc_markdown_text.dart';
+import '../molecules/fc_outcome_badge.dart';
 import '../templates/fc_results_screen.dart';
 
 /// Session Results Question Row (Organism)
 ///
-/// One per-question card inside `FcResultsScreen`: question text, a
-/// correct/incorrect chip, the student's answer (if any), the reference
-/// answer and any LLM feedback.
+/// One per-question card inside `FcResultsScreen`: question text, an
+/// outcome badge, the student's answer (if any), the reference answer
+/// and any LLM feedback.
 class FcResultsQuestionRow extends StatelessWidget {
   final FcResultsQuestion row;
 
@@ -17,8 +18,6 @@ class FcResultsQuestionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
-    final chipColor = row.isCorrect ? colors.success : colors.error;
-    final chipLabel = row.isCorrect ? 'Correct' : 'Incorrect';
     return FcCard(
       padding: SparkweaverSpacing.edgeInsetsMd,
       child: Column(
@@ -42,25 +41,7 @@ class FcResultsQuestionRow extends StatelessWidget {
                 ),
               ),
               SparkweaverSpacing.horizontalSpaceSm,
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: SparkweaverSpacing.sm,
-                  vertical: SparkweaverSpacing.xs,
-                ),
-                decoration: BoxDecoration(
-                  color: chipColor,
-                  borderRadius: SparkweaverTokens.badgeRadius,
-                ),
-                child: Text(
-                  chipLabel,
-                  // White stays literal here: it is the foreground for a
-                  // filled, saturated chip in both themes, not a surface
-                  // colour that should track brightness.
-                  style: SparkweaverTypography.labelSmall.copyWith(
-                    color: SparkweaverColors.white,
-                  ),
-                ),
-              ),
+              FcOutcomeBadge(outcome: row.outcome),
             ],
           ),
           if (row.userAnswer != null) ...[

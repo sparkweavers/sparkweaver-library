@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_card.dart';
 import '../templates/fc_results_screen.dart';
+import 'fc_self_rating_bar.dart';
 
 /// Session Results Grade Distribution Card (Molecule)
 ///
@@ -29,52 +30,52 @@ class FcResultsGradeDistributionCard extends StatelessWidget {
           ),
           SparkweaverSpacing.verticalSpaceSm,
           _distributionRow(
-            'Knew it',
+            context,
+            FcSelfRatingGrade.knewIt,
             distribution.easy,
-            colors.success,
-            colors.textPrimary,
           ),
           SparkweaverSpacing.verticalSpaceXs,
           _distributionRow(
-            'Almost',
+            context,
+            FcSelfRatingGrade.almost,
             distribution.medium,
-            colors.warning,
-            colors.textPrimary,
           ),
           SparkweaverSpacing.verticalSpaceXs,
-          _distributionRow(
-            'Again',
-            distribution.hard,
-            colors.error,
-            colors.textPrimary,
-          ),
+          _distributionRow(context, FcSelfRatingGrade.again, distribution.hard),
         ],
       ),
     );
   }
 
   Widget _distributionRow(
-    String label,
+    BuildContext context,
+    FcSelfRatingGrade grade,
     int count,
-    Color dotColor,
-    Color textColor,
   ) {
+    final colors = SparkweaverTheme.of(context);
     return Row(
       children: [
         Container(
           width: SparkweaverTokens.iconXs,
           height: SparkweaverTokens.iconXs,
-          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
+          decoration: BoxDecoration(
+            color: grade.color(context),
+            shape: BoxShape.circle,
+          ),
         ),
         SparkweaverSpacing.horizontalSpaceSm,
         Text(
-          label,
-          style: SparkweaverTypography.bodyMedium.copyWith(color: textColor),
+          grade.label,
+          style: SparkweaverTypography.bodyMedium.copyWith(
+            color: colors.textPrimary,
+          ),
         ),
         const Spacer(),
         Text(
           '$count',
-          style: SparkweaverTypography.bodyMedium.copyWith(color: textColor),
+          style: SparkweaverTypography.bodyMedium.copyWith(
+            color: colors.textPrimary,
+          ),
         ),
       ],
     );

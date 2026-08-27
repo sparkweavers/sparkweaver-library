@@ -28,6 +28,33 @@ extension FcSelfRatingGradeValue on FcSelfRatingGrade {
   }
 }
 
+/// Display metadata for a grade: the label and colour used on the results
+/// screen's outcome badge and grade distribution card.
+extension FcSelfRatingGradeDisplay on FcSelfRatingGrade {
+  String get label {
+    switch (this) {
+      case FcSelfRatingGrade.again:
+        return 'Again';
+      case FcSelfRatingGrade.almost:
+        return 'Almost';
+      case FcSelfRatingGrade.knewIt:
+        return 'Knew it';
+    }
+  }
+
+  Color color(BuildContext context) {
+    final colors = SparkweaverTheme.of(context);
+    switch (this) {
+      case FcSelfRatingGrade.again:
+        return colors.error;
+      case FcSelfRatingGrade.almost:
+        return colors.warning;
+      case FcSelfRatingGrade.knewIt:
+        return colors.success;
+    }
+  }
+}
+
 /// Sparkweaver Self-Rating Bar (Molecule)
 ///
 /// Three buttons rendered in a row: "Again", "Almost", "Knew it". Tapping
