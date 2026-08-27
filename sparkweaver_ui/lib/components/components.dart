@@ -15,7 +15,6 @@ export 'atoms/fc_text.dart';
 // Molecules - Simple combinations of atoms
 export 'molecules/fc_banner.dart';
 export 'molecules/fc_chat_bubble.dart';
-export 'molecules/fc_chat_error_row.dart';
 export 'molecules/fc_file_list_item.dart';
 export 'molecules/fc_flip_card.dart';
 export 'molecules/fc_input_field_with_label.dart';
