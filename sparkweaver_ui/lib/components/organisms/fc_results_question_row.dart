@@ -26,15 +26,8 @@ class FcResultsQuestion {
   /// null (no free-text answer was recorded).
   final String? userAnswer;
 
-  /// The text of the multiple-choice option the student selected, if
-  /// known. Pre-resolved by the caller (index-to-text lookup happens
-  /// outside this widget, same as every other field here). Rendered
-  /// as a "Your answer: ..." line in the error/destructive color,
-  /// distinct from [userAnswer]'s neutral-color line for free-text
-  /// rows. If a row somehow has both [userAnswer] and this field set,
-  /// [userAnswer] wins and this field is not rendered — kept simple
-  /// because in practice a row is either free-text or multiple-choice,
-  /// never both.
+  /// Pre-resolved text of the selected multiple-choice option, rendered in
+  /// the error color. Ignored when [userAnswer] is set.
   final String? selectedAnswerText;
 
   /// LLM-generated feedback, if any.
