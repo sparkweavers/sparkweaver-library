@@ -2,33 +2,8 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import 'fc_input_area.dart';
 
-/// Chat Overlay Bottom Sheet (Organism)
-///
-/// A scrollable, keyboard-aware chat surface designed to be hosted inside
-/// [showModalBottomSheet]. Presents the side-chat during a flashcard,
-/// MC, or open-answer session so the student can ask clarifying questions
-/// without leaving the current question.
-///
-/// The library does not know the app's ChatMessage type, so the overlay
-/// takes an [itemBuilder] + [itemCount] pair — the caller passes in
-/// pre-rendered bubble widgets.
-///
-/// ## Usage
-///
-/// ```dart
-/// showModalBottomSheet(
-///   context: context,
-///   isScrollControlled: true,
-///   builder: (_) => FcChatOverlay(
-///     itemCount: sideChatMessages.length,
-///     itemBuilder: (context, i) => FcChatBubble(
-///       message: sideChatMessages[i].content,
-///       isUser: sideChatMessages[i].isUser,
-///     ),
-///     onSend: (text) => coordinator.sendTextInput(text),
-///   ),
-/// );
-/// ```
+/// Chat sheet for [showModalBottomSheet]. Takes [itemBuilder] and [itemCount]
+/// because the library cannot know the app's message type.
 class FcChatOverlay extends StatefulWidget {
   /// Total number of chat items to render.
   final int itemCount;
@@ -98,15 +73,12 @@ class _FcChatOverlayState extends State<FcChatOverlay> {
                         itemBuilder: widget.itemBuilder,
                       ),
               ),
-              Padding(
-                padding: MediaQuery.of(context).viewInsets,
-                child: FcInputArea(
-                  type: FcInputAreaType.text,
-                  padding: SparkweaverSpacing.edgeInsetsMd,
-                  controller: _textController,
-                  hintText: widget.hintText,
-                  onSend: widget.onSend,
-                ),
+              FcInputArea(
+                type: FcInputAreaType.text,
+                padding: SparkweaverSpacing.edgeInsetsMd,
+                controller: _textController,
+                hintText: widget.hintText,
+                onSend: widget.onSend,
               ),
             ],
           ),
@@ -122,8 +94,8 @@ class _FcChatOverlayState extends State<FcChatOverlay> {
         width: 40,
         height: 4,
         decoration: BoxDecoration(
-          // accent4 (#EEEEEE) is exactly colors.gray200 in light mode —
-          // the closest themed neutral for this decorative drag handle.
+          // accent4 (#EEEEEE) equals colors.gray200 in light mode, the closest
+          // themed neutral for this decorative drag handle.
           color: colors.gray200,
           borderRadius: SparkweaverTokens.badgeRadius,
         ),
