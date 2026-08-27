@@ -65,15 +65,15 @@ void main() {
     final textField = find.byType(TextField);
     await tester.tap(textField);
     await tester.pump();
-    await tester.enterText(textField, 'Hallo AI');
+    await tester.enterText(textField, 'Hello AI');
     await tester.testTextInput.receiveAction(TextInputAction.send);
     await tester.pump();
 
-    expect(submitted, 'Hallo AI');
+    expect(submitted, 'Hello AI');
     expect(controller.text, '');
   });
 
-  group('FcInputArea — bottom inset', () {
+  group('FcInputArea bottom inset', () {
     testWidgets('keyboard closed, nav bar present: clears the nav bar', (
       tester,
     ) async {

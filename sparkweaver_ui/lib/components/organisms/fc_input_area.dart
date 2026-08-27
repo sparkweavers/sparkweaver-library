@@ -13,30 +13,7 @@ enum FcInputAreaType {
   textWithAttachment,
 }
 
-/// Sparkweaver Input Area Component (Organism)
-///
-/// A composable input area for chat, messaging, or any input interface.
-/// Combines input field + send/attach action button.
-///
-/// ## Usage
-///
-/// ```dart
-/// FcInputArea(
-///   controller: _controller,
-///   hintText: 'Type a message...',
-///   onSend: (text) {
-///     print('Sending: $text');
-///   },
-/// )
-///
-/// // With character count
-/// FcInputArea(
-///   controller: _controller,
-///   maxLength: 280,
-///   showCounter: true,
-///   onSend: (text) => print(text),
-/// )
-/// ```
+/// Input field plus send action, padded clear of the keyboard and system bars.
 class FcInputArea extends StatefulWidget {
   /// Input area type
   final FcInputAreaType type;
