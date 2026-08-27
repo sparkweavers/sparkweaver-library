@@ -9,39 +9,23 @@ enum FcInputAreaType {
   /// Text input
   text,
 
-  /// Voice input
-  voice,
-
   /// Text with file attachment
   textWithAttachment,
-
-  /// Text input with push-to-talk microphone
-  textWithVoice,
 }
 
 /// Sparkweaver Input Area Component (Organism)
 ///
 /// A composable input area for chat, messaging, or any input interface.
-/// Combines input field + action button (send/record/attach).
+/// Combines input field + send/attach action button.
 ///
 /// ## Usage
 ///
 /// ```dart
-/// // Text input area
 /// FcInputArea(
 ///   controller: _controller,
 ///   hintText: 'Type a message...',
 ///   onSend: (text) {
 ///     print('Sending: $text');
-///   },
-/// )
-///
-/// // Voice input area
-/// FcInputArea(
-///   type: FcInputAreaType.voice,
-///   isRecording: _isRecording,
-///   onRecord: () {
-///     // Toggle recording
 ///   },
 /// )
 ///
@@ -75,20 +59,8 @@ class FcInputArea extends StatefulWidget {
   /// Callback when send button is pressed (receives text)
   final ValueChanged<String>? onSend;
 
-  /// Callback when record button is pressed (voice type)
-  final VoidCallback? onRecord;
-
-  /// Callback when mic press starts (push-to-talk)
-  final VoidCallback? onMicPressStart;
-
-  /// Callback when mic press ends/cancels (push-to-talk)
-  final VoidCallback? onMicPressEnd;
-
   /// Callback when attachment button is pressed (textWithAttachment type)
   final VoidCallback? onAttachment;
-
-  /// Whether recording is active (voice type)
-  final bool isRecording;
 
   /// Whether send action is in progress
   final bool isSending;
@@ -96,17 +68,8 @@ class FcInputArea extends StatefulWidget {
   /// Send button icon (defaults to send icon)
   final IconData? sendIcon;
 
-  /// Record button icon (defaults to mic icon)
-  final IconData? recordIcon;
-
   /// Attachment button icon (defaults to attach_file icon)
   final IconData? attachmentIcon;
-
-  /// Send button label (shown when recording)
-  final String sendLabel;
-
-  /// Record button label
-  final String recordLabel;
 
   /// Outer container padding
   final EdgeInsetsGeometry padding;
@@ -120,17 +83,10 @@ class FcInputArea extends StatefulWidget {
     this.showCounter = false,
     this.disabled = false,
     this.onSend,
-    this.onRecord,
-    this.onMicPressStart,
-    this.onMicPressEnd,
     this.onAttachment,
-    this.isRecording = false,
     this.isSending = false,
     this.sendIcon,
-    this.recordIcon,
     this.attachmentIcon,
-    this.sendLabel = 'Send',
-    this.recordLabel = 'Record',
     this.padding = const EdgeInsets.all(16),
   });
 
@@ -169,24 +125,6 @@ class _FcInputAreaState extends State<FcInputArea> {
     }
   }
 
-  void _handleMicPressStart() {
-    if (widget.disabled) return;
-    if (widget.onMicPressStart != null) {
-      widget.onMicPressStart!();
-      return;
-    }
-    if (widget.onRecord != null) {
-      widget.onRecord!();
-    }
-  }
-
-  void _handleMicPressEnd() {
-    if (widget.disabled) return;
-    if (widget.onMicPressEnd != null) {
-      widget.onMicPressEnd!();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
@@ -212,58 +150,29 @@ class _FcInputAreaState extends State<FcInputArea> {
             const SizedBox(width: 8),
           ],
 
-          // Input field (text types)
-          if (widget.type == FcInputAreaType.text ||
-              widget.type == FcInputAreaType.textWithAttachment ||
-              widget.type == FcInputAreaType.textWithVoice)
-            Expanded(
-              child: FcInputField(
-                controller: _controller,
-                type: widget.type == FcInputAreaType.textWithVoice
-                    ? FcInputType.text
-                    : FcInputType.multiline,
-                hintText: widget.hintText ?? 'Type a message...',
-                maxLines: widget.type == FcInputAreaType.textWithVoice ? 1 : 4,
-                minLines: 1,
-                textInputAction: TextInputAction.send,
-                maxLength: widget.maxLength,
-                showCounter: widget.showCounter,
-                enabled:
-                    !widget.disabled &&
-                    !widget.isSending &&
-                    !widget.isRecording,
-                onSubmitted: (_) => _handleSend(),
-              ),
+          Expanded(
+            child: FcInputField(
+              controller: _controller,
+              type: FcInputType.multiline,
+              hintText: widget.hintText ?? 'Type a message...',
+              maxLines: 4,
+              minLines: 1,
+              textInputAction: TextInputAction.send,
+              maxLength: widget.maxLength,
+              showCounter: widget.showCounter,
+              enabled: !widget.disabled && !widget.isSending,
+              onSubmitted: (_) => _handleSend(),
             ),
+          ),
 
           const SizedBox(width: 12),
 
-          // Action button
-          if (widget.type == FcInputAreaType.voice ||
-              widget.type == FcInputAreaType.textWithVoice)
-            // Voice recording button (push-to-talk when onMicPressStart/onMicPressEnd are provided)
-            GestureDetector(
-              onTapDown: (_) => _handleMicPressStart(),
-              onTapUp: (_) => _handleMicPressEnd(),
-              onTapCancel: _handleMicPressEnd,
-              child: FcButton.icon(
-                icon: widget.isRecording
-                    ? (widget.sendIcon ?? Icons.graphic_eq)
-                    : (widget.recordIcon ?? Icons.mic),
-                onPressed: widget.disabled ? null : () {},
-                variant: FcButtonVariant.primary,
-              ),
-            )
-          else
-            // Send button
-            FcButton.icon(
-              icon: widget.sendIcon ?? Icons.send,
-              onPressed: widget.disabled || widget.isSending
-                  ? null
-                  : _handleSend,
-              variant: FcButtonVariant.primary,
-              isLoading: widget.isSending,
-            ),
+          FcButton.icon(
+            icon: widget.sendIcon ?? Icons.send,
+            onPressed: widget.disabled || widget.isSending ? null : _handleSend,
+            variant: FcButtonVariant.primary,
+            isLoading: widget.isSending,
+          ),
         ],
       ),
     );

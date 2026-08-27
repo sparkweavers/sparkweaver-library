@@ -13,17 +13,6 @@ Widget textInputArea(BuildContext context) {
   );
 }
 
-@widgetbook.UseCase(name: 'Voice Input Area', type: FcInputArea)
-Widget voiceInputArea(BuildContext context) {
-  return Scaffold(
-    body: const Center(child: Text('Voice messages would go here')),
-    bottomNavigationBar: FcInputArea(
-      type: FcInputAreaType.voice,
-      onRecord: () {},
-    ),
-  );
-}
-
 @widgetbook.UseCase(name: 'With Attachment', type: FcInputArea)
 Widget withAttachment(BuildContext context) {
   return Scaffold(
@@ -33,18 +22,6 @@ Widget withAttachment(BuildContext context) {
       hintText: 'Type a message...',
       onSend: (text) {},
       onAttachment: () {},
-    ),
-  );
-}
-
-@widgetbook.UseCase(name: 'Recording State', type: FcInputArea)
-Widget recordingState(BuildContext context) {
-  return Scaffold(
-    body: const Center(child: Text('Recording...')),
-    bottomNavigationBar: FcInputArea(
-      type: FcInputAreaType.voice,
-      isRecording: true,
-      onRecord: () {},
     ),
   );
 }
