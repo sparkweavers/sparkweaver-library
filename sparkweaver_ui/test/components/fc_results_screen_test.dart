@@ -24,11 +24,15 @@ void main() {
             correct: 1,
             total: 2,
             questions: const [
-              FcResultsQuestion(number: 1, question: 'Q1?', isCorrect: true),
+              FcResultsQuestion(
+                number: 1,
+                question: 'Q1?',
+                outcome: FcScoredOutcome(true),
+              ),
               FcResultsQuestion(
                 number: 2,
                 question: 'Q2?',
-                isCorrect: false,
+                outcome: FcScoredOutcome(false),
                 correctAnswer: 'expected',
                 userAnswer: 'wrong',
               ),
@@ -58,7 +62,7 @@ void main() {
                 FcResultsQuestion(
                   number: 1,
                   question: 'Who coined self-efficacy?',
-                  isCorrect: true,
+                  outcome: FcScoredOutcome(true),
                   correctAnswer: 'Albert Bandura',
                 ),
               ],
@@ -127,7 +131,7 @@ void main() {
                 FcResultsQuestion(
                   number: 1,
                   question: 'Which planet is closest to the sun?',
-                  isCorrect: false,
+                  outcome: FcScoredOutcome(false),
                   correctAnswer: 'Mercury',
                   selectedAnswerText: 'wrong option',
                 ),
@@ -157,7 +161,7 @@ void main() {
                 FcResultsQuestion(
                   number: 1,
                   question: 'Which planet is closest to the sun?',
-                  isCorrect: false,
+                  outcome: FcScoredOutcome(false),
                   correctAnswer: 'Mercury',
                   userAnswer: null,
                   selectedAnswerText: null,
@@ -195,7 +199,7 @@ void main() {
                 FcResultsQuestion(
                   number: 1,
                   question: 'Which planet is closest to the sun?',
-                  isCorrect: true,
+                  outcome: FcScoredOutcome(true),
                   correctAnswer: 'Mercury',
                 ),
               ],
@@ -232,7 +236,7 @@ void main() {
                   FcResultsQuestion(
                     number: 1,
                     question: 'Q1?',
-                    isCorrect: false,
+                    outcome: FcScoredOutcome(false),
                     selectedAnswerText: 'wrong',
                   ),
                 ],

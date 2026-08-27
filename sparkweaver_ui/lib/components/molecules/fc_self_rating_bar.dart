@@ -2,19 +2,11 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
 
-/// Self-rating grade values for a flashcard.
-///
-/// - [again]  (0): "I didn't know this — again, please."
-/// - [almost] (1): "I almost had it."
-/// - [knewIt] (2): "I knew it."
-///
-/// Maps 1:1 to `public.answers.grade` (`smallint 0|1|2`) and drives the
-/// deterministic branch of the LangGraph `answer_evaluator` node.
+/// Flashcard self-rating: again 0, almost 1, knewIt 2.
+/// Maps 1:1 to `public.answers.grade`.
 enum FcSelfRatingGrade { again, almost, knewIt }
 
-/// Convert a grade to its numeric wire value (0, 1, 2). Kept as an
-/// extension so the enum stays UI-friendly while the wire mapping is
-/// explicit.
+/// Numeric wire value for a grade, kept explicit and separate from the enum.
 extension FcSelfRatingGradeValue on FcSelfRatingGrade {
   int get value {
     switch (this) {
@@ -28,20 +20,35 @@ extension FcSelfRatingGradeValue on FcSelfRatingGrade {
   }
 }
 
-/// Sparkweaver Self-Rating Bar (Molecule)
-///
-/// Three buttons rendered in a row: "Again", "Almost", "Knew it". Tapping
-/// any one calls [onRated] with the corresponding [FcSelfRatingGrade].
-/// Once the user rates, the bar disables all three buttons so the caller
-/// doesn't have to manage that state.
-///
-/// ## Usage
-///
-/// ```dart
-/// FcSelfRatingBar(
-///   onRated: (grade) => coordinator.submitGrade(grade.value),
-/// )
-/// ```
+/// Display metadata for a grade: the label and colour used on the results
+/// screen's outcome badge and grade distribution card.
+extension FcSelfRatingGradeDisplay on FcSelfRatingGrade {
+  String get label {
+    switch (this) {
+      case FcSelfRatingGrade.again:
+        return 'Again';
+      case FcSelfRatingGrade.almost:
+        return 'Almost';
+      case FcSelfRatingGrade.knewIt:
+        return 'Knew it';
+    }
+  }
+
+  Color color(BuildContext context) {
+    final colors = SparkweaverTheme.of(context);
+    switch (this) {
+      case FcSelfRatingGrade.again:
+        return colors.error;
+      case FcSelfRatingGrade.almost:
+        return colors.warning;
+      case FcSelfRatingGrade.knewIt:
+        return colors.success;
+    }
+  }
+}
+
+/// Three rating buttons. Disables all three after the first tap, so the
+/// caller does not manage that state.
 class FcSelfRatingBar extends StatefulWidget {
   /// Called when the user picks one of the three grades.
   final ValueChanged<FcSelfRatingGrade> onRated;

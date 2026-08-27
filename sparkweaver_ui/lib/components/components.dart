@@ -1,20 +1,4 @@
-/// Sparkweaver UI Components
-///
-/// All UI components organized by Atomic Design principles.
-///
-/// ## Atomic Design Hierarchy
-///
-/// **Atoms** - Smallest building blocks (single-purpose elements)
-/// - Avatar, Badge, Button, Icon, etc.
-///
-/// **Molecules** - Simple combinations of atoms
-/// - Chat bubble (avatar + text + badges), Input field with label, etc.
-///
-/// **Organisms** - Complex UI sections
-/// - Chat conversation list, File upload panel, etc.
-///
-/// **Templates** - Page-level layouts
-/// - Chat screen layout, Settings page layout, etc.
+/// All UI components, grouped by atomic design level.
 library;
 
 // Atoms - Single-purpose UI elements
@@ -34,7 +18,10 @@ export 'molecules/fc_chat_bubble.dart';
 export 'molecules/fc_file_list_item.dart';
 export 'molecules/fc_flip_card.dart';
 export 'molecules/fc_input_field_with_label.dart';
+export 'molecules/fc_outcome_badge.dart';
 export 'molecules/fc_password_input_field.dart';
+export 'molecules/fc_results_grade_distribution_card.dart';
+export 'molecules/fc_results_score_card.dart';
 export 'molecules/fc_self_rating_bar.dart';
 export 'molecules/fc_status_message.dart';
 
@@ -53,6 +40,7 @@ export 'organisms/fc_input_area.dart';
 export 'organisms/fc_mc_question_card.dart';
 export 'organisms/fc_open_answer_card.dart';
 export 'organisms/fc_reconnect_prompt.dart';
+export 'organisms/fc_results_question_row.dart';
 
 // Templates - Page layouts
 export 'templates/fc_auth_form_template.dart';
