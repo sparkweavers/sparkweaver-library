@@ -19,6 +19,7 @@ export 'theme.dart';
 export 'colors.dart';
 export 'icons.dart';
 export 'markdown_style.dart';
+export 'semantic_surfaces.dart';
 export 'spacing.dart';
 export 'tokens.dart';
 export 'typography.dart';

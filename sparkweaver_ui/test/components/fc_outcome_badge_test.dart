@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 
+import '../helpers/contrast.dart';
+
 void main() {
   Widget wrap(Widget child) => MaterialApp(home: Scaffold(body: child));
 
@@ -27,7 +29,7 @@ void main() {
   group('FcOutcomeBadge', () {
     final light = SparkweaverTheme.light();
 
-    testWidgets('scored-true renders solid Correct, colors.success + white', (
+    testWidgets('scored-true renders solid Correct on the success fill', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -35,11 +37,11 @@ void main() {
       );
 
       expect(find.text('Correct'), findsOneWidget);
-      expect(backgroundColorFor(tester, 'Correct'), light.success);
-      expect(foregroundColorFor(tester, 'Correct'), SparkweaverColors.white);
+      expect(backgroundColorFor(tester, 'Correct'), light.successFill);
+      expect(foregroundColorFor(tester, 'Correct'), light.onSuccess);
     });
 
-    testWidgets('scored-false renders solid Incorrect, colors.error + white', (
+    testWidgets('scored-false renders solid Incorrect on the error fill', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -47,11 +49,11 @@ void main() {
       );
 
       expect(find.text('Incorrect'), findsOneWidget);
-      expect(backgroundColorFor(tester, 'Incorrect'), light.error);
-      expect(foregroundColorFor(tester, 'Incorrect'), SparkweaverColors.white);
+      expect(backgroundColorFor(tester, 'Incorrect'), light.errorFill);
+      expect(foregroundColorFor(tester, 'Incorrect'), light.onError);
     });
 
-    testWidgets('graded-again renders solid Again, colors.error + white', (
+    testWidgets('graded-again renders solid Again on the error fill', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -63,11 +65,11 @@ void main() {
       );
 
       expect(find.text('Again'), findsOneWidget);
-      expect(backgroundColorFor(tester, 'Again'), light.error);
-      expect(foregroundColorFor(tester, 'Again'), SparkweaverColors.white);
+      expect(backgroundColorFor(tester, 'Again'), light.errorFill);
+      expect(foregroundColorFor(tester, 'Again'), light.onError);
     });
 
-    testWidgets('graded-almost renders solid Almost, colors.warning + white', (
+    testWidgets('graded-almost renders solid Almost on the warning fill', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -79,11 +81,11 @@ void main() {
       );
 
       expect(find.text('Almost'), findsOneWidget);
-      expect(backgroundColorFor(tester, 'Almost'), light.warning);
-      expect(foregroundColorFor(tester, 'Almost'), SparkweaverColors.white);
+      expect(backgroundColorFor(tester, 'Almost'), light.warningFill);
+      expect(foregroundColorFor(tester, 'Almost'), light.onWarning);
     });
 
-    testWidgets('graded-knewIt renders solid Knew it, colors.success + white', (
+    testWidgets('graded-knewIt renders solid Knew it on the success fill', (
       tester,
     ) async {
       await tester.pumpWidget(
@@ -95,8 +97,8 @@ void main() {
       );
 
       expect(find.text('Knew it'), findsOneWidget);
-      expect(backgroundColorFor(tester, 'Knew it'), light.success);
-      expect(foregroundColorFor(tester, 'Knew it'), SparkweaverColors.white);
+      expect(backgroundColorFor(tester, 'Knew it'), light.successFill);
+      expect(foregroundColorFor(tester, 'Knew it'), light.onSuccess);
     });
 
     testWidgets('renders a solid background, not a tinted one, the badge-style '
@@ -108,7 +110,7 @@ void main() {
       final solidBackground = backgroundColorFor(tester, 'Correct');
       final tintedBackground = light.successLight.withValues(alpha: 0.1);
       expect(solidBackground, isNot(equals(tintedBackground)));
-      expect(solidBackground, light.success);
+      expect(solidBackground, light.successFill);
     });
 
     testWidgets('renders the original chip markup, not an FcBadge', (
@@ -134,9 +136,56 @@ void main() {
       final textStyle = tester.widget<Text>(find.text('Correct')).style!;
       expect(
         textStyle,
-        SparkweaverTypography.labelSmall.copyWith(
-          color: SparkweaverColors.white,
+        SparkweaverTypography.labelSmall.copyWith(color: light.onSuccess),
+      );
+    });
+  });
+
+  group('FcOutcomeBadge in dark mode', () {
+    Widget wrapDark(Widget child) => MaterialApp(
+      theme: ThemeData(brightness: Brightness.dark),
+      home: Scaffold(body: child),
+    );
+
+    final dark = SparkweaverTheme.dark();
+
+    testWidgets('every chip clears WCAG AA against its own fill', (
+      tester,
+    ) async {
+      const outcomes = <FcResultOutcome, String>{
+        FcScoredOutcome(true): 'Correct',
+        FcScoredOutcome(false): 'Incorrect',
+        FcGradedOutcome(FcSelfRatingGrade.again): 'Again',
+        FcGradedOutcome(FcSelfRatingGrade.almost): 'Almost',
+        FcGradedOutcome(FcSelfRatingGrade.knewIt): 'Knew it',
+      };
+
+      for (final entry in outcomes.entries) {
+        await tester.pumpWidget(wrapDark(FcOutcomeBadge(outcome: entry.key)));
+        expect(
+          contrastRatio(
+            backgroundColorFor(tester, entry.value),
+            foregroundColorFor(tester, entry.value),
+          ),
+          greaterThanOrEqualTo(4.5),
+          reason: '${entry.value} chip is unreadable in dark mode',
+        );
+      }
+    });
+
+    testWidgets('the Almost chip is not white on yellow', (tester) async {
+      await tester.pumpWidget(
+        wrapDark(
+          const FcOutcomeBadge(
+            outcome: FcGradedOutcome(FcSelfRatingGrade.almost),
+          ),
         ),
+      );
+
+      expect(backgroundColorFor(tester, 'Almost'), dark.warningFill);
+      expect(
+        foregroundColorFor(tester, 'Almost'),
+        isNot(equals(SparkweaverColors.white)),
       );
     });
   });

@@ -28,10 +28,22 @@ class FcOutcomeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
-    final (label, chipColor) = switch (outcome) {
-      FcScoredOutcome(isCorrect: true) => ('Correct', colors.success),
-      FcScoredOutcome(isCorrect: false) => ('Incorrect', colors.error),
-      FcGradedOutcome(:final grade) => (grade.label, grade.color(context)),
+    final (label, chipColor, labelColor) = switch (outcome) {
+      FcScoredOutcome(isCorrect: true) => (
+        'Correct',
+        colors.successFill,
+        colors.onSuccess,
+      ),
+      FcScoredOutcome(isCorrect: false) => (
+        'Incorrect',
+        colors.errorFill,
+        colors.onError,
+      ),
+      FcGradedOutcome(:final grade) => (
+        grade.label,
+        grade.color(context),
+        grade.onColor(context),
+      ),
     };
 
     return Container(
@@ -45,9 +57,7 @@ class FcOutcomeBadge extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: SparkweaverTypography.labelSmall.copyWith(
-          color: SparkweaverColors.white,
-        ),
+        style: SparkweaverTypography.labelSmall.copyWith(color: labelColor),
       ),
     );
   }

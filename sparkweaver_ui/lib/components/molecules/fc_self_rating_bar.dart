@@ -38,11 +38,24 @@ extension FcSelfRatingGradeDisplay on FcSelfRatingGrade {
     final colors = SparkweaverTheme.of(context);
     switch (this) {
       case FcSelfRatingGrade.again:
-        return colors.error;
+        return colors.errorFill;
       case FcSelfRatingGrade.almost:
-        return colors.warning;
+        return colors.warningFill;
       case FcSelfRatingGrade.knewIt:
-        return colors.success;
+        return colors.successFill;
+    }
+  }
+
+  /// Foreground for text drawn on [color].
+  Color onColor(BuildContext context) {
+    final colors = SparkweaverTheme.of(context);
+    switch (this) {
+      case FcSelfRatingGrade.again:
+        return colors.onError;
+      case FcSelfRatingGrade.almost:
+        return colors.onWarning;
+      case FcSelfRatingGrade.knewIt:
+        return colors.onSuccess;
     }
   }
 }
