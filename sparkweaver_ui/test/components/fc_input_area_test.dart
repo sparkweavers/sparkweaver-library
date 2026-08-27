@@ -41,7 +41,14 @@ void main() {
 
   double gapBelowInputRow(WidgetTester tester) {
     final screenBottom = tester.getRect(find.byType(MaterialApp)).bottom;
-    final rowBottom = tester.getRect(find.byType(Container).first).bottom;
+    final rowBottom = tester
+        .getRect(
+          find.descendant(
+            of: find.byType(FcInputArea),
+            matching: find.byType(Container),
+          ),
+        )
+        .bottom;
     return screenBottom - rowBottom;
   }
 
