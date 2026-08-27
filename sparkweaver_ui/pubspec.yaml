@@ -1,6 +1,6 @@
 name: sparkweaver_ui
 description: "Reusable Flutter UI components and design system for Sparkweaver apps"
-version: 2.4.0
+version: 2.5.0
 homepage: https://github.com/sparkweavers/sparkweaver-library
 
 environment:
