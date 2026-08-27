@@ -1,73 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
-import '../molecules/fc_outcome_badge.dart';
 import '../molecules/fc_results_grade_distribution_card.dart';
 import '../molecules/fc_results_score_card.dart';
 import '../organisms/fc_results_question_row.dart';
-
-/// One per-question row inside [FcResultsScreen]. Kept as a plain data
-/// class in the library so the widget doesn't depend on any app-side
-/// domain types.
-class FcResultsQuestion {
-  /// 1-indexed position in the summary list (usually questionIndex + 1).
-  final int number;
-
-  /// The question text.
-  final String question;
-
-  /// The resolved outcome: correct/incorrect for scored questions, or a
-  /// self-rating grade for flashcard questions.
-  final FcResultOutcome outcome;
-
-  /// The reference / correct answer, if known. Rendered as tertiary text
-  /// under the question when the user got it wrong.
-  final String? correctAnswer;
-
-  /// The student's actual answer, if any. For flashcard rows this is
-  /// null (no free-text answer was recorded).
-  final String? userAnswer;
-
-  /// The text of the multiple-choice option the student selected, if
-  /// known. Pre-resolved by the caller (index-to-text lookup happens
-  /// outside this widget, same as every other field here). Rendered
-  /// as a "Your answer: ..." line in the error/destructive color,
-  /// distinct from [userAnswer]'s neutral-color line for free-text
-  /// rows. If a row somehow has both [userAnswer] and this field set,
-  /// [userAnswer] wins and this field is not rendered — kept simple
-  /// because in practice a row is either free-text or multiple-choice,
-  /// never both.
-  final String? selectedAnswerText;
-
-  /// LLM-generated feedback, if any.
-  final String? feedback;
-
-  const FcResultsQuestion({
-    required this.number,
-    required this.question,
-    required this.outcome,
-    this.correctAnswer,
-    this.userAnswer,
-    this.selectedAnswerText,
-    this.feedback,
-  });
-}
-
-/// Flashcard grade distribution for the summary. Non-null only for
-/// flashcard-mode sessions.
-class FcResultsGradeDistribution {
-  final int hard;
-  final int medium;
-  final int easy;
-
-  const FcResultsGradeDistribution({
-    required this.hard,
-    required this.medium,
-    required this.easy,
-  });
-
-  int get total => hard + medium + easy;
-}
 
 /// Session Results Screen (Template)
 ///

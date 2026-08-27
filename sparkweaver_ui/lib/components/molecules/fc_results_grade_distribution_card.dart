@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_card.dart';
-import '../templates/fc_results_screen.dart';
 import 'fc_self_rating_bar.dart';
+
+/// Flashcard grade distribution for the summary. Non-null only for
+/// flashcard-mode sessions.
+class FcResultsGradeDistribution {
+  final int hard;
+  final int medium;
+  final int easy;
+
+  const FcResultsGradeDistribution({
+    required this.hard,
+    required this.medium,
+    required this.easy,
+  });
+
+  int get total => hard + medium + easy;
+}
 
 /// Session Results Grade Distribution Card (Molecule)
 ///
