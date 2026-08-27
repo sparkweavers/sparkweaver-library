@@ -63,7 +63,7 @@ void main() {
       );
 
       final banner = tester.widget<FcBanner>(find.byType(FcBanner));
-      expect(banner.backgroundColor, SparkweaverTheme.dark().error);
+      expect(banner.backgroundColor, SparkweaverTheme.dark().errorFill);
     });
 
     testWidgets('success variant resolves the dark-theme success colour', (
@@ -85,7 +85,7 @@ void main() {
       );
 
       final banner = tester.widget<FcBanner>(find.byType(FcBanner));
-      expect(banner.backgroundColor, SparkweaverTheme.dark().success);
+      expect(banner.backgroundColor, SparkweaverTheme.dark().successFill);
     });
 
     testWidgets('warning variant resolves the dark-theme warning colour', (
@@ -107,7 +107,7 @@ void main() {
       );
 
       final banner = tester.widget<FcBanner>(find.byType(FcBanner));
-      expect(banner.backgroundColor, SparkweaverTheme.dark().warning);
+      expect(banner.backgroundColor, SparkweaverTheme.dark().warningFill);
     });
 
     testWidgets('info variant resolves the dark-theme info colour', (
@@ -129,7 +129,7 @@ void main() {
       );
 
       final banner = tester.widget<FcBanner>(find.byType(FcBanner));
-      expect(banner.backgroundColor, SparkweaverTheme.dark().info);
+      expect(banner.backgroundColor, SparkweaverTheme.dark().infoFill);
     });
   });
 }

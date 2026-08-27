@@ -3,77 +3,17 @@ import '../../design_system/design_system.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 
-/// Banner Variant
-enum FcBannerVariant {
-  /// Success banner (green)
-  success,
+enum FcBannerVariant { success, error, warning, info }
 
-  /// Error banner (red)
-  error,
-
-  /// Warning banner (orange)
-  warning,
-
-  /// Info banner (blue)
-  info,
-}
-
-/// Sparkweaver Banner Component (Molecule)
-///
-/// A full-width banner for displaying important messages at the top of the screen.
-/// Similar to MaterialBanner but using Sparkweaver UI design system.
-///
-/// ## Usage
-///
-/// ```dart
-/// // Show error banner
-/// ScaffoldMessenger.of(context).showMaterialBanner(
-///   FcBanner.error(
-///     context: context,
-///     message: 'Failed to connect to server',
-///     onDismiss: () {
-///       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-///     },
-///   ),
-/// );
-///
-/// // Show success banner
-/// ScaffoldMessenger.of(context).showMaterialBanner(
-///   FcBanner.success(
-///     context: context,
-///     message: 'Changes saved successfully',
-///     autoDismiss: true,
-///     onDismiss: () {
-///       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
-///     },
-///   ),
-/// );
-///
-/// // Show warning banner
-/// ScaffoldMessenger.of(context).showMaterialBanner(
-///   FcBanner.warning(
-///     context: context,
-///     message: 'This action cannot be undone',
-///   ),
-/// );
-/// ```
+/// Full-width message banner, shown through
+/// `ScaffoldMessenger.of(context).showMaterialBanner`.
 class FcBanner extends MaterialBanner {
-  /// The banner message text
   final String message;
-
-  /// Banner variant (determines color and icon)
   final FcBannerVariant variant;
-
-  /// Callback when dismiss button is pressed
   final VoidCallback? onDismiss;
 
-  /// [MaterialBanner.backgroundColor] is set once at construction time,
-  /// before the banner is ever laid out — there is no `build(context)`
-  /// to hook into here the way there is for a plain [StatelessWidget].
-  /// So every factory takes the caller's [BuildContext] and resolves the
-  /// themed variant colour up front, via [SparkweaverTheme.of]. The
-  /// call site already has one on hand: it's the same context used for
-  /// `ScaffoldMessenger.of(context)`.
+  /// [MaterialBanner.backgroundColor] is fixed at construction, so every
+  /// factory takes the caller's context to resolve the themed colours.
   FcBanner._({
     required this.message,
     required this.variant,
@@ -92,11 +32,11 @@ class FcBanner extends MaterialBanner {
                onPressed: onDismiss,
                child: Text(
                  'Dismiss',
-                 // White stays literal: it is the foreground for a
-                 // filled, saturated banner background in both themes,
-                 // not a surface colour that should track brightness.
                  style: SparkweaverTypography.labelMedium.copyWith(
-                   color: SparkweaverColors.white,
+                   color: _getForegroundColor(
+                     SparkweaverTheme.of(context),
+                     variant,
+                   ),
                  ),
                ),
              ),
@@ -167,20 +107,36 @@ class FcBanner extends MaterialBanner {
     );
   }
 
-  /// Get background color for variant
   static Color _getBackgroundColor(
     SparkweaverTheme colors,
     FcBannerVariant variant,
   ) {
     switch (variant) {
       case FcBannerVariant.success:
-        return colors.success;
+        return colors.successFill;
       case FcBannerVariant.error:
-        return colors.error;
+        return colors.errorFill;
       case FcBannerVariant.warning:
-        return colors.warning;
+        return colors.warningFill;
       case FcBannerVariant.info:
-        return colors.info;
+        return colors.infoFill;
+    }
+  }
+
+  /// Icon and text colour that stays legible on [_getBackgroundColor].
+  static Color _getForegroundColor(
+    SparkweaverTheme colors,
+    FcBannerVariant variant,
+  ) {
+    switch (variant) {
+      case FcBannerVariant.success:
+        return colors.onSuccess;
+      case FcBannerVariant.error:
+        return colors.onError;
+      case FcBannerVariant.warning:
+        return colors.onWarning;
+      case FcBannerVariant.info:
+        return colors.onInfo;
     }
   }
 }
@@ -207,19 +163,19 @@ class _BannerContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final foreground = FcBanner._getForegroundColor(
+      SparkweaverTheme.of(context),
+      variant,
+    );
     return Row(
       children: [
-        FcIcon(
-          _getIcon(),
-          size: FcIconSize.medium,
-          color: SparkweaverColors.white,
-        ),
+        FcIcon(_getIcon(), size: FcIconSize.medium, color: foreground),
         const SizedBox(width: 12),
         Expanded(
           child: FcText(
             message,
             style: FcTextStyle.bodyMedium,
-            color: SparkweaverColors.white,
+            color: foreground,
           ),
         ),
       ],
