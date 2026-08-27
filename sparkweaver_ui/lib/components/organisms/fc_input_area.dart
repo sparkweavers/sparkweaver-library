@@ -88,7 +88,7 @@ class FcInputArea extends StatefulWidget {
     this.isSending = false,
     this.sendIcon,
     this.attachmentIcon,
-    this.padding = const EdgeInsets.all(16),
+    this.padding = SparkweaverSpacing.edgeInsetsLg,
   });
 
   @override
