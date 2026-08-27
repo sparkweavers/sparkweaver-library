@@ -47,7 +47,7 @@ class FcChatErrorRow extends StatelessWidget {
       padding: SparkweaverSpacing.edgeInsetsMd,
       decoration: BoxDecoration(
         color: colors.errorLight.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(SparkweaverTokens.radiusMd),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
