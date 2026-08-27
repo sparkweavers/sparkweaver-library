@@ -98,15 +98,12 @@ class _FcChatOverlayState extends State<FcChatOverlay> {
                         itemBuilder: widget.itemBuilder,
                       ),
               ),
-              Padding(
-                padding: MediaQuery.of(context).viewInsets,
-                child: FcInputArea(
-                  type: FcInputAreaType.text,
-                  padding: SparkweaverSpacing.edgeInsetsMd,
-                  controller: _textController,
-                  hintText: widget.hintText,
-                  onSend: widget.onSend,
-                ),
+              FcInputArea(
+                type: FcInputAreaType.text,
+                padding: SparkweaverSpacing.edgeInsetsMd,
+                controller: _textController,
+                hintText: widget.hintText,
+                onSend: widget.onSend,
               ),
             ],
           ),

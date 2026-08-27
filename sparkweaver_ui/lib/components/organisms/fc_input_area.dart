@@ -71,7 +71,8 @@ class FcInputArea extends StatefulWidget {
   /// Attachment button icon (defaults to attach_file icon)
   final IconData? attachmentIcon;
 
-  /// Outer container padding
+  /// Content padding, layered inside the bottom-inset padding this widget
+  /// adds around itself.
   final EdgeInsetsGeometry padding;
 
   const FcInputArea({
@@ -128,52 +129,60 @@ class _FcInputAreaState extends State<FcInputArea> {
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
-    return Container(
-      padding: widget.padding,
-      decoration: BoxDecoration(
-        color: colors.surface,
-        border: Border(top: BorderSide(color: colors.borderLight, width: 1)),
-      ),
-      child: Row(
-        children: [
-          // Attachment button (textWithAttachment type)
-          if (widget.type == FcInputAreaType.textWithAttachment &&
-              widget.onAttachment != null) ...[
-            IconButton(
-              icon: FcIcon(
-                widget.attachmentIcon ?? Icons.attach_file,
-                color: colors.textSecondary,
-                size: FcIconSize.medium,
+    final mediaQuery = MediaQuery.of(context);
+    final bottomInset =
+        mediaQuery.viewInsets.bottom + mediaQuery.padding.bottom;
+    return Padding(
+      padding: EdgeInsets.only(bottom: bottomInset),
+      child: Container(
+        padding: widget.padding,
+        decoration: BoxDecoration(
+          color: colors.surface,
+          border: Border(top: BorderSide(color: colors.borderLight, width: 1)),
+        ),
+        child: Row(
+          children: [
+            // Attachment button (textWithAttachment type)
+            if (widget.type == FcInputAreaType.textWithAttachment &&
+                widget.onAttachment != null) ...[
+              IconButton(
+                icon: FcIcon(
+                  widget.attachmentIcon ?? Icons.attach_file,
+                  color: colors.textSecondary,
+                  size: FcIconSize.medium,
+                ),
+                onPressed: widget.disabled ? null : widget.onAttachment,
               ),
-              onPressed: widget.disabled ? null : widget.onAttachment,
+              const SizedBox(width: 8),
+            ],
+
+            Expanded(
+              child: FcInputField(
+                controller: _controller,
+                type: FcInputType.multiline,
+                hintText: widget.hintText ?? 'Type a message...',
+                maxLines: 4,
+                minLines: 1,
+                textInputAction: TextInputAction.send,
+                maxLength: widget.maxLength,
+                showCounter: widget.showCounter,
+                enabled: !widget.disabled && !widget.isSending,
+                onSubmitted: (_) => _handleSend(),
+              ),
             ),
-            const SizedBox(width: 8),
+
+            const SizedBox(width: 12),
+
+            FcButton.icon(
+              icon: widget.sendIcon ?? Icons.send,
+              onPressed: widget.disabled || widget.isSending
+                  ? null
+                  : _handleSend,
+              variant: FcButtonVariant.primary,
+              isLoading: widget.isSending,
+            ),
           ],
-
-          Expanded(
-            child: FcInputField(
-              controller: _controller,
-              type: FcInputType.multiline,
-              hintText: widget.hintText ?? 'Type a message...',
-              maxLines: 4,
-              minLines: 1,
-              textInputAction: TextInputAction.send,
-              maxLength: widget.maxLength,
-              showCounter: widget.showCounter,
-              enabled: !widget.disabled && !widget.isSending,
-              onSubmitted: (_) => _handleSend(),
-            ),
-          ),
-
-          const SizedBox(width: 12),
-
-          FcButton.icon(
-            icon: widget.sendIcon ?? Icons.send,
-            onPressed: widget.disabled || widget.isSending ? null : _handleSend,
-            variant: FcButtonVariant.primary,
-            isLoading: widget.isSending,
-          ),
-        ],
+        ),
       ),
     );
   }
