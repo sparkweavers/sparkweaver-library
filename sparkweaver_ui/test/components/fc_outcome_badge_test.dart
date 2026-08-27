@@ -5,8 +5,8 @@ import 'package:sparkweaver_ui/sparkweaver_ui.dart';
 void main() {
   Widget wrap(Widget child) => MaterialApp(home: Scaffold(body: child));
 
-  /// The badge's own painted background — read off the [Container] that
-  /// [FcBadge] renders internally, ancestor of [text].
+  /// The badge's own painted background. Reads off the [Container]
+  /// ancestor of the badge [text].
   Color backgroundColorFor(WidgetTester tester, String text) {
     final container = tester.widget<Container>(
       find.ancestor(of: find.text(text), matching: find.byType(Container)),
@@ -16,6 +16,12 @@ void main() {
 
   Color foregroundColorFor(WidgetTester tester, String text) {
     return tester.widget<Text>(find.text(text)).style!.color!;
+  }
+
+  Container containerFor(WidgetTester tester, String text) {
+    return tester.widget<Container>(
+      find.ancestor(of: find.text(text), matching: find.byType(Container)),
+    );
   }
 
   group('FcOutcomeBadge', () {
@@ -93,19 +99,45 @@ void main() {
       expect(foregroundColorFor(tester, 'Knew it'), SparkweaverColors.white);
     });
 
-    testWidgets(
-      'renders a solid background, not a tinted one — the badge-style '
-      'non-negotiable',
-      (tester) async {
-        await tester.pumpWidget(
-          wrap(const FcOutcomeBadge(outcome: FcScoredOutcome(true))),
-        );
+    testWidgets('renders a solid background, not a tinted one, the badge-style '
+        'non-negotiable', (tester) async {
+      await tester.pumpWidget(
+        wrap(const FcOutcomeBadge(outcome: FcScoredOutcome(true))),
+      );
 
-        final solidBackground = backgroundColorFor(tester, 'Correct');
-        final tintedBackground = light.successLight.withValues(alpha: 0.1);
-        expect(solidBackground, isNot(equals(tintedBackground)));
-        expect(solidBackground, light.success);
-      },
-    );
+      final solidBackground = backgroundColorFor(tester, 'Correct');
+      final tintedBackground = light.successLight.withValues(alpha: 0.1);
+      expect(solidBackground, isNot(equals(tintedBackground)));
+      expect(solidBackground, light.success);
+    });
+
+    testWidgets('renders the original chip markup, not an FcBadge', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        wrap(const FcOutcomeBadge(outcome: FcScoredOutcome(true))),
+      );
+
+      final container = containerFor(tester, 'Correct');
+      final decoration = container.decoration as BoxDecoration;
+
+      expect(decoration.border, isNull);
+      expect(decoration.borderRadius, SparkweaverTokens.badgeRadius);
+      expect(
+        container.padding,
+        const EdgeInsets.symmetric(
+          horizontal: SparkweaverSpacing.sm,
+          vertical: SparkweaverSpacing.xs,
+        ),
+      );
+
+      final textStyle = tester.widget<Text>(find.text('Correct')).style!;
+      expect(
+        textStyle,
+        SparkweaverTypography.labelSmall.copyWith(
+          color: SparkweaverColors.white,
+        ),
+      );
+    });
   });
 }

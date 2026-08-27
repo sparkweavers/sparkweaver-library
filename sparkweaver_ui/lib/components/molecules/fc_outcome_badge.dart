@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
-import '../atoms/fc_badge.dart';
 import 'fc_self_rating_bar.dart';
 
 /// The resolved outcome of one results-screen question: either a
@@ -23,9 +22,7 @@ class FcGradedOutcome extends FcResultOutcome {
 
 /// Session Results Outcome Badge (Molecule)
 ///
-/// Renders the correct/incorrect or self-rating-grade chip for one
-/// results-screen row. Solid background, not the tinted [FcBadgeVariants]
-/// style, so it stays legible against saturated colours in both themes.
+/// Solid-pill chip for one results-screen row; not an [FcBadge] variant.
 class FcOutcomeBadge extends StatelessWidget {
   final FcResultOutcome outcome;
   const FcOutcomeBadge({super.key, required this.outcome});
@@ -33,22 +30,27 @@ class FcOutcomeBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
-    return switch (outcome) {
-      FcScoredOutcome(isCorrect: true) => FcBadge(
-        text: 'Correct',
-        backgroundColor: colors.success,
-        foregroundColor: SparkweaverColors.white,
-      ),
-      FcScoredOutcome(isCorrect: false) => FcBadge(
-        text: 'Incorrect',
-        backgroundColor: colors.error,
-        foregroundColor: SparkweaverColors.white,
-      ),
-      FcGradedOutcome(:final grade) => FcBadge(
-        text: grade.label,
-        backgroundColor: grade.color(context),
-        foregroundColor: SparkweaverColors.white,
-      ),
+    final (label, chipColor) = switch (outcome) {
+      FcScoredOutcome(isCorrect: true) => ('Correct', colors.success),
+      FcScoredOutcome(isCorrect: false) => ('Incorrect', colors.error),
+      FcGradedOutcome(:final grade) => (grade.label, grade.color(context)),
     };
+
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: SparkweaverSpacing.sm,
+        vertical: SparkweaverSpacing.xs,
+      ),
+      decoration: BoxDecoration(
+        color: chipColor,
+        borderRadius: SparkweaverTokens.badgeRadius,
+      ),
+      child: Text(
+        label,
+        style: SparkweaverTypography.labelSmall.copyWith(
+          color: SparkweaverColors.white,
+        ),
+      ),
+    );
   }
 }
