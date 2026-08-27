@@ -48,7 +48,7 @@ class FcErrorState extends StatelessWidget {
     final colors = SparkweaverTheme.of(context);
     return Center(
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(32),
+        padding: padding ?? SparkweaverSpacing.edgeInsetsXxl,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -59,7 +59,7 @@ class FcErrorState extends StatelessWidget {
               size: iconSize,
               color: colors.error,
             ),
-            const SizedBox(height: 24),
+            SparkweaverSpacing.verticalSpaceXl,
 
             // Error Message
             FcText(
@@ -71,7 +71,7 @@ class FcErrorState extends StatelessWidget {
 
             // Subtitle
             if (subtitle != null) ...[
-              const SizedBox(height: 8),
+              SparkweaverSpacing.verticalSpaceSm,
               FcText(
                 subtitle!,
                 style: FcTextStyle.bodyMedium,
@@ -82,7 +82,7 @@ class FcErrorState extends StatelessWidget {
 
             // Retry Button
             if (onRetry != null) ...[
-              const SizedBox(height: 24),
+              SparkweaverSpacing.verticalSpaceXl,
               FcButton(
                 label: retryLabel,
                 onPressed: isRetrying ? null : onRetry,

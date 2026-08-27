@@ -39,7 +39,6 @@ export 'organisms/fc_header.dart';
 export 'organisms/fc_input_area.dart';
 export 'organisms/fc_mc_question_card.dart';
 export 'organisms/fc_open_answer_card.dart';
-export 'organisms/fc_reconnect_prompt.dart';
 export 'organisms/fc_results_question_row.dart';
 
 // Templates - Page layouts
