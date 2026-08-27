@@ -4,33 +4,8 @@ import '../atoms/fc_button.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 
-/// Sparkweaver Error State Component (Organism)
-///
-/// Displays an error state with icon, error message, and retry action.
-/// Composed from atoms (Icon, Text, Button).
-///
-/// ## Usage
-///
-/// ```dart
-/// // Basic error state
-/// FcErrorState(
-///   message: 'Failed to load data',
-///   onRetry: () => print('Retry'),
-/// )
-///
-/// // Error with custom message
-/// FcErrorState(
-///   message: 'Network connection failed',
-///   subtitle: 'Please check your internet connection',
-///   onRetry: () => print('Retry'),
-/// )
-///
-/// // Error without retry button
-/// FcErrorState(
-///   message: 'An error occurred',
-///   subtitle: 'Please contact support',
-/// )
-/// ```
+/// Displays an error state with icon, message, and an optional retry action.
+/// The sole error component in this library; do not add a sibling for a narrower case.
 class FcErrorState extends StatelessWidget {
   /// Error message
   final String message;
@@ -53,6 +28,9 @@ class FcErrorState extends StatelessWidget {
   /// Custom padding
   final EdgeInsetsGeometry? padding;
 
+  /// When true, the retry button shows a spinner and ignores presses.
+  final bool isRetrying;
+
   const FcErrorState({
     super.key,
     required this.message,
@@ -62,6 +40,7 @@ class FcErrorState extends StatelessWidget {
     this.icon,
     this.iconSize = FcIconSize.xLarge,
     this.padding,
+    this.isRetrying = false,
   });
 
   @override
@@ -69,7 +48,7 @@ class FcErrorState extends StatelessWidget {
     final colors = SparkweaverTheme.of(context);
     return Center(
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(32),
+        padding: padding ?? SparkweaverSpacing.edgeInsetsXxl,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +59,7 @@ class FcErrorState extends StatelessWidget {
               size: iconSize,
               color: colors.error,
             ),
-            const SizedBox(height: 24),
+            SparkweaverSpacing.verticalSpaceXl,
 
             // Error Message
             FcText(
@@ -92,7 +71,7 @@ class FcErrorState extends StatelessWidget {
 
             // Subtitle
             if (subtitle != null) ...[
-              const SizedBox(height: 8),
+              SparkweaverSpacing.verticalSpaceSm,
               FcText(
                 subtitle!,
                 style: FcTextStyle.bodyMedium,
@@ -103,11 +82,12 @@ class FcErrorState extends StatelessWidget {
 
             // Retry Button
             if (onRetry != null) ...[
-              const SizedBox(height: 24),
+              SparkweaverSpacing.verticalSpaceXl,
               FcButton(
                 label: retryLabel,
-                onPressed: onRetry,
+                onPressed: isRetrying ? null : onRetry,
                 variant: FcButtonVariant.primary,
+                isLoading: isRetrying,
               ),
             ],
           ],

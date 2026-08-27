@@ -23,3 +23,26 @@ Widget errorWithoutRetry(BuildContext context) {
     subtitle: 'Please contact support if this persists',
   );
 }
+
+@widgetbook.UseCase(name: 'Inline Chat Error', type: FcErrorState)
+Widget inlineChatError(BuildContext context) {
+  return FcErrorState(
+    message: 'Could not send message',
+    subtitle: 'Check your connection and try again',
+    padding: SparkweaverSpacing.edgeInsetsMd,
+    iconSize: FcIconSize.medium,
+    onRetry: () {},
+  );
+}
+
+@widgetbook.UseCase(name: 'Inline Chat Error Retrying', type: FcErrorState)
+Widget inlineChatErrorRetrying(BuildContext context) {
+  return FcErrorState(
+    message: 'Could not send message',
+    subtitle: 'Check your connection and try again',
+    padding: SparkweaverSpacing.edgeInsetsMd,
+    iconSize: FcIconSize.medium,
+    isRetrying: true,
+    onRetry: () {},
+  );
+}
