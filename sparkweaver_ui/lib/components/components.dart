@@ -35,6 +35,8 @@ export 'molecules/fc_file_list_item.dart';
 export 'molecules/fc_flip_card.dart';
 export 'molecules/fc_input_field_with_label.dart';
 export 'molecules/fc_password_input_field.dart';
+export 'molecules/fc_results_grade_distribution_card.dart';
+export 'molecules/fc_results_score_card.dart';
 export 'molecules/fc_self_rating_bar.dart';
 export 'molecules/fc_status_message.dart';
 
@@ -53,6 +55,7 @@ export 'organisms/fc_input_area.dart';
 export 'organisms/fc_mc_question_card.dart';
 export 'organisms/fc_open_answer_card.dart';
 export 'organisms/fc_reconnect_prompt.dart';
+export 'organisms/fc_results_question_row.dart';
 
 // Templates - Page layouts
 export 'templates/fc_auth_form_template.dart';

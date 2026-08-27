@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_button.dart';
-import '../atoms/fc_card.dart';
-import '../atoms/fc_markdown_text.dart';
+import '../molecules/fc_results_grade_distribution_card.dart';
+import '../molecules/fc_results_score_card.dart';
+import '../organisms/fc_results_question_row.dart';
 
 /// One per-question row inside [FcResultsScreen]. Kept as a plain data
 /// class in the library so the widget doesn't depend on any app-side
@@ -130,16 +131,18 @@ class FcResultsScreen extends StatelessWidget {
             child: ListView(
               padding: SparkweaverSpacing.edgeInsetsLg,
               children: [
-                _ScoreCard(correct: correct, total: total),
+                FcResultsScoreCard(correct: correct, total: total),
                 if (gradeDistribution != null) ...[
                   SparkweaverSpacing.verticalSpaceMd,
-                  _GradeDistributionCard(distribution: gradeDistribution!),
+                  FcResultsGradeDistributionCard(
+                    distribution: gradeDistribution!,
+                  ),
                 ],
                 SparkweaverSpacing.verticalSpaceLg,
                 Text('Per question', style: SparkweaverTypography.heading5),
                 SparkweaverSpacing.verticalSpaceSm,
                 for (final q in questions) ...[
-                  _QuestionRow(row: q),
+                  FcResultsQuestionRow(row: q),
                   SparkweaverSpacing.verticalSpaceSm,
                 ],
               ],
@@ -153,218 +156,6 @@ class FcResultsScreen extends StatelessWidget {
               onPressed: onFinish,
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ScoreCard extends StatelessWidget {
-  final int correct;
-  final int total;
-
-  const _ScoreCard({required this.correct, required this.total});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = SparkweaverTheme.of(context);
-    final percent = total == 0 ? 0 : (correct * 100 / total).round();
-    return FcCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Session results',
-            style: SparkweaverTypography.heading5.copyWith(
-              color: colors.textPrimary,
-            ),
-          ),
-          SparkweaverSpacing.verticalSpaceSm,
-          Text(
-            '$correct / $total correct',
-            style: SparkweaverTypography.heading2.copyWith(
-              color: colors.primary,
-            ),
-          ),
-          SparkweaverSpacing.verticalSpaceXs,
-          Text(
-            '$percent%',
-            style: SparkweaverTypography.bodyLarge.copyWith(
-              color: colors.textSecondary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _GradeDistributionCard extends StatelessWidget {
-  final FcResultsGradeDistribution distribution;
-
-  const _GradeDistributionCard({required this.distribution});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = SparkweaverTheme.of(context);
-    return FcCard(
-      variant: FcCardVariant.muted,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Self-rating distribution',
-            style: SparkweaverTypography.heading6.copyWith(
-              color: colors.textPrimary,
-            ),
-          ),
-          SparkweaverSpacing.verticalSpaceSm,
-          _distributionRow(
-            'Knew it',
-            distribution.easy,
-            colors.success,
-            colors.textPrimary,
-          ),
-          SparkweaverSpacing.verticalSpaceXs,
-          _distributionRow(
-            'Almost',
-            distribution.medium,
-            colors.warning,
-            colors.textPrimary,
-          ),
-          SparkweaverSpacing.verticalSpaceXs,
-          _distributionRow(
-            'Again',
-            distribution.hard,
-            colors.error,
-            colors.textPrimary,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _distributionRow(
-    String label,
-    int count,
-    Color dotColor,
-    Color textColor,
-  ) {
-    return Row(
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(color: dotColor, shape: BoxShape.circle),
-        ),
-        SparkweaverSpacing.horizontalSpaceSm,
-        Text(
-          label,
-          style: SparkweaverTypography.bodyMedium.copyWith(color: textColor),
-        ),
-        const Spacer(),
-        Text(
-          '$count',
-          style: SparkweaverTypography.bodyMedium.copyWith(color: textColor),
-        ),
-      ],
-    );
-  }
-}
-
-class _QuestionRow extends StatelessWidget {
-  final FcResultsQuestion row;
-
-  const _QuestionRow({required this.row});
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = SparkweaverTheme.of(context);
-    final chipColor = row.isCorrect ? colors.success : colors.error;
-    final chipLabel = row.isCorrect ? 'Correct' : 'Incorrect';
-    return FcCard(
-      padding: SparkweaverSpacing.edgeInsetsMd,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text(
-                '${row.number}.',
-                style: SparkweaverTypography.labelMedium.copyWith(
-                  color: colors.textSecondary,
-                ),
-              ),
-              SparkweaverSpacing.horizontalSpaceSm,
-              Expanded(
-                child: FcMarkdownText(
-                  data: row.question,
-                  baseStyle: SparkweaverTypography.bodyLarge.copyWith(
-                    color: colors.textPrimary,
-                  ),
-                ),
-              ),
-              SparkweaverSpacing.horizontalSpaceSm,
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: SparkweaverSpacing.sm,
-                  vertical: SparkweaverSpacing.xs,
-                ),
-                decoration: BoxDecoration(
-                  color: chipColor,
-                  borderRadius: SparkweaverTokens.badgeRadius,
-                ),
-                child: Text(
-                  chipLabel,
-                  // White stays literal here: it is the foreground for a
-                  // filled, saturated chip in both themes, not a surface
-                  // colour that should track brightness.
-                  style: SparkweaverTypography.labelSmall.copyWith(
-                    color: SparkweaverColors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          if (row.userAnswer != null) ...[
-            SparkweaverSpacing.verticalSpaceXs,
-            Text(
-              'Your answer: ${row.userAnswer}',
-              style: SparkweaverTypography.bodySmall.copyWith(
-                color: colors.textSecondary,
-              ),
-            ),
-          ] else if (row.selectedAnswerText != null) ...[
-            SparkweaverSpacing.verticalSpaceXs,
-            Text(
-              'Your answer: ${row.selectedAnswerText}',
-              style: SparkweaverTypography.bodySmall.copyWith(
-                color: colors.error,
-              ),
-            ),
-          ],
-          // Always render the reference answer when we have one, on
-          // both correct and incorrect rows. Correct rows benefit for
-          // group study — students revisiting the set together want
-          // to see what "correct" actually was without flipping back.
-          if (row.correctAnswer != null) ...[
-            SparkweaverSpacing.verticalSpaceXs,
-            FcMarkdownText(
-              data: 'Correct answer: ${row.correctAnswer}',
-              baseStyle: SparkweaverTypography.bodySmall.copyWith(
-                color: colors.textSecondary,
-              ),
-            ),
-          ],
-          if (row.feedback != null && row.feedback!.isNotEmpty) ...[
-            SparkweaverSpacing.verticalSpaceXs,
-            FcMarkdownText(
-              data: row.feedback!,
-              baseStyle: SparkweaverTypography.bodySmall.copyWith(
-                color: colors.textPrimary,
-              ),
-            ),
-          ],
         ],
       ),
     );
