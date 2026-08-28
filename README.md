@@ -16,13 +16,6 @@ cd sparkweaver_ui && flutter pub get
 cd sparkweaver_widgetbook && flutter pub get && flutter run
 ```
 
-## Documentation
-
-- [Design System & Components](docs/DESIGN_SYSTEM.md)
-- [Integration Guide](docs/INTEGRATION_GUIDE.md)
-- [Project Summary](docs/PROJECT_SUMMARY.md)
-- [Development Guidelines](CLAUDE.md)
-
 ## Usage
 
 ```yaml

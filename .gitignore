@@ -54,3 +54,6 @@ coverage/
 # IDE
 .vscode/
 *.code-workspace
+
+# Internal working notes, kept out of the public repository
+CLAUDE.md
