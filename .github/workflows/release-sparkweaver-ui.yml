@@ -117,6 +117,22 @@ jobs:
           widgetbook_path = Path("sparkweaver_widgetbook/pubspec.yaml")
           write_version(widgetbook_path, widgetbook_path.read_text(encoding="utf-8"))
 
+          # The lockfile records the path dependency by version, so it drifts
+          # a release behind unless it is rewritten here too.
+          lock_path = Path("sparkweaver_widgetbook/pubspec.lock")
+          lock_text, replaced = re.subn(
+              r'(^  sparkweaver_ui:\n(?:^ {4}.*\n)*?^    version: ")\d+\.\d+\.\d+(")',
+              rf"\g<1>{next_version}\g<2>",
+              lock_path.read_text(encoding="utf-8"),
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if replaced != 1:
+              raise ValueError(
+                  "Could not update sparkweaver_ui in sparkweaver_widgetbook/pubspec.lock"
+              )
+          lock_path.write_text(lock_text, encoding="utf-8")
+
           with output_path.open("a", encoding="utf-8") as out:
               out.write(f"latest_tag={latest_tag}\n")
               out.write(f"version={next_version}\n")
@@ -125,7 +141,8 @@ jobs:
 
       - name: Commit version bump
         run: |
-          git add sparkweaver_ui/pubspec.yaml sparkweaver_widgetbook/pubspec.yaml
+          git add sparkweaver_ui/pubspec.yaml sparkweaver_widgetbook/pubspec.yaml \
+            sparkweaver_widgetbook/pubspec.lock
           git commit -m "chore(release): bump sparkweaver_ui to ${{ steps.version.outputs.tag }}"
 
       - name: Create git tag
