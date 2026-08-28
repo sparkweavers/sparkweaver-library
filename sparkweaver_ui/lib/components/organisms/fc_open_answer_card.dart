@@ -44,12 +44,16 @@ class FcOpenAnswerCard extends StatefulWidget {
   /// owns one internally.
   final TextEditingController? controller;
 
-  /// Locks the input and disables Submit — useful while a submission is
-  /// in flight or after feedback has been shown.
+  /// Locks the input and disables Submit, for while a submission is in
+  /// flight or after feedback has been shown.
   final bool locked;
 
   /// Label for the submit button. Defaults to `Submit`.
   final String submitLabel;
+
+  /// Shows a spinner in the submit button. Set it alongside [locked] so the
+  /// wait is visible rather than only the button going dead.
+  final bool isSubmitting;
 
   const FcOpenAnswerCard({
     super.key,
@@ -60,6 +64,7 @@ class FcOpenAnswerCard extends StatefulWidget {
     this.controller,
     this.locked = false,
     this.submitLabel = 'Submit',
+    this.isSubmitting = false,
   });
 
   @override
@@ -123,6 +128,7 @@ class _FcOpenAnswerCardState extends State<FcOpenAnswerCard> {
           FcButton(
             label: widget.submitLabel,
             fullWidth: true,
+            isLoading: widget.isSubmitting,
             onPressed: widget.locked ? null : _handleSubmit,
           ),
           if (widget.feedback != null && widget.feedback!.isNotEmpty) ...[
