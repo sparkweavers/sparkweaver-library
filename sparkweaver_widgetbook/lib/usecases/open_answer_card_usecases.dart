@@ -72,3 +72,16 @@ Widget markdownQuestionAndFeedback(BuildContext context) {
     onSubmit: (text) {},
   );
 }
+
+@widgetbook.UseCase(name: 'Submitting', type: FcOpenAnswerCard)
+Widget submitting(BuildContext context) {
+  return FcOpenAnswerCard(
+    question: _question,
+    progressLabel: '5 / 10',
+    controller: TextEditingController(text: 'It is how plants make food.'),
+    locked: true,
+    isSubmitting: true,
+    submitLabel: 'Submit answer',
+    onSubmit: (text) {},
+  );
+}
