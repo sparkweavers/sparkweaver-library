@@ -16,14 +16,10 @@ cd sparkweaver_ui && flutter pub get
 cd sparkweaver_widgetbook && flutter pub get && flutter run
 ```
 
-## Documentation
-
-- [Design System & Components](docs/DESIGN_SYSTEM.md)
-- [Integration Guide](docs/INTEGRATION_GUIDE.md)
-- [Project Summary](docs/PROJECT_SUMMARY.md)
-- [Development Guidelines](CLAUDE.md)
-
 ## Usage
+
+Pin `ref` to the newest tag on the
+[Releases page](https://github.com/sparkweavers/sparkweaver-library/releases).
 
 ```yaml
 # Add to pubspec.yaml
@@ -31,7 +27,7 @@ dependencies:
   sparkweaver_ui:
     git:
       url: git@github.com:sparkweavers/sparkweaver-library.git
-      ref: v0.1.0
+      ref: <release tag>
       path: sparkweaver_ui
 ```
 

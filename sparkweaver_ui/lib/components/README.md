@@ -151,4 +151,3 @@ import '../molecules/fc_chat_bubble.dart';
 ## References
 
 - [Atomic Design by Brad Frost](https://atomicdesign.bradfrost.com/)
-- [CLAUDE.md](../../../CLAUDE.md) - Development guidelines
