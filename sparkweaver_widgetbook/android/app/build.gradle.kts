@@ -32,8 +32,7 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            // Widgetbook is publish_to: 'none' and never distributed, so debug signing is correct here.
             signingConfig = signingConfigs.getByName("debug")
         }
     }
