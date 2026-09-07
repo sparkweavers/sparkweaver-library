@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
+            VALUE "CompanyName", "Birgit Pohl" "\0"
             VALUE "FileDescription", "sparkweaver_widgetbook" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "sparkweaver_widgetbook" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 Birgit Pohl. All rights reserved." "\0"
             VALUE "OriginalFilename", "sparkweaver_widgetbook.exe" "\0"
             VALUE "ProductName", "sparkweaver_widgetbook" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
