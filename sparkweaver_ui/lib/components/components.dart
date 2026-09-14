@@ -28,6 +28,7 @@ export 'molecules/fc_status_message.dart';
 // Organisms - Complex UI sections
 export 'organisms/fc_app_drawer.dart';
 export 'organisms/fc_audio_player.dart';
+export 'organisms/fc_bottom_action_bar.dart';
 export 'organisms/fc_chat_overlay.dart';
 export 'organisms/fc_choice_dialog.dart';
 export 'organisms/fc_conversation_list.dart';
