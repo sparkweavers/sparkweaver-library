@@ -45,14 +45,16 @@ class _PulsingBottomActionBarDemo extends StatefulWidget {
 class _PulsingBottomActionBarDemoState
     extends State<_PulsingBottomActionBarDemo>
     with SingleTickerProviderStateMixin {
+  // Mirrors the caller's pulse in sparkweaver-app so the preview matches the
+  // device; repeats only because a use case has nothing to trigger it.
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 700),
-  )..repeat(reverse: true);
-  late final Animation<double> _pulse = Tween<double>(
-    begin: 1,
-    end: 1.3,
-  ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    duration: const Duration(milliseconds: 600),
+  )..repeat();
+  late final Animation<double> _pulse = TweenSequence<double>([
+    TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.3), weight: 1),
+    TweenSequenceItem(tween: Tween(begin: 1.3, end: 1.0), weight: 1),
+  ]).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
   @override
   void dispose() {
