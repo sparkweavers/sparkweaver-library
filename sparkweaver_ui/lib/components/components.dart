@@ -19,7 +19,6 @@ export 'molecules/fc_file_list_item.dart';
 export 'molecules/fc_flip_card.dart';
 export 'molecules/fc_input_field_with_label.dart';
 export 'molecules/fc_outcome_badge.dart';
-export 'molecules/fc_password_input_field.dart';
 export 'molecules/fc_results_grade_distribution_card.dart';
 export 'molecules/fc_results_score_card.dart';
 export 'molecules/fc_section.dart';
