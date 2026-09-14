@@ -20,10 +20,10 @@ void main() {
       );
 
       expect(find.text('New Course'), findsNothing);
-      expect(find.byType(FcButton), findsNothing);
+      expect(find.byType(InkWell), findsNothing);
     });
 
-    testWidgets('visible: true renders the label via FcButton', (tester) async {
+    testWidgets('visible: true renders the label and icon', (tester) async {
       await tester.pumpWidget(
         wrap(
           FcBottomActionBar(
@@ -35,12 +35,10 @@ void main() {
       );
 
       expect(find.text('New Course'), findsOneWidget);
-      expect(find.byType(FcButton), findsOneWidget);
+      expect(find.byIcon(Icons.add), findsOneWidget);
     });
 
-    testWidgets('enabled: false forwards a null onPressed to FcButton', (
-      tester,
-    ) async {
+    testWidgets('enabled: false ignores a tap', (tester) async {
       var tapped = false;
       await tester.pumpWidget(
         wrap(
@@ -53,15 +51,12 @@ void main() {
         ),
       );
 
-      expect(tester.widget<FcButton>(find.byType(FcButton)).onPressed, isNull);
-      await tester.tap(find.text('New Course'), warnIfMissed: false);
+      await tester.tap(find.byType(FcBottomActionBar), warnIfMissed: false);
       await tester.pump();
       expect(tapped, isFalse);
     });
 
-    testWidgets('enabled: true forwards a working onPressed to FcButton', (
-      tester,
-    ) async {
+    testWidgets('the tap target spans the full width', (tester) async {
       var tapped = false;
       await tester.pumpWidget(
         wrap(
@@ -73,12 +68,19 @@ void main() {
         ),
       );
 
-      await tester.tap(find.text('New Course'));
+      final bar = tester.getRect(find.byType(FcBottomActionBar));
+      expect(
+        bar.width,
+        tester.view.physicalSize.width / tester.view.devicePixelRatio,
+      );
+
+      // Far from the centred label, to prove the whole strip is tappable.
+      await tester.tapAt(Offset(bar.left + 8, bar.center.dy));
       await tester.pump();
       expect(tapped, isTrue);
     });
 
-    testWidgets('a non-null scale wraps the button in a ScaleTransition', (
+    testWidgets('a non-null scale wraps the label in a ScaleTransition', (
       tester,
     ) async {
       final controller = AnimationController(
@@ -100,7 +102,7 @@ void main() {
 
       expect(
         find.ancestor(
-          of: find.byType(FcButton),
+          of: find.text('New Course'),
           matching: find.byType(ScaleTransition),
         ),
         findsOneWidget,
