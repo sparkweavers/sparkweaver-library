@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
-import 'fc_password_input_field.dart';
+import '../atoms/fc_input_field.dart';
 
 /// Blocks submission when [value] is shorter than [minLength].
 String? validateNewPasswordLength(
@@ -67,16 +67,18 @@ class FcNewPasswordFields extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        FcPasswordInputField(
-          label: newPasswordLabel,
+        FcInputField(
+          type: FcInputType.password,
+          labelText: newPasswordLabel,
           controller: newPasswordController,
           errorText: newPasswordError,
           enabled: enabled,
           onChanged: onNewPasswordChanged,
         ),
         SparkweaverSpacing.verticalSpaceLg,
-        FcPasswordInputField(
-          label: confirmPasswordLabel,
+        FcInputField(
+          type: FcInputType.password,
+          labelText: confirmPasswordLabel,
           controller: confirmPasswordController,
           errorText: confirmPasswordError,
           enabled: enabled,

@@ -35,6 +35,23 @@ Widget passwordInput(BuildContext context) {
         type: FcInputType.password,
         hintText: '••••••••',
         labelText: 'Password',
+        showPasswordLabel: 'Show password',
+        hidePasswordLabel: 'Hide password',
+      ),
+    ),
+  );
+}
+
+@widgetbook.UseCase(name: 'Password Input Disabled', type: FcInputField)
+Widget disabledPasswordInput(BuildContext context) {
+  return const Center(
+    child: Padding(
+      padding: EdgeInsets.all(16),
+      child: FcInputField(
+        type: FcInputType.password,
+        hintText: 'Cannot edit',
+        labelText: 'Password',
+        enabled: false,
       ),
     ),
   );
