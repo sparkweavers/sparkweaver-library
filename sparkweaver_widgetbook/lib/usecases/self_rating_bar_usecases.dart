@@ -12,26 +12,40 @@ Widget defaultSelfRatingBar(BuildContext context) {
   );
 }
 
-/// Tap any button to see the rated state. Every button greys out, including
-/// the one that was picked, because the bar locks itself with
-/// `onPressed: null`. That is the same defect that made the multiple-choice
-/// reveal disappear; it does not lose information here only because the bar
-/// never highlighted the choice in the first place.
-@widgetbook.UseCase(name: 'Rated (tap to see)', type: FcSelfRatingBar)
-Widget ratedSelfRatingBar(BuildContext context) {
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FcSelfRatingBar(onRated: (_) {}),
-          const SizedBox(height: 16),
-          const Text('Tap a rating above to see the locked state.'),
-        ],
+/// Demonstrates [enabled] re-arming the bar after a simulated submit failure.
+@widgetbook.UseCase(name: 'Retry after failure', type: FcSelfRatingBar)
+Widget retrySelfRatingBar(BuildContext context) {
+  return _RetryDemo();
+}
+
+class _RetryDemo extends StatefulWidget {
+  @override
+  State<_RetryDemo> createState() => _RetryDemoState();
+}
+
+class _RetryDemoState extends State<_RetryDemo> {
+  bool _enabled = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FcSelfRatingBar(onRated: (_) {}, enabled: _enabled),
+            const SizedBox(height: 16),
+            Switch(
+              value: _enabled,
+              onChanged: (v) => setState(() => _enabled = v),
+            ),
+            const Text('Simulated submit outcome: enabled re-arms the bar.'),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 @widgetbook.UseCase(name: 'Custom labels', type: FcSelfRatingBar)
