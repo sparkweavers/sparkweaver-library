@@ -60,11 +60,15 @@ extension FcSelfRatingGradeDisplay on FcSelfRatingGrade {
   }
 }
 
-/// Three rating buttons. Disables all three after the first tap, so the
-/// caller does not manage that state.
+/// Three rating buttons, with an internal guard against a double-tap and
+/// [enabled] left to the parent to decide.
 class FcSelfRatingBar extends StatefulWidget {
   /// Called when the user picks one of the three grades.
   final ValueChanged<FcSelfRatingGrade> onRated;
+
+  /// Whether the parent currently allows a rating, independent of the
+  /// internal double-tap guard.
+  final bool enabled;
 
   /// Label for the "again" button. Defaults to `Again`.
   final String againLabel;
@@ -78,6 +82,7 @@ class FcSelfRatingBar extends StatefulWidget {
   const FcSelfRatingBar({
     super.key,
     required this.onRated,
+    this.enabled = true,
     this.againLabel = 'Again',
     this.almostLabel = 'Almost',
     this.knewItLabel = 'Knew it',
@@ -88,11 +93,21 @@ class FcSelfRatingBar extends StatefulWidget {
 }
 
 class _FcSelfRatingBarState extends State<FcSelfRatingBar> {
-  bool _rated = false;
+  bool _submitting = false;
+
+  @override
+  void didUpdateWidget(FcSelfRatingBar oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.enabled && !oldWidget.enabled) {
+      setState(() => _submitting = false);
+    }
+  }
+
+  bool get _canTap => widget.enabled && !_submitting;
 
   void _handleTap(FcSelfRatingGrade grade) {
-    if (_rated) return;
-    setState(() => _rated = true);
+    if (!_canTap) return;
+    setState(() => _submitting = true);
     widget.onRated(grade);
   }
 
@@ -134,7 +149,7 @@ class _FcSelfRatingBarState extends State<FcSelfRatingBar> {
       child: FcButton(
         label: label,
         variant: variant,
-        onPressed: _rated ? null : () => _handleTap(grade),
+        onPressed: _canTap ? () => _handleTap(grade) : null,
       ),
     );
   }
