@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
-import 'fc_status_message.dart';
-
-part 'fc_snack_bar_content.dart';
+import 'fc_status_variant.dart';
 
 /// A label and its callback travel together, so a button that does
 /// nothing cannot be constructed.
@@ -26,18 +24,12 @@ class FcSnackBar extends SnackBar {
     super.key,
   }) : super(
          content: _SnackBarContent(message: message, variant: variant),
-         backgroundColor: _getBackgroundColor(
-           SparkweaverTheme.of(context),
-           variant,
-         ),
+         backgroundColor: variant.fill(SparkweaverTheme.of(context)),
          action: action != null
              ? SnackBarAction(
                  label: action.label,
                  onPressed: action.onPressed,
-                 textColor: _getForegroundColor(
-                   SparkweaverTheme.of(context),
-                   variant,
-                 ),
+                 textColor: variant.onFill(SparkweaverTheme.of(context)),
                )
              : null,
        );
@@ -105,37 +97,29 @@ class FcSnackBar extends SnackBar {
       key: key,
     );
   }
+}
 
-  static Color _getBackgroundColor(
-    SparkweaverTheme colors,
-    FcStatusVariant variant,
-  ) {
-    switch (variant) {
-      case FcStatusVariant.success:
-        return colors.successFill;
-      case FcStatusVariant.error:
-        return colors.errorFill;
-      case FcStatusVariant.warning:
-        return colors.warningFill;
-      case FcStatusVariant.info:
-        return colors.infoFill;
-    }
-  }
+class _SnackBarContent extends StatelessWidget {
+  final String message;
+  final FcStatusVariant variant;
 
-  /// Icon and text colour that stays legible on [_getBackgroundColor].
-  static Color _getForegroundColor(
-    SparkweaverTheme colors,
-    FcStatusVariant variant,
-  ) {
-    switch (variant) {
-      case FcStatusVariant.success:
-        return colors.onSuccess;
-      case FcStatusVariant.error:
-        return colors.onError;
-      case FcStatusVariant.warning:
-        return colors.onWarning;
-      case FcStatusVariant.info:
-        return colors.onInfo;
-    }
+  const _SnackBarContent({required this.message, required this.variant});
+
+  @override
+  Widget build(BuildContext context) {
+    final foreground = variant.onFill(SparkweaverTheme.of(context));
+    return Row(
+      children: [
+        FcIcon(variant.icon, size: FcIconSize.medium, color: foreground),
+        SparkweaverSpacing.horizontalSpaceMd,
+        Expanded(
+          child: FcText(
+            message,
+            style: FcTextStyle.bodyMedium,
+            color: foreground,
+          ),
+        ),
+      ],
+    );
   }
 }

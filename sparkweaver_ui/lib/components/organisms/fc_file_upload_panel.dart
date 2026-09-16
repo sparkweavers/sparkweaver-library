@@ -5,6 +5,7 @@ import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 import '../molecules/fc_file_list_item.dart';
 import '../molecules/fc_status_message.dart';
+import '../molecules/fc_status_variant.dart';
 
 /// File Upload Panel Component (Organism)
 ///

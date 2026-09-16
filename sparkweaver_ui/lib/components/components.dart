@@ -25,6 +25,7 @@ export 'molecules/fc_section.dart';
 export 'molecules/fc_self_rating_bar.dart';
 export 'molecules/fc_snack_bar.dart';
 export 'molecules/fc_status_message.dart';
+export 'molecules/fc_status_variant.dart';
 
 // Organisms - Complex UI sections
 export 'organisms/fc_app_drawer.dart';

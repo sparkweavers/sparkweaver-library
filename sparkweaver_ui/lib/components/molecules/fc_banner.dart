@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
-
-enum FcBannerVariant { success, error, warning, info }
+import 'fc_status_variant.dart';
 
 /// Full-width message banner, shown through
 /// `ScaffoldMessenger.of(context).showMaterialBanner`.
 class FcBanner extends MaterialBanner {
   final String message;
-  final FcBannerVariant variant;
+  final FcStatusVariant variant;
   final VoidCallback? onDismiss;
 
   /// [MaterialBanner.backgroundColor] is fixed at construction, so every
@@ -22,10 +21,7 @@ class FcBanner extends MaterialBanner {
     super.key,
   }) : super(
          content: _BannerContent(message: message, variant: variant),
-         backgroundColor: _getBackgroundColor(
-           SparkweaverTheme.of(context),
-           variant,
-         ),
+         backgroundColor: variant.fill(SparkweaverTheme.of(context)),
          actions: [
            if (onDismiss != null)
              TextButton(
@@ -33,10 +29,7 @@ class FcBanner extends MaterialBanner {
                child: Text(
                  'Dismiss',
                  style: SparkweaverTypography.labelMedium.copyWith(
-                   color: _getForegroundColor(
-                     SparkweaverTheme.of(context),
-                     variant,
-                   ),
+                   color: variant.onFill(SparkweaverTheme.of(context)),
                  ),
                ),
              ),
@@ -52,7 +45,7 @@ class FcBanner extends MaterialBanner {
   }) {
     return FcBanner._(
       message: message,
-      variant: FcBannerVariant.error,
+      variant: FcStatusVariant.error,
       context: context,
       onDismiss: onDismiss,
       key: key,
@@ -68,7 +61,7 @@ class FcBanner extends MaterialBanner {
   }) {
     return FcBanner._(
       message: message,
-      variant: FcBannerVariant.success,
+      variant: FcStatusVariant.success,
       context: context,
       onDismiss: onDismiss,
       key: key,
@@ -84,7 +77,7 @@ class FcBanner extends MaterialBanner {
   }) {
     return FcBanner._(
       message: message,
-      variant: FcBannerVariant.warning,
+      variant: FcStatusVariant.warning,
       context: context,
       onDismiss: onDismiss,
       key: key,
@@ -100,76 +93,27 @@ class FcBanner extends MaterialBanner {
   }) {
     return FcBanner._(
       message: message,
-      variant: FcBannerVariant.info,
+      variant: FcStatusVariant.info,
       context: context,
       onDismiss: onDismiss,
       key: key,
     );
-  }
-
-  static Color _getBackgroundColor(
-    SparkweaverTheme colors,
-    FcBannerVariant variant,
-  ) {
-    switch (variant) {
-      case FcBannerVariant.success:
-        return colors.successFill;
-      case FcBannerVariant.error:
-        return colors.errorFill;
-      case FcBannerVariant.warning:
-        return colors.warningFill;
-      case FcBannerVariant.info:
-        return colors.infoFill;
-    }
-  }
-
-  /// Icon and text colour that stays legible on [_getBackgroundColor].
-  static Color _getForegroundColor(
-    SparkweaverTheme colors,
-    FcBannerVariant variant,
-  ) {
-    switch (variant) {
-      case FcBannerVariant.success:
-        return colors.onSuccess;
-      case FcBannerVariant.error:
-        return colors.onError;
-      case FcBannerVariant.warning:
-        return colors.onWarning;
-      case FcBannerVariant.info:
-        return colors.onInfo;
-    }
   }
 }
 
 /// Internal banner content widget
 class _BannerContent extends StatelessWidget {
   final String message;
-  final FcBannerVariant variant;
+  final FcStatusVariant variant;
 
   const _BannerContent({required this.message, required this.variant});
 
-  IconData _getIcon() {
-    switch (variant) {
-      case FcBannerVariant.success:
-        return Icons.check_circle_outline;
-      case FcBannerVariant.error:
-        return Icons.error_outline;
-      case FcBannerVariant.warning:
-        return Icons.warning_amber_outlined;
-      case FcBannerVariant.info:
-        return Icons.info_outline;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final foreground = FcBanner._getForegroundColor(
-      SparkweaverTheme.of(context),
-      variant,
-    );
+    final foreground = variant.onFill(SparkweaverTheme.of(context));
     return Row(
       children: [
-        FcIcon(_getIcon(), size: FcIconSize.medium, color: foreground),
+        FcIcon(variant.icon, size: FcIconSize.medium, color: foreground),
         const SizedBox(width: 12),
         Expanded(
           child: FcText(
