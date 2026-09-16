@@ -4,109 +4,106 @@ import '../atoms/fc_icon.dart';
 import '../atoms/fc_text.dart';
 import 'fc_status_variant.dart';
 
-/// Full-width message banner, shown through
-/// `ScaffoldMessenger.of(context).showMaterialBanner`.
-class FcBanner extends MaterialBanner {
+/// A label and its callback travel together, so a button that does
+/// nothing cannot be constructed.
+typedef FcSnackBarAction = ({String label, VoidCallback onPressed});
+
+/// Themed message snackbar, shown through
+/// `ScaffoldMessenger.of(context).showSnackBar`.
+class FcSnackBar extends SnackBar {
   final String message;
   final FcStatusVariant variant;
-  final VoidCallback? onDismiss;
 
-  /// [MaterialBanner.backgroundColor] is fixed at construction, so every
+  /// [SnackBar.backgroundColor] is fixed at construction, so every
   /// factory takes the caller's context to resolve the themed colours.
-  FcBanner._({
+  FcSnackBar._({
     required this.message,
     required this.variant,
     required BuildContext context,
-    this.onDismiss,
+    FcSnackBarAction? action,
     super.key,
   }) : super(
-         content: _BannerContent(message: message, variant: variant),
+         content: _SnackBarContent(message: message, variant: variant),
          backgroundColor: variant.fill(SparkweaverTheme.of(context)),
-         actions: [
-           if (onDismiss != null)
-             TextButton(
-               onPressed: onDismiss,
-               child: Text(
-                 'Dismiss',
-                 style: SparkweaverTypography.labelMedium.copyWith(
-                   color: variant.onFill(SparkweaverTheme.of(context)),
-                 ),
-               ),
-             ),
-         ],
+         action: action != null
+             ? SnackBarAction(
+                 label: action.label,
+                 onPressed: action.onPressed,
+                 textColor: variant.onFill(SparkweaverTheme.of(context)),
+               )
+             : null,
        );
 
-  /// Create an error banner (red)
-  factory FcBanner.error({
+  /// Create an error snackbar (red)
+  factory FcSnackBar.error({
     required BuildContext context,
     required String message,
-    VoidCallback? onDismiss,
+    FcSnackBarAction? action,
     Key? key,
   }) {
-    return FcBanner._(
+    return FcSnackBar._(
       message: message,
       variant: FcStatusVariant.error,
       context: context,
-      onDismiss: onDismiss,
+      action: action,
       key: key,
     );
   }
 
-  /// Create a success banner (green)
-  factory FcBanner.success({
+  /// Create a success snackbar (green)
+  factory FcSnackBar.success({
     required BuildContext context,
     required String message,
-    VoidCallback? onDismiss,
+    FcSnackBarAction? action,
     Key? key,
   }) {
-    return FcBanner._(
+    return FcSnackBar._(
       message: message,
       variant: FcStatusVariant.success,
       context: context,
-      onDismiss: onDismiss,
+      action: action,
       key: key,
     );
   }
 
-  /// Create a warning banner (orange)
-  factory FcBanner.warning({
+  /// Create a warning snackbar (orange)
+  factory FcSnackBar.warning({
     required BuildContext context,
     required String message,
-    VoidCallback? onDismiss,
+    FcSnackBarAction? action,
     Key? key,
   }) {
-    return FcBanner._(
+    return FcSnackBar._(
       message: message,
       variant: FcStatusVariant.warning,
       context: context,
-      onDismiss: onDismiss,
+      action: action,
       key: key,
     );
   }
 
-  /// Create an info banner (blue)
-  factory FcBanner.info({
+  /// Create an info snackbar (blue)
+  factory FcSnackBar.info({
     required BuildContext context,
     required String message,
-    VoidCallback? onDismiss,
+    FcSnackBarAction? action,
     Key? key,
   }) {
-    return FcBanner._(
+    return FcSnackBar._(
       message: message,
       variant: FcStatusVariant.info,
       context: context,
-      onDismiss: onDismiss,
+      action: action,
       key: key,
     );
   }
 }
 
-/// Internal banner content widget
-class _BannerContent extends StatelessWidget {
+class _SnackBarContent extends StatelessWidget {
   final String message;
   final FcStatusVariant variant;
 
-  const _BannerContent({required this.message, required this.variant});
+  const _SnackBarContent({required this.message, required this.variant});
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +111,7 @@ class _BannerContent extends StatelessWidget {
     return Row(
       children: [
         FcIcon(variant.icon, size: FcIconSize.medium, color: foreground),
-        const SizedBox(width: 12),
+        SparkweaverSpacing.horizontalSpaceMd,
         Expanded(
           child: FcText(
             message,

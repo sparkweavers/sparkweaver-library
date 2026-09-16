@@ -2,21 +2,7 @@ import 'package:flutter/material.dart';
 import '../../design_system/design_system.dart';
 import '../atoms/fc_icon.dart';
 import '../atoms/fc_markdown_text.dart';
-
-/// Status Message Variant
-enum FcStatusVariant {
-  /// Success status (green)
-  success,
-
-  /// Error status (red)
-  error,
-
-  /// Warning status (orange)
-  warning,
-
-  /// Info status (blue)
-  info,
-}
+import 'fc_status_variant.dart';
 
 /// Sparkweaver Status Message Component (Molecule)
 ///
@@ -107,19 +93,6 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
     }
   }
 
-  IconData _getIcon() {
-    switch (widget.variant) {
-      case FcStatusVariant.success:
-        return Icons.check_circle_outline;
-      case FcStatusVariant.error:
-        return Icons.error_outline;
-      case FcStatusVariant.warning:
-        return Icons.warning_amber_outlined;
-      case FcStatusVariant.info:
-        return Icons.info_outline;
-    }
-  }
-
   Color _getBackgroundColor(BuildContext context) {
     final colors = SparkweaverTheme.of(context);
     switch (widget.variant) {
@@ -169,7 +142,11 @@ class _FcStatusMessageState extends State<FcStatusMessage> {
       ),
       child: Row(
         children: [
-          FcIcon(_getIcon(), size: FcIconSize.medium, color: foregroundColor),
+          FcIcon(
+            widget.variant.icon,
+            size: FcIconSize.medium,
+            color: foregroundColor,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: FcMarkdownText(
